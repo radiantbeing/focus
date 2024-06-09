@@ -1,3 +1,6 @@
+import "./global.css";
+
+import type { MetaFunction } from "@remix-run/node";
 import {
   Links,
   Meta,
@@ -6,24 +9,24 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
-export function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
-  );
-}
+export const meta: MetaFunction = () => [{ title: "FOCUS" }];
 
-export default function App() {
-  return <Outlet />;
-}
+export const Layout = ({ children }: { children: React.ReactNode }) => (
+  <html lang="ko">
+    <head>
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <Meta />
+      <Links />
+    </head>
+    <body>
+      {children}
+      <ScrollRestoration />
+      <Scripts />
+    </body>
+  </html>
+);
+
+const App = () => <Outlet />;
+
+export default App;
