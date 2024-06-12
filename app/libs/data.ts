@@ -1,16 +1,6 @@
 import invariant from "tiny-invariant";
 
-type BookMutation = {
-  id?: string;
-  title?: string;
-  author?: string;
-  coverImage?: string;
-};
-
-type BookRecord = BookMutation & {
-  id: string;
-  createdAt: string;
-};
+import type { BookMutation, BookRecord } from "~/types/book";
 
 const fakeBooks = {
   records: {} as Record<string, BookRecord>,
@@ -25,8 +15,7 @@ const fakeBooks = {
 
   async create(values: BookMutation): Promise<BookRecord> {
     const id = values.id ?? Math.random().toString(36).substring(2, 9);
-    const createdAt = new Date().toISOString();
-    const newBook = { id, createdAt, ...values };
+    const newBook = { id, ...values };
     fakeBooks.records[id] = newBook;
     return newBook;
   },
