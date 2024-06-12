@@ -1,41 +1,34 @@
-import { tileDescription, tileHeading, tileHelp, tileRoot } from "./tile.css";
+import {
+  tileDescription,
+  tileHeading,
+  tileHelp,
+  tileItem,
+  tileRoot,
+} from "./tile.css";
 
-type TileRootProps = {
-  children?: React.ReactNode;
-};
-
-const TileRoot = ({ children }: TileRootProps) => (
-  <article className={tileRoot}>{children}</article>
+const TileRoot = ({ children }: { children?: React.ReactNode }) => (
+  <div className={tileRoot}>{children}</div>
 );
 
-type TileHeadingProps = {
-  children?: React.ReactNode;
-};
-
-const TileHeading = ({ children }: TileHeadingProps) => (
-  <h2 className={tileHeading}>{children}</h2>
-);
-
-type TileDescriptionProps = {
-  children?: React.ReactNode;
-};
-
-const TileDescription = ({ children }: TileDescriptionProps) => (
-  <p className={tileDescription}>{children}</p>
-);
-
-type TileHelpProps = {
-  children?: React.ReactNode;
-};
-
-const TileHelp = ({ children }: TileHelpProps) => (
-  <p className={tileHelp}>{children}</p>
+const TileItem = ({
+  title,
+  value,
+  description,
+}: {
+  title?: string;
+  value?: string;
+  description?: string;
+}) => (
+  <article className={tileItem}>
+    <h2 className={tileHeading}>{title}</h2>
+    <p className={tileDescription}>{value}</p>
+    <p className={tileHelp}>{description}</p>
+  </article>
 );
 
 const Tile = Object.assign(TileRoot, {
-  Heading: TileHeading,
-  Description: TileDescription,
-  Help: TileHelp,
+  List: TileRoot,
+  Item: TileItem,
 });
 
 export default Tile;
