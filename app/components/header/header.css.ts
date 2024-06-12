@@ -17,4 +17,5 @@ export const header = style({
 export const brand = style({
   marginLeft: 20,
   fontFamily: vars.fonts.brand,
+  fontSize: vars.fontSize.lg,
 });

@@ -31,6 +31,6 @@ export const navLink = style({
   alignItems: "center",
   gap: 8,
   color: vars.color.black,
-  fontSize: "1.4rem",
+  fontSize: vars.fontSize.sm,
   textDecoration: "none",
 });

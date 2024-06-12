@@ -18,6 +18,11 @@ export const vars = createGlobalTheme(":root", {
     heading: lineSeedKR,
     body: lineSeedKR,
   },
+  fontSize: {
+    sm: "1.4rem",
+    md: "1.6rem",
+    lg: "1.8rem",
+  },
 });
 
 globalFontFace(lineSeedKR, [
@@ -58,5 +63,5 @@ globalStyle("body", {
   margin: 0,
   color: vars.color.black,
   fontFamily: `"${lineSeedKR}", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif`,
-  fontSize: "1.8rem",
+  fontSize: "1.6rem",
 });
