@@ -1,9 +1,9 @@
-import { style } from "@vanilla-extract/css";
+import { style } from '@vanilla-extract/css';
 
-import { vars } from "~/global.css";
+import { vars } from '~/global.css';
 
 export const heading = style({
-  marginTop: 18,
-  marginBottom: 18,
+  marginTop: 20,
+  marginBottom: 20,
   fontSize: vars.fontSize.lg,
 });
