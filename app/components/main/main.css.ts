@@ -1,7 +1,8 @@
-import { style } from "@vanilla-extract/css";
+import { style } from '@vanilla-extract/css';
 
 export const main = style({
+  marginTop: 20,
+  marginRight: 20,
   marginBottom: 72,
-  paddingRight: 20,
-  paddingLeft: 20,
+  marginLeft: 20,
 });

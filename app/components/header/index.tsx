@@ -1,8 +1,13 @@
-import { brand, header } from "./header.css";
+import { Link } from '@remix-run/react';
 
-const Header = () => (
-  <header className={header}>
-    <span className={brand}>FOCUS</span>
+import { headerBrand, headerRoot } from './header.css';
+
+const Header = ({ children }: { children?: React.ReactNode }) => (
+  <header className={headerRoot}>
+    <Link to="/" className={headerBrand}>
+      FOCUS
+    </Link>
+    {children}
   </header>
 );
 

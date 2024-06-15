@@ -1,22 +1,22 @@
-import { style } from "@vanilla-extract/css";
+import { style } from '@vanilla-extract/css';
 
-import { vars } from "~/global.css";
+import { vars } from '~/global.css';
 
 export const tileRoot = style({
-  display: "flex",
-  justifyContent: "space-between",
+  display: 'flex',
+  justifyContent: 'space-between',
   gap: 20,
 });
 
 export const tileItem = style({
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-  width: "100%",
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  width: '100%',
   height: 150,
   padding: 16,
   backgroundColor: vars.color.lightGray,
-  borderRadius: 4,
+  borderRadius: 8,
 });
 
 export const tileHeading = style({
@@ -26,7 +26,7 @@ export const tileHeading = style({
 });
 
 export const tileDescription = style({
-  alignSelf: "center",
+  alignSelf: 'center',
   margin: 0,
   fontSize: vars.fontSize.lg,
   fontWeight: 700,
