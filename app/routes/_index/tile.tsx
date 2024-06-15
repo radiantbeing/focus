@@ -4,7 +4,7 @@ import {
   tileHelp,
   tileItem,
   tileRoot,
-} from "./tile.css";
+} from './tile.css';
 
 const TileRoot = ({ children }: { children?: React.ReactNode }) => (
   <div className={tileRoot}>{children}</div>

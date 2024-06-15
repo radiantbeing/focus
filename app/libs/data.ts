@@ -1,6 +1,6 @@
-import invariant from "tiny-invariant";
+import invariant from 'tiny-invariant';
 
-import type { BookMutation, BookRecord } from "~/types/book";
+import type { BookMutation, BookRecord } from '~/types/book';
 
 const fakeBooks = {
   records: {} as Record<string, BookRecord>,

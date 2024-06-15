@@ -1,15 +1,15 @@
-import "./global.css";
+import './global.css';
 
-import type { MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from '@remix-run/node';
 import {
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "@remix-run/react";
+} from '@remix-run/react';
 
-export const meta: MetaFunction = () => [{ title: "FOCUS" }];
+export const meta: MetaFunction = () => [{ title: 'FOCUS' }];
 
 export const Layout = ({ children }: { children: React.ReactNode }) => (
   <html lang="ko">

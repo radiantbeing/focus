@@ -1,6 +1,6 @@
-import { Link } from "@remix-run/react";
+import { Link } from '@remix-run/react';
 
-import { navItem, navLink, navList, navRoot } from "./navbar.css";
+import { navItem, navLink, navList, navRoot } from './navbar.css';
 
 const Navbar = () => (
   <nav className={navRoot}>
