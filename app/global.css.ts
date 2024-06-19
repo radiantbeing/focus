@@ -11,7 +11,7 @@ export const vars = createGlobalTheme(':root', {
   color: {
     black: '#222222',
     gray: '#616161',
-    lightGray: '#f0f3f3',
+    lightGray: '#f7f7f7',
   },
   fonts: {
     brand: tinos,
@@ -66,4 +66,8 @@ globalStyle('body', {
   color: vars.color.black,
   fontFamily: `"${lineSeedKR}", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif`,
   fontSize: '1.6rem',
+});
+
+globalStyle('input, button', {
+  fontFamily: 'inherit',
 });
