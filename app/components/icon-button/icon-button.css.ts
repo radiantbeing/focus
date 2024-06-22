@@ -12,6 +12,7 @@ export const iconButton = style({
   border: `1px solid ${vars.color.border}`,
   borderRadius: 8,
   backgroundColor: 'transparent',
+  color: vars.color.foreground,
   fontSize: vars.fontSize.md,
   cursor: 'pointer',
   ':hover': {
