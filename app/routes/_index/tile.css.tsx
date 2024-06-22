@@ -15,7 +15,7 @@ export const tileItem = style({
   width: '100%',
   height: 150,
   padding: 16,
-  backgroundColor: vars.color.muted,
+  border: `1px solid ${vars.color.border}`,
   borderRadius: 8,
 });
 

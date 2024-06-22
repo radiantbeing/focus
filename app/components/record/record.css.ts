@@ -5,8 +5,8 @@ import { vars } from '~/global.css';
 export const recordRoot = style({
   marginBottom: 20,
   padding: 16,
+  border: `1px solid ${vars.color.border}`,
   borderRadius: 8,
-  backgroundColor: vars.color.muted,
 });
 
 export const recordHeader = style({
