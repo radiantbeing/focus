@@ -6,7 +6,7 @@ export const recordRoot = style({
   marginBottom: 20,
   padding: 16,
   borderRadius: 8,
-  backgroundColor: vars.color.lightGray,
+  backgroundColor: vars.color.muted,
 });
 
 export const recordHeader = style({
@@ -43,7 +43,7 @@ export const recordItemLink = style({
 export const recordItemImage = style({
   width: 48,
   height: 48,
-  backgroundColor: vars.color.black,
+  backgroundColor: vars.color.foreground,
 });
 
 export const recordItemDetails = style({

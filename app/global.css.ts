@@ -9,9 +9,12 @@ const tinos = 'Tinos';
 
 export const vars = createGlobalTheme(':root', {
   color: {
-    black: '#222222',
-    gray: '#616161',
-    lightGray: '#f7f7f7',
+    foreground: '#09090B',
+    mutedForeground: '#72717A',
+    background: '#FFFFFF',
+    muted: '#F4F4F5',
+    border: '#E4E4E7',
+    ring: '#A2A1AA',
   },
   fonts: {
     brand: tinos,
@@ -63,7 +66,7 @@ globalStyle('body', {
   width: '100%',
   maxWidth: 600,
   margin: '0 auto',
-  color: vars.color.black,
+  color: vars.color.foreground,
   fontFamily: `"${lineSeedKR}", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif`,
   fontSize: '1.6rem',
 });

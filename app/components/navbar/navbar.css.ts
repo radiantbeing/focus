@@ -18,7 +18,7 @@ export const navList = style({
   paddingRight: 20,
   paddingLeft: 20,
   backgroundColor: '#ffffff',
-  borderTop: `1px solid ${vars.color.gray}`,
+  borderTop: `1px solid ${vars.color.border}`,
   listStyle: 'none',
 });
 
@@ -31,7 +31,7 @@ export const navLink = style({
   flexDirection: 'column',
   alignItems: 'center',
   gap: 8,
-  color: vars.color.black,
+  color: vars.color.foreground,
   fontSize: vars.fontSize.sm,
   textDecoration: 'none',
 });

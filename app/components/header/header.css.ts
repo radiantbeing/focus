@@ -11,13 +11,13 @@ export const headerRoot = style({
   height: 56,
   paddingLeft: 20,
   paddingRight: 20,
-  borderBottom: `1px solid ${vars.color.gray}`,
+  borderBottom: `1px solid ${vars.color.border}`,
   backdropFilter: 'blur(8px)',
   WebkitBackdropFilter: 'blur(8px)',
 });
 
 export const headerBrand = style({
-  color: vars.color.black,
+  color: vars.color.foreground,
   fontFamily: vars.fonts.brand,
   fontSize: vars.fontSize.lg,
   fontWeight: 400,

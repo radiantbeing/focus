@@ -15,7 +15,7 @@ export const tileItem = style({
   width: '100%',
   height: 150,
   padding: 16,
-  backgroundColor: vars.color.lightGray,
+  backgroundColor: vars.color.muted,
   borderRadius: 8,
 });
 
