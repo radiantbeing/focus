@@ -1,4 +1,4 @@
-import Header from '~/components/header';
+import GlobalHeader from '~/components/global-header';
 import Heading from '~/components/heading';
 import Main from '~/components/main';
 import Navbar from '~/components/navbar';
@@ -6,7 +6,7 @@ import Record from '~/components/record';
 
 const Bookmarks = () => (
   <>
-    <Header />
+    <GlobalHeader />
     <Main>
       <Heading>책갈피 목록</Heading>
       <Record>

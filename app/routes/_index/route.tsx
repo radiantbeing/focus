@@ -1,4 +1,4 @@
-import Header from '~/components/header';
+import GlobalHeader from '~/components/global-header';
 import Heading from '~/components/heading';
 import Main from '~/components/main';
 import Navbar from '~/components/navbar';
@@ -7,7 +7,7 @@ import Tile from './tile';
 
 const Index = () => (
   <>
-    <Header />
+    <GlobalHeader />
     <Main>
       <Heading as="h1">홍길동의 대시보드</Heading>
       <Tile.List>

@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 
 import { vars } from '~/global.css';
 
-export const headerRoot = style({
+export const globalHeaderRoot = style({
   position: 'sticky',
   top: 0,
   display: 'flex',
@@ -16,7 +16,7 @@ export const headerRoot = style({
   WebkitBackdropFilter: 'blur(8px)',
 });
 
-export const headerBrand = style({
+export const globalHeaderBrand = style({
   color: vars.color.foreground,
   fontFamily: vars.fonts.brand,
   fontSize: vars.fontSize.lg,
