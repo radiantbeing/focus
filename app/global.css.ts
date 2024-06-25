@@ -71,6 +71,6 @@ globalStyle('body', {
   fontSize: '1.6rem',
 });
 
-globalStyle('input, button', {
+globalStyle('input, button, textarea, select', {
   fontFamily: 'inherit',
 });
