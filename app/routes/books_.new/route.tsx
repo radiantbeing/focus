@@ -1,7 +1,7 @@
 import { Form, useNavigate } from '@remix-run/react';
 import { RiCloseLine, RiSaveLine } from '@remixicon/react';
 
-import { Card } from '~/components/card';
+import { FormBody } from '~/components/form-body';
 import { FormInput } from '~/components/form-input';
 import { FormLabel } from '~/components/form-label';
 import GlobalHeader from '~/components/global-header';
@@ -26,7 +26,7 @@ const NewBook = () => {
               <RiSaveLine size="1em" />
             </IconButton>
           </PageHeader>
-          <Card>
+          <FormBody>
             <FormLabel>
               제목
               <FormInput type="text" placeholder="셜록 홈즈" />
@@ -39,7 +39,7 @@ const NewBook = () => {
               표지
               <FormInput type="file" accept="image/*" />
             </FormLabel>
-          </Card>
+          </FormBody>
         </Form>
       </Main>
       <Navbar />

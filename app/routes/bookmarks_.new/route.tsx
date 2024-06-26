@@ -1,7 +1,7 @@
 import { Form, useNavigate } from '@remix-run/react';
 import { RiCloseLine, RiSaveLine } from '@remixicon/react';
 
-import { Card } from '~/components/card';
+import { FormBody } from '~/components/form-body';
 import { FormInput } from '~/components/form-input';
 import { FormLabel } from '~/components/form-label';
 import { FormTextarea } from '~/components/form-textarea';
@@ -28,7 +28,7 @@ const NewBookmark = () => {
               <RiSaveLine size="1em" />
             </IconButton>
           </PageHeader>
-          <Card>
+          <FormBody>
             <FormLabel>
               도서
               <Select defaultValue="">
@@ -45,7 +45,7 @@ const NewBookmark = () => {
               사진
               <FormInput type="file" accept="image/*" />
             </FormLabel>
-          </Card>
+          </FormBody>
         </Form>
       </Main>
       <Navbar />
