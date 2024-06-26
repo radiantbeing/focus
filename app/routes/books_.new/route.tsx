@@ -1,12 +1,13 @@
 import { Form, useNavigate } from '@remix-run/react';
 
+import { Card } from '~/components/card';
+import { FormInput } from '~/components/form-input';
+import { FormLabel } from '~/components/form-label';
 import GlobalHeader from '~/components/global-header';
 import IconButton from '~/components/icon-button';
 import Main from '~/components/main';
 import Navbar from '~/components/navbar';
 import PageHeader from '~/components/page-header';
-
-import { fieldset, fileInputWrapper, input, label } from './books_.new.css';
 
 const NewBook = () => {
   const navigate = useNavigate();
@@ -40,26 +41,20 @@ const NewBook = () => {
               </svg>
             </IconButton>
           </PageHeader>
-          <fieldset className={fieldset}>
-            <label className={label}>
+          <Card>
+            <FormLabel>
               제목
-              <input type="text" placeholder="셜록 홈즈" className={input} />
-            </label>
-            <label className={label}>
+              <FormInput type="text" placeholder="셜록 홈즈" />
+            </FormLabel>
+            <FormLabel>
               저자
-              <input
-                type="text"
-                placeholder="아서 코난 도일"
-                className={input}
-              />
-            </label>
-            <label className={label}>
+              <FormInput type="text" placeholder="아서 코난 도일" />
+            </FormLabel>
+            <FormLabel>
               표지
-              <div className={fileInputWrapper}>
-                <input type="file" accept="image/*" />
-              </div>
-            </label>
-          </fieldset>
+              <FormInput type="file" accept="image/*" />
+            </FormLabel>
+          </Card>
         </Form>
       </Main>
       <Navbar />
