@@ -1,4 +1,5 @@
 import { Form } from '@remix-run/react';
+import { RiAddLine } from '@remixicon/react';
 
 import GlobalHeader from '~/components/global-header';
 import IconButton from '~/components/icon-button';
@@ -14,15 +15,7 @@ const Bookmarks = () => (
       <PageHeader title="책갈피 목록">
         <Form action="new">
           <IconButton type="submit">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              width="1em"
-              height="1em"
-            >
-              <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
-            </svg>
+            <RiAddLine size="1em" />
           </IconButton>
         </Form>
       </PageHeader>
