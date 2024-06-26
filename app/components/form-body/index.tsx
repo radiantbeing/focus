@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { formBodyStyle } from './form-body';
+import { formBodyStyle } from './form-body.css';
 
 type NativeDivProps = React.ComponentProps<'div'>;
 const FormBody = ({ children, ...props }: NativeDivProps) => (
