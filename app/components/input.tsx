@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import { inputStyle } from './form-input.css';
+import { inputStyle } from './input.css';
 
 type NativeInputProps = React.ComponentPropsWithoutRef<'input'>;
-const FormInput = React.forwardRef<HTMLInputElement, NativeInputProps>(
+const Input = React.forwardRef<HTMLInputElement, NativeInputProps>(
   ({ children, ...props }, ref) => (
     <input ref={ref} {...props} className={inputStyle}>
       {children}
     </input>
   )
 );
-FormInput.displayName = 'FormInput';
+Input.displayName = 'FormInput';
 
-export { FormInput };
+export { Input };

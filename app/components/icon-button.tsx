@@ -1,16 +1,15 @@
 import React from 'react';
 
-import { iconButton } from './icon-button.css';
+import { buttonStyle } from './icon-button.css';
 
 type NativeButtonProps = React.ComponentPropsWithoutRef<'button'>;
-
 const IconButton = React.forwardRef<HTMLButtonElement, NativeButtonProps>(
   ({ children, ...props }, ref) => (
-    <button ref={ref} className={iconButton} {...props}>
+    <button ref={ref} className={buttonStyle} {...props}>
       {children}
     </button>
   )
 );
-
 IconButton.displayName = 'IconButton';
-export default IconButton;
+
+export { IconButton };

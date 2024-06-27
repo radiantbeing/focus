@@ -2,20 +2,20 @@ import { style } from '@vanilla-extract/css';
 
 import { vars } from '~/global.css';
 
-export const recordRoot = style({
+const containerStyle = style({
   marginBottom: 20,
   padding: 16,
   border: `1px solid ${vars.color.border}`,
   borderRadius: 8,
 });
 
-export const recordHeader = style({
+const headerStyle = style({
   marginBottom: 24,
   fontSize: vars.fontSize.md,
   fontWeight: 700,
 });
 
-export const recordList = style({
+const listStyle = style({
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
@@ -25,12 +25,12 @@ export const recordList = style({
   listStyle: 'none',
 });
 
-export const recordItem = style({
+const itemStyle = style({
   display: 'flex',
   gap: 12,
 });
 
-export const recordItemLink = style({
+const linkStyle = style({
   display: 'flex',
   gap: 12,
   color: 'inherit',
@@ -40,22 +40,31 @@ export const recordItemLink = style({
   },
 });
 
-export const recordItemImage = style({
+const imageStyle = style({
   width: 48,
   height: 48,
   backgroundColor: vars.color.foreground,
 });
 
-export const recordItemDetails = style({
+const detailsStyle = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
 });
 
-export const recordItemTitle = style({
+const headingStyle = style({
   marginTop: 0,
   marginBottom: 0,
   fontSize: vars.fontSize.md,
 });
 
-export const recordItemDescription = style({});
+export {
+  containerStyle,
+  detailsStyle,
+  headerStyle,
+  headingStyle,
+  imageStyle,
+  itemStyle,
+  linkStyle,
+  listStyle,
+};

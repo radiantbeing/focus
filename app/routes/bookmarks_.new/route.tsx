@@ -3,14 +3,14 @@ import { RiCloseLine, RiSaveLine } from '@remixicon/react';
 
 import { ActionHeader } from '~/components/action-header';
 import { FormBody } from '~/components/form-body';
-import { FormInput } from '~/components/form-input';
 import { FormLabel } from '~/components/form-label';
-import { FormTextarea } from '~/components/form-textarea';
 import { Header } from '~/components/header';
-import IconButton from '~/components/icon-button';
-import Main from '~/components/main';
-import Navbar from '~/components/navbar';
+import { IconButton } from '~/components/icon-button';
+import { Input } from '~/components/input';
+import { Main } from '~/components/main';
+import { Navbar } from '~/components/navbar';
 import { Select } from '~/components/select';
+import { Textarea } from '~/components/textarea';
 
 const NewBookmark = () => {
   const navigate = useNavigate();
@@ -43,11 +43,11 @@ const NewBookmark = () => {
             </FormLabel>
             <FormLabel>
               내용
-              <FormTextarea></FormTextarea>
+              <Textarea></Textarea>
             </FormLabel>
             <FormLabel>
               사진
-              <FormInput type="file" accept="image/*" />
+              <Input type="file" accept="image/*" />
             </FormLabel>
           </FormBody>
         </Form>

@@ -2,13 +2,13 @@ import { style } from '@vanilla-extract/css';
 
 import { vars } from '~/global.css';
 
-export const tileRoot = style({
+const rootStyle = style({
   display: 'flex',
   justifyContent: 'space-between',
   gap: 20,
 });
 
-export const tileItem = style({
+const itemStyle = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
@@ -19,20 +19,22 @@ export const tileItem = style({
   borderRadius: 8,
 });
 
-export const tileHeading = style({
+const headingStyle = style({
   margin: 0,
   fontSize: vars.fontSize.md,
   fontWeight: 400,
 });
 
-export const tileDescription = style({
+const descriptionStyle = style({
   alignSelf: 'center',
   margin: 0,
   fontSize: vars.fontSize.lg,
   fontWeight: 700,
 });
 
-export const tileHelp = style({
+const helpTextStyle = style({
   margin: 0,
   fontWeight: 400,
 });
+
+export { descriptionStyle, headingStyle, helpTextStyle, itemStyle, rootStyle };

@@ -1,8 +1,8 @@
 import { style } from '@vanilla-extract/css';
 
-import { inputStyle } from '../form-input/form-input.css';
+import { inputStyle } from './input.css';
 
-const formTextareaStyle = style([
+const textareaStyle = style([
   inputStyle,
   {
     maxWidth: '100%',
@@ -13,4 +13,4 @@ const formTextareaStyle = style([
   },
 ]);
 
-export { formTextareaStyle };
+export { textareaStyle };

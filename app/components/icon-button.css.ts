@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 
 import { vars } from '~/global.css';
 
-export const iconButton = style({
+const buttonStyle = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -19,3 +19,5 @@ export const iconButton = style({
     backgroundColor: vars.color.muted,
   },
 });
+
+export { buttonStyle };

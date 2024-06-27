@@ -1,34 +1,29 @@
 import {
-  tileDescription,
-  tileHeading,
-  tileHelp,
-  tileItem,
-  tileRoot,
+  descriptionStyle,
+  headingStyle,
+  helpTextStyle,
+  itemStyle,
+  rootStyle,
 } from './tile.css';
 
-const TileRoot = ({ children }: { children?: React.ReactNode }) => (
-  <div className={tileRoot}>{children}</div>
+const TileList = ({ children }: { children?: React.ReactNode }) => (
+  <div className={rootStyle}>{children}</div>
 );
 
 const TileItem = ({
-  title,
+  heading,
   value,
   description,
 }: {
-  title?: string;
+  heading?: string;
   value?: string;
   description?: string;
 }) => (
-  <article className={tileItem}>
-    <h2 className={tileHeading}>{title}</h2>
-    <p className={tileDescription}>{value}</p>
-    <p className={tileHelp}>{description}</p>
+  <article className={itemStyle}>
+    <h2 className={headingStyle}>{heading}</h2>
+    <p className={descriptionStyle}>{value}</p>
+    <p className={helpTextStyle}>{description}</p>
   </article>
 );
 
-const Tile = Object.assign(TileRoot, {
-  List: TileRoot,
-  Item: TileItem,
-});
-
-export default Tile;
+export { TileItem, TileList };

@@ -6,31 +6,31 @@ import {
   RiSettingsLine,
 } from '@remixicon/react';
 
-import { navItem, navLink, navList, navRoot } from './navbar.css';
+import { itemStyle, linkStyle, listStyle, navStyle } from './navbar.css';
 
 const Navbar = () => (
-  <nav className={navRoot}>
-    <ul className={navList}>
-      <li className={navItem}>
-        <Link to="/" className={navLink}>
+  <nav className={navStyle}>
+    <ul className={listStyle}>
+      <li className={itemStyle}>
+        <Link to="/" className={linkStyle}>
           <RiHomeLine size="1em" />
           대시보드
         </Link>
       </li>
-      <li className={navItem}>
-        <Link to="/bookmarks" className={navLink}>
+      <li className={itemStyle}>
+        <Link to="/bookmarks" className={linkStyle}>
           <RiBookmarkLine size="1em" />
           책갈피
         </Link>
       </li>
-      <li className={navItem}>
-        <Link to="/books" className={navLink}>
+      <li className={itemStyle}>
+        <Link to="/books" className={linkStyle}>
           <RiBookLine size="1em" />
           도서
         </Link>
       </li>
-      <li className={navItem}>
-        <Link to="/settings" className={navLink}>
+      <li className={itemStyle}>
+        <Link to="/settings" className={linkStyle}>
           <RiSettingsLine size="1em" />
           설정
         </Link>
@@ -39,4 +39,4 @@ const Navbar = () => (
   </nav>
 );
 
-export default Navbar;
+export { Navbar };

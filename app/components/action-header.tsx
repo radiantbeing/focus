@@ -1,4 +1,8 @@
-import { buttonListStyle, headingStyle, rootStyle } from './action-header.css';
+import {
+  buttonListStyle,
+  headerStyle,
+  headingStyle,
+} from './action-header.css';
 
 const ActionHeader = ({
   heading,
@@ -7,7 +11,7 @@ const ActionHeader = ({
   heading?: string;
   children?: React.ReactNode;
 }) => (
-  <header className={rootStyle}>
+  <header className={headerStyle}>
     <h1 className={headingStyle}>{heading}</h1>
     <div className={buttonListStyle}>{children}</div>
   </header>

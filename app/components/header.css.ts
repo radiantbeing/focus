@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 
 import { vars } from '~/global.css';
 
-const rootStyle = style({
+const headerStyle = style({
   position: 'sticky',
   top: 0,
   display: 'flex',
@@ -24,4 +24,4 @@ const brandStyle = style({
   textDecoration: 'none',
 });
 
-export { brandStyle, rootStyle };
+export { brandStyle, headerStyle };

@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 
 import { vars } from '~/global.css';
 
-const rootStyle = style({
+const headerStyle = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -20,4 +20,4 @@ const buttonListStyle = style({
   gap: 8,
 });
 
-export { buttonListStyle, headingStyle,rootStyle };
+export { buttonListStyle, headerStyle,headingStyle };

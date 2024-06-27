@@ -2,14 +2,14 @@ import { style } from '@vanilla-extract/css';
 
 import { vars } from '~/global.css';
 
-export const navRoot = style({
+const navStyle = style({
   position: 'fixed',
   bottom: 0,
   width: 'inherit',
   maxWidth: 'inherit',
 });
 
-export const navList = style({
+const listStyle = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -22,11 +22,11 @@ export const navList = style({
   listStyle: 'none',
 });
 
-export const navItem = style({
+const itemStyle = style({
   flex: 1,
 });
 
-export const navLink = style({
+const linkStyle = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -35,3 +35,5 @@ export const navLink = style({
   fontSize: vars.fontSize.sm,
   textDecoration: 'none',
 });
+
+export { itemStyle, linkStyle, listStyle, navStyle };

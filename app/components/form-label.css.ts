@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
-const formLabelStyle = style({
+const labelStyle = style({
   display: 'flex',
   flexDirection: 'column',
   gap: 10,
@@ -10,4 +10,4 @@ const formLabelStyle = style({
   },
 });
 
-export { formLabelStyle };
+export { labelStyle };

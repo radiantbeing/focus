@@ -1,9 +1,9 @@
 import { Link } from '@remix-run/react';
 
-import { brandStyle, rootStyle } from './header.css';
+import { brandStyle, headerStyle } from './header.css';
 
 const Header = ({ children }: { children?: React.ReactNode }) => (
-  <header className={rootStyle}>
+  <header className={headerStyle}>
     <Link to="/" className={brandStyle}>
       FOCUS
     </Link>
