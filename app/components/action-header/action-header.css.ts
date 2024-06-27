@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 
 import { vars } from '~/global.css';
 
-export const pageHeader = style({
+const rootStyle = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -10,12 +10,14 @@ export const pageHeader = style({
   marginBottom: 12,
 });
 
-export const pageHeaderTitle = style({
+const headingStyle = style({
   fontSize: vars.fontSize.lg,
 });
 
-export const pageHeaderButtonList = style({
+const buttonListStyle = style({
   display: 'flex',
   alignItems: 'center',
   gap: 8,
 });
+
+export { buttonListStyle, headingStyle,rootStyle };

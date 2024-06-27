@@ -1,31 +1,35 @@
 import { Form, useNavigate } from '@remix-run/react';
 import { RiCloseLine, RiSaveLine } from '@remixicon/react';
 
+import { ActionHeader } from '~/components/action-header';
 import { FormBody } from '~/components/form-body';
 import { FormInput } from '~/components/form-input';
 import { FormLabel } from '~/components/form-label';
-import GlobalHeader from '~/components/global-header';
+import { Header } from '~/components/header';
 import IconButton from '~/components/icon-button';
 import Main from '~/components/main';
 import Navbar from '~/components/navbar';
-import PageHeader from '~/components/page-header';
 
 const NewBook = () => {
   const navigate = useNavigate();
 
+  const handleCancelButtonClick = () => {
+    navigate(-1);
+  };
+
   return (
     <>
-      <GlobalHeader />
+      <Header />
       <Main>
         <Form>
-          <PageHeader title="새 도서">
-            <IconButton title="취소" onClick={() => navigate(-1)}>
+          <ActionHeader heading="새 도서">
+            <IconButton title="취소" onClick={handleCancelButtonClick}>
               <RiCloseLine size="1em" />
             </IconButton>
             <IconButton title="저장">
               <RiSaveLine size="1em" />
             </IconButton>
-          </PageHeader>
+          </ActionHeader>
           <FormBody>
             <FormLabel>
               제목

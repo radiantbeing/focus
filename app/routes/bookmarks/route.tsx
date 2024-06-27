@@ -1,24 +1,24 @@
 import { Form } from '@remix-run/react';
 import { RiAddLine } from '@remixicon/react';
 
-import GlobalHeader from '~/components/global-header';
+import { ActionHeader } from '~/components/action-header';
+import { Header } from '~/components/header';
 import IconButton from '~/components/icon-button';
 import Main from '~/components/main';
 import Navbar from '~/components/navbar';
-import PageHeader from '~/components/page-header';
 import Record from '~/components/record';
 
 const Bookmarks = () => (
   <>
-    <GlobalHeader />
+    <Header />
     <Main>
-      <PageHeader title="책갈피 목록">
+      <ActionHeader heading="책갈피 목록">
         <Form action="new">
           <IconButton type="submit">
             <RiAddLine size="1em" />
           </IconButton>
         </Form>
-      </PageHeader>
+      </ActionHeader>
       <Record>
         <Record.Header>2024년 8월 21일</Record.Header>
         <Record.List>
