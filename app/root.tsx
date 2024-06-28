@@ -9,6 +9,10 @@ import {
   ScrollRestoration,
 } from '@remix-run/react';
 
+import { Header } from './components/header';
+import { Main } from './components/main';
+import { Navbar } from './components/navbar';
+
 export const meta: MetaFunction = () => [{ title: 'FOCUS' }];
 
 export const Layout = ({ children }: { children: React.ReactNode }) => (
@@ -27,6 +31,14 @@ export const Layout = ({ children }: { children: React.ReactNode }) => (
   </html>
 );
 
-const App = () => <Outlet />;
+const App = () => (
+  <>
+    <Header />
+    <Main>
+      <Outlet />
+    </Main>
+    <Navbar />
+  </>
+);
 
 export default App;
