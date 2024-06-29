@@ -1,18 +1,23 @@
 import {
   buttonListStyle,
   headerStyle,
+  headingContainerStyle,
   headingStyle,
+  smallHeadingStyle,
+  subHeadingStyle,
 } from './action-header.css';
 
-const ActionHeader = ({
-  heading,
-  children,
-}: {
-  heading?: string;
-  children?: React.ReactNode;
-}) => (
+type ActionHeaderProps =
+  | { heading: string; subHeading?: string; children?: React.ReactNode }
+  | { heading?: undefined; subHeading?: never; children?: React.ReactNode };
+const ActionHeader = ({ heading, subHeading, children }: ActionHeaderProps) => (
   <header className={headerStyle}>
-    <h1 className={headingStyle}>{heading}</h1>
+    <div className={headingContainerStyle}>
+      <h1 className={subHeading ? smallHeadingStyle : headingStyle}>
+        {heading}
+      </h1>
+      {subHeading && <h2 className={subHeadingStyle}>{subHeading}</h2>}
+    </div>
     <div className={buttonListStyle}>{children}</div>
   </header>
 );

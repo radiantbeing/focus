@@ -10,8 +10,26 @@ const headerStyle = style({
   marginBottom: 12,
 });
 
+const headingContainerStyle = style({});
+
 const headingStyle = style({
+  marginTop: 0,
+  marginBottom: 0,
   fontSize: vars.fontSize.lg,
+});
+const smallHeadingStyle = style([
+  headingStyle,
+  {
+    fontSize: vars.fontSize.md,
+  },
+]);
+
+const subHeadingStyle = style({
+  marginTop: 0,
+  marginBottom: 0,
+  color: vars.color.mutedForeground,
+  fontSize: vars.fontSize.sm,
+  fontWeight: 400,
 });
 
 const buttonListStyle = style({
@@ -20,4 +38,11 @@ const buttonListStyle = style({
   gap: 8,
 });
 
-export { buttonListStyle, headerStyle,headingStyle };
+export {
+  buttonListStyle,
+  headerStyle,
+  headingContainerStyle,
+  headingStyle,
+  smallHeadingStyle,
+  subHeadingStyle,
+};
