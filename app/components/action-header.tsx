@@ -7,9 +7,11 @@ import {
   subHeadingStyle,
 } from './action-header.css';
 
-type ActionHeaderProps =
-  | { heading: string; subHeading?: string; children?: React.ReactNode }
-  | { heading?: undefined; subHeading?: never; children?: React.ReactNode };
+type ActionHeaderProps = {
+  heading?: string;
+  subHeading?: string;
+  children?: React.ReactNode;
+};
 const ActionHeader = ({ heading, subHeading, children }: ActionHeaderProps) => (
   <header className={headerStyle}>
     <div className={headingContainerStyle}>
