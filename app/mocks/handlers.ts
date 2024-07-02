@@ -48,10 +48,31 @@ const createBookMap = (
 
 const allBooks = createBookMap(initialBooks);
 
-const handlers: HttpHandler[] = [
-  http.get('https://api.example.com/books', () => {
-    return HttpResponse.json(Array.from(allBooks.values()));
-  }),
-];
+type GetBooksResponseBody = BookRecord[];
+const getBooks = http.get<
+  never,
+  never,
+  GetBooksResponseBody,
+  'https://api.example.com/books'
+>('https://api.example.com/books', () => {
+  return HttpResponse.json(Array.from(allBooks.values()));
+});
+
+type GetBookParams = {
+  bookId: string;
+};
+type GetBookResponseBody = BookRecord;
+const getBook = http.get<
+  GetBookParams,
+  never,
+  GetBookResponseBody,
+  'https://api.example.com/books/:bookId'
+>('https://api.example.com/books/:bookId', ({ params }) => {
+  const { bookId } = params;
+  const book = allBooks.get(bookId);
+  return HttpResponse.json(book);
+});
+
+const handlers: HttpHandler[] = [getBooks, getBook];
 
 export { handlers };

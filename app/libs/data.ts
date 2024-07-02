@@ -40,4 +40,10 @@ const getBooks = async (): Promise<BookRecord[]> => {
   return books;
 };
 
-export { getBooks };
+const getBook = async (bookId: string): Promise<BookRecord> => {
+  const response = await fetch(`https://api.example.com/books/${bookId}`);
+  const book: BookRecord = await response.json();
+  return book;
+};
+
+export { getBook,getBooks };
