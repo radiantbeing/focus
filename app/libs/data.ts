@@ -33,3 +33,11 @@ const fakeBooks = {
     return null;
   },
 };
+
+const getBooks = async (): Promise<BookRecord[]> => {
+  const response = await fetch('https://api.example.com/books');
+  const books: BookRecord[] = await response.json();
+  return books;
+};
+
+export { getBooks };
