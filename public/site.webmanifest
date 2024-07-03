@@ -1,6 +1,8 @@
 {
   "name": "FOCUS",
   "short_name": "FOCUS",
+  "start_url": "/",
+  "description": "나만의 디지털 책갈피",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
