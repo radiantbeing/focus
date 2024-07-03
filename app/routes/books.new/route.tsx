@@ -32,10 +32,14 @@ const NewBook = () => {
   return (
     <Form method="post" encType="multipart/form-data">
       <ActionHeader heading="새 도서">
-        <IconButton title="취소" onClick={handleCancelButtonClick}>
+        <IconButton
+          type="button"
+          title="취소"
+          onClick={handleCancelButtonClick}
+        >
           <RiCloseLine size="1em" />
         </IconButton>
-        <IconButton title="저장">
+        <IconButton type="submit" title="저장">
           <RiSaveLine size="1em" />
         </IconButton>
       </ActionHeader>

@@ -19,10 +19,14 @@ const NewBookmark = () => {
   return (
     <Form>
       <ActionHeader heading="새 책갈피">
-        <IconButton title="취소" onClick={handleCancelButtonClick}>
+        <IconButton
+          type="button"
+          title="취소"
+          onClick={handleCancelButtonClick}
+        >
           <RiCloseLine size="1em" />
         </IconButton>
-        <IconButton title="저장">
+        <IconButton type="submit" title="저장">
           <RiSaveLine size="1em" />
         </IconButton>
       </ActionHeader>
