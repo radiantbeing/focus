@@ -46,4 +46,21 @@ const getBook = async (bookId: string): Promise<BookRecord> => {
   return book;
 };
 
-export { getBook,getBooks };
+const createBook = async (mutation: BookMutation): Promise<BookRecord> => {
+  const formData = Object.entries(mutation).reduce((formData, [key, value]) => {
+    if (value instanceof File) {
+      formData.append(key, value, value.name);
+    } else if (value !== undefined) {
+      formData.append(key, value.toString());
+    }
+    return formData;
+  }, new FormData());
+  const response = await fetch('https://api.example.com/books', {
+    method: 'POST',
+    body: formData,
+  });
+  const createdBook: BookRecord = await response.json();
+  return createdBook;
+};
+
+export { createBook, getBook, getBooks };

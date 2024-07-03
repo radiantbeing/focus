@@ -1,52 +1,17 @@
 import type { HttpHandler } from 'msw';
 import { http, HttpResponse } from 'msw';
 
-import type { BookRecord } from '~/types/book';
+import type {
+  BookMutation,
+  BookMutationWithId,
+  BookRecord,
+} from '~/types/book';
 
-const initialBooks: Readonly<BookRecord>[] = [
-  {
-    id: 'q26yxx9',
-    title: '오디세이아',
-    author: '호메로스',
-    coverImageUrl: 'https://placehold.co/400x600',
-  },
-  {
-    id: 'y4bijkr',
-    title: '돈키호테',
-    author: '미겔 데 세르반테스',
-    coverImageUrl: 'https://placehold.co/400x600',
-  },
-  {
-    id: 'skhl9s4',
-    title: '위대한 개츠비',
-    author: 'F. 스콧 피츠제럴드',
-    coverImageUrl: 'https://placehold.co/400x600',
-  },
-  {
-    id: '5xk86ni',
-    title: '죄와 벌',
-    author: '표도르 도스토옙스키',
-    coverImageUrl: 'https://placehold.co/400x600',
-  },
-  {
-    id: 'ijdnejy',
-    title: '호밀밭의 파수꾼',
-    author: '제롬 데이비드 샐린저',
-    coverImageUrl: 'https://placehold.co/400x600',
-  },
-];
+const TEMP_IMAGE_URL = 'https://picsum.photos/350/600';
 
-const createBookMap = (
-  books: ReadonlyArray<BookRecord>
-): Map<string, BookRecord> => {
-  const bookMap = new Map();
-  books.forEach((book) => {
-    bookMap.set(book.id, book);
-  });
-  return bookMap;
-};
+const allBooks: Map<string, BookRecord> = new Map();
 
-const allBooks = createBookMap(initialBooks);
+const generateId = (): string => Math.random().toString(36).substring(2, 9);
 
 type GetBooksResponseBody = BookRecord[];
 const getBooks = http.get<
@@ -73,6 +38,71 @@ const getBook = http.get<
   return HttpResponse.json(book);
 });
 
-const handlers: HttpHandler[] = [getBooks, getBook];
+type CreateBookRequestBody = BookMutation;
+type CreateBookResponseBody = BookRecord;
+const createBook = http.post<
+  never,
+  CreateBookRequestBody,
+  CreateBookResponseBody,
+  'https://api.example.com/books'
+>('https://api.example.com/books', async ({ request }) => {
+  const formData = await request.formData();
+  const mutation: BookMutationWithId = {
+    id: formData.get('id')?.toString() ?? generateId(),
+    title: formData.get('title')?.toString() ?? '',
+    author: formData.get('author')?.toString() ?? '',
+    coverImage: formData.get('coverImage') as File | undefined,
+  };
+
+  const newBook: BookRecord = {
+    id: mutation.id,
+    title: mutation.title,
+    author: mutation.author,
+  };
+
+  if (mutation.coverImage) {
+    newBook.coverImageUrl = TEMP_IMAGE_URL;
+  }
+
+  allBooks.set(newBook.id, newBook);
+  return HttpResponse.json(newBook, { status: 201 });
+});
+
+const handlers: HttpHandler[] = [getBooks, getBook, createBook];
 
 export { handlers };
+
+[
+  {
+    id: 'q26yxx9',
+    title: '오디세이아',
+    author: '호메로스',
+    coverImageUrl: TEMP_IMAGE_URL,
+  },
+  {
+    id: 'y4bijkr',
+    title: '돈키호테',
+    author: '미겔 데 세르반테스',
+    coverImageUrl: TEMP_IMAGE_URL,
+  },
+  {
+    id: 'skhl9s4',
+    title: '위대한 개츠비',
+    author: 'F. 스콧 피츠제럴드',
+    coverImageUrl: TEMP_IMAGE_URL,
+  },
+  {
+    id: '5xk86ni',
+    title: '죄와 벌',
+    author: '표도르 도스토옙스키',
+    coverImageUrl: TEMP_IMAGE_URL,
+  },
+  {
+    id: 'ijdnejy',
+    title: '호밀밭의 파수꾼',
+    author: '제롬 데이비드 샐린저',
+    coverImageUrl: TEMP_IMAGE_URL,
+  },
+].forEach((book) => {
+  allBooks.set(book.id, book);
+});
