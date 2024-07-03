@@ -10,7 +10,7 @@ import { IconButton } from '~/components/icon-button';
 import { Input } from '~/components/input';
 import { getBook } from '~/libs/data';
 
-import { coverImageStyle } from './route.css';
+import { coverImageStyle, helpTextStyle } from './route.css';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.bookId, '도서 ID가 존재하지 않습니다.');
@@ -46,11 +46,15 @@ const BookDetail = () => {
         </FormLabel>
         <FormLabel>
           표지
-          <img
-            src={book.coverImageUrl}
-            alt={`${book.title}의 표지`}
-            className={coverImageStyle}
-          />
+          {book.coverImageUrl ? (
+            <img
+              src={book.coverImageUrl}
+              alt={`${book.title}의 표지`}
+              className={coverImageStyle}
+            />
+          ) : (
+            <p className={helpTextStyle}>설정된 표지가 없습니다.</p>
+          )}
         </FormLabel>
       </FormBody>
     </>
