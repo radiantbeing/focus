@@ -7,6 +7,12 @@ const navStyle = style({
   bottom: 0,
   width: 'inherit',
   maxWidth: 'inherit',
+  backgroundColor: vars.color.background,
+  '@media': {
+    'all and (display-mode: standalone)': {
+      paddingBottom: 8,
+    },
+  },
 });
 
 const listStyle = style({
@@ -17,7 +23,6 @@ const listStyle = style({
   margin: 0,
   paddingRight: 20,
   paddingLeft: 20,
-  backgroundColor: '#ffffff',
   borderTop: `1px solid ${vars.color.border}`,
   listStyle: 'none',
 });
