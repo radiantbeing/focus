@@ -1,4 +1,4 @@
-import type { HttpHandler } from 'msw';
+import type { DefaultBodyType, HttpHandler, PathParams } from 'msw';
 import { http, HttpResponse } from 'msw';
 
 import type {
@@ -14,37 +14,32 @@ const allBooks: Map<string, BookRecord> = new Map();
 const generateId = (): string => Math.random().toString(36).substring(2, 9);
 
 type GetBooksResponseBody = BookRecord[];
-const getBooks = http.get<
-  never,
-  never,
-  GetBooksResponseBody,
-  'https://api.example.com/books'
->('https://api.example.com/books', () => {
-  return HttpResponse.json(Array.from(allBooks.values()));
-});
+const getBooks = http.get<PathParams, DefaultBodyType, GetBooksResponseBody>(
+  'https://api.example.com/books',
+  () => {
+    return HttpResponse.json(Array.from(allBooks.values()));
+  }
+);
 
 type GetBookParams = {
   bookId: string;
 };
 type GetBookResponseBody = BookRecord;
-const getBook = http.get<
-  GetBookParams,
-  never,
-  GetBookResponseBody,
-  'https://api.example.com/books/:bookId'
->('https://api.example.com/books/:bookId', ({ params }) => {
-  const { bookId } = params;
-  const book = allBooks.get(bookId);
-  return HttpResponse.json(book);
-});
+const getBook = http.get<GetBookParams, DefaultBodyType, GetBookResponseBody>(
+  'https://api.example.com/books/:bookId',
+  ({ params }) => {
+    const { bookId } = params;
+    const book = allBooks.get(bookId);
+    return HttpResponse.json(book);
+  }
+);
 
 type CreateBookRequestBody = BookMutation;
 type CreateBookResponseBody = BookRecord;
 const createBook = http.post<
-  never,
+  PathParams,
   CreateBookRequestBody,
-  CreateBookResponseBody,
-  'https://api.example.com/books'
+  CreateBookResponseBody
 >('https://api.example.com/books', async ({ request }) => {
   const formData = await request.formData();
   const mutation: BookMutationWithId = {
@@ -68,7 +63,25 @@ const createBook = http.post<
   return HttpResponse.json(newBook, { status: 201 });
 });
 
-const handlers: HttpHandler[] = [getBooks, getBook, createBook];
+type DeleteBookParams = {
+  bookId: string;
+};
+type DeleteBookResponseBody = BookRecord | null;
+const deleteBook = http.delete<
+  DeleteBookParams,
+  DefaultBodyType,
+  DeleteBookResponseBody
+>('https://api.example.com/books/:bookId', ({ params }) => {
+  const { bookId } = params;
+  const deletedBook = allBooks.get(bookId);
+  if (!deletedBook) {
+    return HttpResponse.json(null, { status: 404 });
+  }
+  allBooks.delete(bookId);
+  return HttpResponse.json(deletedBook);
+});
+
+const handlers: HttpHandler[] = [getBooks, getBook, createBook, deleteBook];
 
 export { handlers };
 

@@ -63,4 +63,12 @@ const createBook = async (mutation: BookMutation): Promise<BookRecord> => {
   return createdBook;
 };
 
-export { createBook, getBook, getBooks };
+const deleteBook = async (bookId: string): Promise<BookRecord> => {
+  const response = await fetch(`https://api.example.com/books/${bookId}`, {
+    method: 'DELETE',
+  });
+  const deletedBook: BookRecord = await response.json();
+  return deletedBook;
+};
+
+export { createBook, deleteBook, getBook, getBooks };
