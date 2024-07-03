@@ -1,6 +1,8 @@
 import { Link } from '@remix-run/react';
 
+import { LogoIcon } from './logo-icon';
 import {
+  blankImageStyle,
   containerStyle,
   detailsStyle,
   headerStyle,
@@ -36,7 +38,13 @@ const RecordItem = ({
 }) => {
   const content = (
     <>
-      <img src={imageUrl} alt={`${title}의 표지`} className={imageStyle} />
+      {imageUrl ? (
+        <img src={imageUrl} alt={`${title}의 표지`} className={imageStyle} />
+      ) : (
+        <div className={blankImageStyle}>
+          <LogoIcon />
+        </div>
+      )}
       <div className={detailsStyle}>
         <h3 className={headingStyle}>{title}</h3>
         <div>{description}</div>

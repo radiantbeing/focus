@@ -8,10 +8,16 @@ import { FormLabel } from '~/components/form-label';
 import { IconButton } from '~/components/icon-button';
 import { Input } from '~/components/input';
 import { createBook } from '~/libs/data';
+import { BookMutation } from '~/types/book';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
-  const mutation = Object.fromEntries(formData);
+  const mutation: BookMutation = Object.fromEntries(formData);
+
+  if (mutation.coverImage && mutation.coverImage.size === 0) {
+    delete mutation.coverImage;
+  }
+
   const createdBook = await createBook(mutation);
   return redirect(`/books/${createdBook.id}`);
 };
