@@ -8,7 +8,7 @@ import { FormBody } from '~/components/form-body';
 import { FormLabel } from '~/components/form-label';
 import { IconButton } from '~/components/icon-button';
 import { Input } from '~/components/input';
-import { getBook } from '~/libs/data';
+import { getBook, updateBook } from '~/libs/data';
 import type { BookMutation } from '~/types/book';
 
 export const action = async ({ params, request }: ActionFunctionArgs) => {
@@ -20,7 +20,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
     delete mutation.coverImage;
   }
 
-  //   await updateBook(params.bookId, mutation);
+  await updateBook(params.bookId, mutation);
   return redirect(`/books/${params.bookId}`);
 };
 

@@ -81,7 +81,49 @@ const deleteBook = http.delete<
   return HttpResponse.json(deletedBook);
 });
 
-const handlers: HttpHandler[] = [getBooks, getBook, createBook, deleteBook];
+type UpdateBookParams = {
+  bookId: string;
+};
+type UpdateBookRequestBody = BookMutation;
+type UpdateBookResponseBody = BookRecord;
+const updateBook = http.put<
+  UpdateBookParams,
+  UpdateBookRequestBody,
+  UpdateBookResponseBody
+>('https://api.example.com/books/:bookId', async ({ params, request }) => {
+  const { bookId } = params;
+  const book = allBooks.get(bookId);
+  if (!book) {
+    return HttpResponse.json(null, { status: 404 });
+  }
+  const formData = await request.formData();
+  const mutation: BookMutation = {
+    title: formData.get('title')?.toString() ?? '',
+    author: formData.get('author')?.toString() ?? '',
+    coverImage: formData.get('coverImage') as File | undefined,
+  };
+
+  const updatedBook: BookRecord = {
+    ...book,
+    title: mutation.title,
+    author: mutation.author,
+  };
+
+  if (mutation.coverImage) {
+    updatedBook.coverImageUrl = TEMP_IMAGE_URL;
+  }
+
+  allBooks.set(bookId, updatedBook);
+  return HttpResponse.json(updatedBook);
+});
+
+const handlers: HttpHandler[] = [
+  getBooks,
+  getBook,
+  createBook,
+  deleteBook,
+  updateBook,
+];
 
 export { handlers };
 
