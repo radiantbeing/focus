@@ -43,7 +43,10 @@ const linkStyle = style({
 const imageStyle = style({
   width: 48,
   height: 48,
-  backgroundColor: vars.color.foreground,
+  border: `1px solid ${vars.color.border}`,
+  borderRadius: 4,
+  backgroundColor: vars.color.muted,
+  objectFit: 'contain',
 });
 
 const detailsStyle = style({

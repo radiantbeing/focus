@@ -10,6 +10,8 @@ import { IconButton } from '~/components/icon-button';
 import { Input } from '~/components/input';
 import { getBook } from '~/libs/data';
 
+import { coverImageStyle } from './route.css';
+
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.bookId, '도서 ID가 존재하지 않습니다.');
   const book = await getBook(params.bookId);
@@ -47,7 +49,7 @@ const BookDetail = () => {
           <img
             src={book.coverImageUrl}
             alt={`${book.title}의 표지`}
-            height={160}
+            className={coverImageStyle}
           />
         </FormLabel>
       </FormBody>
