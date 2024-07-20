@@ -7,6 +7,7 @@ import {
   getBooks,
   updateBook,
 } from './book-handlers';
+import { getBookmarks } from './bookmark-handler';
 
 const handlers: HttpHandler[] = [
   getBooks,
@@ -14,6 +15,7 @@ const handlers: HttpHandler[] = [
   createBook,
   deleteBook,
   updateBook,
+  getBookmarks,
 ];
 
 export { handlers };

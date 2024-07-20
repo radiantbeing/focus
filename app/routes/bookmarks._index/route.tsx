@@ -1,4 +1,4 @@
-import { Form } from '@remix-run/react';
+import { Form, json, useLoaderData } from '@remix-run/react';
 import { RiAddLine } from '@remixicon/react';
 
 import { ActionHeader } from '~/components/action-header';
@@ -9,45 +9,58 @@ import {
   RecordItem,
   RecordList,
 } from '~/components/record';
+import { getBookmarks } from '~/libs/data';
+import { BookmarkRecord } from '~/types/bookmark';
 
-const Bookmarks = () => (
-  <>
-    <ActionHeader heading="책갈피 목록">
-      <Form action="new">
-        <IconButton type="submit">
-          <RiAddLine size="1em" />
-        </IconButton>
-      </Form>
-    </ActionHeader>
-    <RecordContainer>
-      <RecordHeader>2024년 8월 21일</RecordHeader>
-      <RecordList>
-        <RecordItem
-          title="1984"
-          description="16p"
-          imageUrl="https://placehold.co/400x600"
-          to="16"
-        />
-        <RecordItem
-          title="Pride and Prejudice"
-          description="234p"
-          imageUrl="https://placehold.co/400x600"
-          to="16"
-        />
-      </RecordList>
-    </RecordContainer>
-    <RecordContainer>
-      <RecordHeader>2024년 8월 21일</RecordHeader>
-      <RecordList>
-        <RecordItem
-          title="The Great Gatsby"
-          description="32p"
-          imageUrl="https://placehold.co/400x600"
-          to="16"
-        />
-      </RecordList>
-    </RecordContainer>
-  </>
-);
+export const loader = async () => {
+  const bookmarks = await getBookmarks();
+  return json({ bookmarks });
+};
+
+const Bookmarks = () => {
+  const { bookmarks } = useLoaderData<typeof loader>();
+
+  const bookmarksByDate: Record<string, BookmarkRecord[]> = bookmarks.reduce(
+    (groupedBookmarks, bookmark) => {
+      const date = bookmark.date;
+
+      if (!(date in groupedBookmarks)) {
+        groupedBookmarks[date] = [];
+      }
+
+      groupedBookmarks[date].push(bookmark);
+      return groupedBookmarks;
+    },
+    {} as Record<string, BookmarkRecord[]>
+  );
+
+  return (
+    <>
+      <ActionHeader heading="책갈피 목록">
+        <Form action="new">
+          <IconButton type="submit">
+            <RiAddLine size="1em" />
+          </IconButton>
+        </Form>
+      </ActionHeader>
+      {Object.keys(bookmarksByDate).map((date) => (
+        <RecordContainer key={date}>
+          <RecordHeader>{new Date(date).toLocaleDateString()}</RecordHeader>
+          <RecordList>
+            {bookmarksByDate[date].map((bookmark) => (
+              <RecordItem
+                key={bookmark.id}
+                title={bookmark.bookTitle}
+                description={`${bookmark.page}p`}
+                imageUrl={bookmark.thumbnailImageUrl}
+                to={bookmark.id}
+              />
+            ))}
+          </RecordList>
+        </RecordContainer>
+      ))}
+    </>
+  );
+};
 
 export default Bookmarks;

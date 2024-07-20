@@ -1,6 +1,7 @@
 import invariant from 'tiny-invariant';
 
 import type { BookMutation, BookRecord } from '~/types/book';
+import { BookmarkRecord } from '~/types/bookmark';
 
 const fakeBooks = {
   records: {} as Record<string, BookRecord>,
@@ -91,4 +92,10 @@ const updateBook = async (
   return updatedBook;
 };
 
-export { createBook, deleteBook, getBook, getBooks, updateBook };
+const getBookmarks = async (): Promise<BookmarkRecord[]> => {
+  const response = await fetch('https://api.example.com/bookmarks');
+  const bookmarks: BookmarkRecord[] = await response.json();
+  return bookmarks;
+};
+
+export { createBook, deleteBook, getBook, getBookmarks, getBooks, updateBook };
