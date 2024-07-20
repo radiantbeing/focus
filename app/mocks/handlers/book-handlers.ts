@@ -1,38 +1,37 @@
-import type { DefaultBodyType, HttpHandler, PathParams } from 'msw';
-import { http, HttpResponse } from 'msw';
+import { DefaultBodyType, http, HttpResponse, PathParams } from 'msw';
 
-import type {
-  BookMutation,
-  BookMutationWithId,
-  BookRecord,
-} from '~/types/book';
+import { BookMutation, BookMutationWithId, BookRecord } from '~/types/book';
 
 const TEMP_IMAGE_URL = 'https://picsum.photos/350/600';
 
+const generateId = () => Math.random().toString(36).substring(2, 9);
+
 const allBooks: Map<string, BookRecord> = new Map();
 
-const generateId = (): string => Math.random().toString(36).substring(2, 9);
-
 type GetBooksResponseBody = BookRecord[];
-const getBooks = http.get<PathParams, DefaultBodyType, GetBooksResponseBody>(
-  'https://api.example.com/books',
-  () => {
-    return HttpResponse.json(Array.from(allBooks.values()));
-  }
-);
+const getBooks = http.get<
+  PathParams,
+  DefaultBodyType,
+  GetBooksResponseBody,
+  'https://api.example.com/books'
+>('https://api.example.com/books', () => {
+  return HttpResponse.json(Array.from(allBooks.values()));
+});
 
 type GetBookParams = {
   bookId: string;
 };
 type GetBookResponseBody = BookRecord;
-const getBook = http.get<GetBookParams, DefaultBodyType, GetBookResponseBody>(
-  'https://api.example.com/books/:bookId',
-  ({ params }) => {
-    const { bookId } = params;
-    const book = allBooks.get(bookId);
-    return HttpResponse.json(book);
-  }
-);
+const getBook = http.get<
+  GetBookParams,
+  DefaultBodyType,
+  GetBookResponseBody,
+  'https://api.example.com/books/:bookId'
+>('https://api.example.com/books/:bookId', ({ params }) => {
+  const { bookId } = params;
+  const book = allBooks.get(bookId);
+  return HttpResponse.json(book);
+});
 
 type CreateBookRequestBody = BookMutation;
 type CreateBookResponseBody = BookRecord;
@@ -117,16 +116,6 @@ const updateBook = http.put<
   return HttpResponse.json(updatedBook);
 });
 
-const handlers: HttpHandler[] = [
-  getBooks,
-  getBook,
-  createBook,
-  deleteBook,
-  updateBook,
-];
-
-export { handlers };
-
 [
   {
     id: 'q26yxx9',
@@ -161,3 +150,5 @@ export { handlers };
 ].forEach((book) => {
   allBooks.set(book.id, book);
 });
+
+export { createBook, deleteBook, getBook, getBooks, updateBook };
