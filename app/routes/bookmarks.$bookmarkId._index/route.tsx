@@ -59,7 +59,7 @@ const BookmarkDetail = () => {
         </FormLabel>
         <FormLabel>
           내용
-          <Textarea readOnly>{bookmark.content}</Textarea>
+          <Textarea defaultValue={bookmark.content} readOnly />
         </FormLabel>
         <FormLabel>
           사진
