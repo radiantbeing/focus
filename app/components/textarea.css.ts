@@ -6,7 +6,7 @@ const textareaStyle = style([
   inputStyle,
   {
     maxWidth: '100%',
-    height: 64,
+    height: 78,
     paddingTop: 8,
     paddingBottom: 8,
     lineHeight: 'inherit',
