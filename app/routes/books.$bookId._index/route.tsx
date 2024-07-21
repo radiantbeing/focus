@@ -4,13 +4,13 @@ import { RiDeleteBinLine, RiPencilLine } from '@remixicon/react';
 import invariant from 'tiny-invariant';
 
 import { ActionHeader } from '~/components/action-header';
+import { CoverHelpText } from '~/components/cover-help-text';
+import { CoverImage } from '~/components/cover-image';
 import { FormBody } from '~/components/form-body';
 import { FormLabel } from '~/components/form-label';
 import { IconButton } from '~/components/icon-button';
 import { Input } from '~/components/input';
 import { getBook } from '~/libs/data';
-
-import { coverImageStyle, helpTextStyle } from './route.css';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.bookId, '도서 ID가 존재하지 않습니다.');
@@ -47,13 +47,9 @@ const BookDetail = () => {
         <FormLabel>
           표지
           {book.coverImageUrl ? (
-            <img
-              src={book.coverImageUrl}
-              alt={`${book.title}의 표지`}
-              className={coverImageStyle}
-            />
+            <CoverImage src={book.coverImageUrl} alt={`${book.title}의 표지`} />
           ) : (
-            <p className={helpTextStyle}>설정된 표지가 없습니다.</p>
+            <CoverHelpText>설정된 표지가 없습니다.</CoverHelpText>
           )}
         </FormLabel>
       </FormBody>
