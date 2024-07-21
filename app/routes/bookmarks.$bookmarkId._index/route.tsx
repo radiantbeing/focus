@@ -43,7 +43,7 @@ const BookmarkDetail = () => {
       <FormBody>
         <FormLabel>
           도서
-          <Select defaultValue={bookmark.book.id} disabled>
+          <Select defaultValue={bookmark.book.id}>
             <option value={bookmark.book.id}>{bookmark.book.title}</option>
           </Select>
         </FormLabel>
@@ -54,11 +54,12 @@ const BookmarkDetail = () => {
             inputMode="decimal"
             min={1}
             defaultValue={bookmark.page}
+            readOnly
           />
         </FormLabel>
         <FormLabel>
           내용
-          <Textarea>{bookmark.content}</Textarea>
+          <Textarea readOnly>{bookmark.content}</Textarea>
         </FormLabel>
         <FormLabel>
           사진
