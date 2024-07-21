@@ -50,7 +50,7 @@ const Bookmarks = () => {
             {bookmarksByDate[date].map((bookmark) => (
               <RecordItem
                 key={bookmark.id}
-                title={bookmark.bookTitle}
+                title={bookmark.book.title}
                 description={`${bookmark.page}p`}
                 imageUrl={bookmark.thumbnailImageUrl}
                 to={bookmark.id}

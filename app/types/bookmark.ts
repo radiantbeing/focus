@@ -1,3 +1,5 @@
+import { BookRecord } from './book';
+
 type BookmarkMutation = {
   id?: string;
   bookId?: string;
@@ -8,8 +10,8 @@ type BookmarkMutation = {
 
 type BookmarkRecord = Omit<BookmarkMutation, 'bookId' | 'thumbnailImage'> & {
   id: string;
-  bookTitle: string;
   date: string;
+  book: BookRecord;
   thumbnailImageUrl?: string;
 };
 

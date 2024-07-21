@@ -98,4 +98,20 @@ const getBookmarks = async (): Promise<BookmarkRecord[]> => {
   return bookmarks;
 };
 
-export { createBook, deleteBook, getBook, getBookmarks, getBooks, updateBook };
+const getBookmark = async (bookmarkId: string): Promise<BookmarkRecord> => {
+  const response = await fetch(
+    `https://api.example.com/bookmarks/${bookmarkId}`
+  );
+  const bookmark: BookmarkRecord = await response.json();
+  return bookmark;
+};
+
+export {
+  createBook,
+  deleteBook,
+  getBook,
+  getBookmark,
+  getBookmarks,
+  getBooks,
+  updateBook,
+};
