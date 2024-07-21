@@ -1,7 +1,7 @@
 import type { DefaultBodyType, PathParams } from 'msw';
 import { http, HttpResponse } from 'msw';
 
-import type { BookmarkRecord } from '~/types/bookmark';
+import type { BookmarkMutation, BookmarkRecord } from '~/types/bookmark';
 
 const TEMP_IMAGE_URL = 'https://picsum.photos/350/600';
 
@@ -50,6 +50,45 @@ const deleteBookmark = http.delete<
   allBookmarks.delete(bookmarkId);
   return HttpResponse.json(deletedBookmark);
 });
+
+type UpdateBookmarkParams = {
+  bookmarkId: string;
+};
+type UpdateBookmarkRequestBody = BookmarkMutation;
+type UpdateBookmarkResponseBody = BookmarkRecord;
+const updateBookmark = http.put<
+  UpdateBookmarkParams,
+  UpdateBookmarkRequestBody,
+  UpdateBookmarkResponseBody
+>(
+  'https://api.example.com/bookmarks/:bookmarkId',
+  async ({ params, request }) => {
+    const { bookmarkId } = params;
+    const bookmark = allBookmarks.get(bookmarkId);
+    if (!bookmark) {
+      return HttpResponse.json(null, { status: 404 });
+    }
+    const formData = await request.formData();
+    const mutation: BookmarkMutation = {
+      bookId: formData.get('bookId')?.toString() ?? '',
+      page: Number(formData.get('page')) ?? 0,
+      content: formData.get('content')?.toString() ?? '',
+      thumbnailImage: formData.get('thumbnailImage') as File | undefined,
+    };
+
+    const updatedBookmark: BookmarkRecord = {
+      ...bookmark,
+      ...mutation,
+    };
+
+    if (mutation.thumbnailImage) {
+      updatedBookmark.thumbnailImageUrl = TEMP_IMAGE_URL;
+    }
+
+    allBookmarks.set(bookmarkId, updatedBookmark);
+    return HttpResponse.json(updatedBookmark);
+  }
+);
 
 [
   {
@@ -111,4 +150,4 @@ const deleteBookmark = http.delete<
   allBookmarks.set(bookmark.id, bookmark);
 });
 
-export { deleteBookmark,getBookmark, getBookmarks };
+export { deleteBookmark, getBookmark, getBookmarks, updateBookmark };

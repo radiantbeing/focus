@@ -1,7 +1,7 @@
 import invariant from 'tiny-invariant';
 
 import type { BookMutation, BookRecord } from '~/types/book';
-import { BookmarkRecord } from '~/types/bookmark';
+import { BookmarkMutation, BookmarkRecord } from '~/types/bookmark';
 
 const fakeBooks = {
   records: {} as Record<string, BookRecord>,
@@ -117,6 +117,29 @@ const deleteBookmark = async (bookmarkId: string): Promise<BookmarkRecord> => {
   return deletedBookmark;
 };
 
+const updateBookmark = async (
+  bookmarkId: string,
+  mutation: BookmarkMutation
+): Promise<BookmarkRecord> => {
+  const formData = Object.entries(mutation).reduce((formData, [key, value]) => {
+    if (value instanceof File) {
+      formData.append(key, value, value.name);
+    } else if (value !== undefined) {
+      formData.append(key, value.toString());
+    }
+    return formData;
+  }, new FormData());
+  const response = await fetch(
+    `https://api.example.com/bookmarks/${bookmarkId}`,
+    {
+      method: 'PUT',
+      body: formData,
+    }
+  );
+  const updatedBookmark: BookmarkRecord = await response.json();
+  return updatedBookmark;
+};
+
 export {
   createBook,
   deleteBook,
@@ -126,4 +149,5 @@ export {
   getBookmarks,
   getBooks,
   updateBook,
+  updateBookmark,
 };
