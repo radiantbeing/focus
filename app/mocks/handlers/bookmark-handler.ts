@@ -32,6 +32,25 @@ const getBookmark = http.get<
   return HttpResponse.json(bookmark);
 });
 
+type DeleteBookmarkParams = {
+  bookmarkId: string;
+};
+type DeleteBookResponseBody = BookmarkRecord | null;
+const deleteBookmark = http.delete<
+  DeleteBookmarkParams,
+  DefaultBodyType,
+  DeleteBookResponseBody,
+  'https://api.example.com/bookmarks/:bookmarkId'
+>('https://api.example.com/bookmarks/:bookmarkId', ({ params }) => {
+  const { bookmarkId } = params;
+  const deletedBookmark = allBookmarks.get(bookmarkId);
+  if (!deletedBookmark) {
+    return HttpResponse.json(null, { status: 404 });
+  }
+  allBookmarks.delete(bookmarkId);
+  return HttpResponse.json(deletedBookmark);
+});
+
 [
   {
     id: 'fwahol1',
@@ -92,4 +111,4 @@ const getBookmark = http.get<
   allBookmarks.set(bookmark.id, bookmark);
 });
 
-export { getBookmark, getBookmarks };
+export { deleteBookmark,getBookmark, getBookmarks };

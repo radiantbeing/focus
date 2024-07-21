@@ -106,9 +106,21 @@ const getBookmark = async (bookmarkId: string): Promise<BookmarkRecord> => {
   return bookmark;
 };
 
+const deleteBookmark = async (bookmarkId: string): Promise<BookmarkRecord> => {
+  const response = await fetch(
+    `https://api.example.com/bookmarks/${bookmarkId}`,
+    {
+      method: 'DELETE',
+    }
+  );
+  const deletedBookmark: BookmarkRecord = await response.json();
+  return deletedBookmark;
+};
+
 export {
   createBook,
   deleteBook,
+  deleteBookmark,
   getBook,
   getBookmark,
   getBookmarks,
