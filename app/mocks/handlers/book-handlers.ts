@@ -151,4 +151,4 @@ const updateBook = http.put<
   allBooks.set(book.id, book);
 });
 
-export { createBook, deleteBook, getBook, getBooks, updateBook };
+export { allBooks, createBook, deleteBook, getBook, getBooks, updateBook };

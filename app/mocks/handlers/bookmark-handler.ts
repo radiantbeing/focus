@@ -1,9 +1,14 @@
 import type { DefaultBodyType, PathParams } from 'msw';
 import { http, HttpResponse } from 'msw';
 
+import type { BookRecord } from '~/types/book';
 import type { BookmarkMutation, BookmarkRecord } from '~/types/bookmark';
 
+import { allBooks } from './book-handlers';
+
 const TEMP_IMAGE_URL = 'https://picsum.photos/350/600';
+
+const generateId = () => Math.random().toString(36).substring(2, 9);
 
 const allBookmarks: Map<string, BookmarkRecord> = new Map();
 
@@ -30,6 +35,39 @@ const getBookmark = http.get<
   const { bookmarkId } = params;
   const bookmark = allBookmarks.get(bookmarkId);
   return HttpResponse.json(bookmark);
+});
+
+type CreateBookmarkRequestBody = BookmarkMutation;
+type CreateBookmarkResponseBody = BookmarkRecord;
+const createBookmark = http.post<
+  PathParams,
+  CreateBookmarkRequestBody,
+  CreateBookmarkResponseBody
+>('https://api.example.com/bookmarks', async ({ request }) => {
+  const formData = await request.formData();
+  const mutation: BookmarkMutation = {
+    id: formData.get('id')?.toString(),
+    bookId: formData.get('bookId')?.toString(),
+    page: Number(formData.get('page')),
+    content: formData.get('content')?.toString(),
+    thumbnailImage: formData.get('thumbnailImage') as File | undefined,
+  };
+
+  const date = new Date();
+  const newBookmark: BookmarkRecord = {
+    id: mutation.id ?? generateId(),
+    page: mutation.page,
+    content: mutation.content,
+    date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
+    book: allBooks.get(mutation.bookId ?? 'q26yxx9') as BookRecord,
+  };
+
+  if (mutation.thumbnailImage) {
+    newBookmark.thumbnailImageUrl = TEMP_IMAGE_URL;
+  }
+
+  allBookmarks.set(newBookmark.id, newBookmark);
+  return HttpResponse.json(newBookmark, { status: 201 });
 });
 
 type DeleteBookmarkParams = {
@@ -150,4 +188,10 @@ const updateBookmark = http.put<
   allBookmarks.set(bookmark.id, bookmark);
 });
 
-export { deleteBookmark, getBookmark, getBookmarks, updateBookmark };
+export {
+  createBookmark,
+  deleteBookmark,
+  getBookmark,
+  getBookmarks,
+  updateBookmark,
+};

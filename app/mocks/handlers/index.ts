@@ -8,6 +8,7 @@ import {
   updateBook,
 } from './book-handlers';
 import {
+  createBookmark,
   deleteBookmark,
   getBookmark,
   getBookmarks,
@@ -22,6 +23,7 @@ const handlers: HttpHandler[] = [
   updateBook,
   getBookmarks,
   getBookmark,
+  createBookmark,
   deleteBookmark,
   updateBookmark,
 ];

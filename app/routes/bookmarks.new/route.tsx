@@ -1,4 +1,11 @@
-import { Form, useNavigate } from '@remix-run/react';
+import { ActionFunctionArgs } from '@remix-run/node';
+import {
+  Form,
+  json,
+  redirect,
+  useLoaderData,
+  useNavigate,
+} from '@remix-run/react';
 import { RiCloseLine, RiSaveLine } from '@remixicon/react';
 
 import { ActionHeader } from '~/components/action-header';
@@ -8,8 +15,28 @@ import { IconButton } from '~/components/icon-button';
 import { Input } from '~/components/input';
 import { Select } from '~/components/select';
 import { Textarea } from '~/components/textarea';
+import { createBookmark, getBooks } from '~/libs/data';
+import { BookmarkMutation } from '~/types/bookmark';
+
+export const loader = async () => {
+  const books = await getBooks();
+  return json({ books });
+};
+
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const formData = await request.formData();
+  const mutation: BookmarkMutation = Object.fromEntries(formData);
+
+  if (mutation.thumbnailImage && mutation.thumbnailImage.size === 0) {
+    delete mutation.thumbnailImage;
+  }
+
+  const createdBookmark = await createBookmark(mutation);
+  return redirect(`/bookmarks/${createdBookmark.id}`);
+};
 
 const NewBookmark = () => {
+  const { books } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
 
   const handleCancelButtonClick = () => {
@@ -17,7 +44,7 @@ const NewBookmark = () => {
   };
 
   return (
-    <Form>
+    <Form method="post" encType="multipart/form-data">
       <ActionHeader heading="새 책갈피">
         <IconButton
           type="button"
@@ -33,19 +60,34 @@ const NewBookmark = () => {
       <FormBody>
         <FormLabel>
           도서
-          <Select defaultValue="">
+          <Select defaultValue="" name="bookId">
             <option value="" disabled>
               도서를 선택해주세요.
             </option>
+            {books.map((book) => (
+              <option key={book.id} value={book.id}>
+                {book.title}
+              </option>
+            ))}
           </Select>
         </FormLabel>
         <FormLabel>
+          쪽
+          <Input
+            type="number"
+            inputMode="decimal"
+            min={1}
+            defaultValue={1}
+            name="page"
+          />
+        </FormLabel>
+        <FormLabel>
           내용
-          <Textarea></Textarea>
+          <Textarea name="content" />
         </FormLabel>
         <FormLabel>
           사진
-          <Input type="file" accept="image/*" />
+          <Input type="file" name="thumbnailImage" />
         </FormLabel>
       </FormBody>
     </Form>

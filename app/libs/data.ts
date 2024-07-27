@@ -106,6 +106,25 @@ const getBookmark = async (bookmarkId: string): Promise<BookmarkRecord> => {
   return bookmark;
 };
 
+const createBookmark = async (
+  mutation: BookmarkMutation
+): Promise<BookmarkRecord> => {
+  const formData = Object.entries(mutation).reduce((formData, [key, value]) => {
+    if (value instanceof File) {
+      formData.append(key, value, value.name);
+    } else if (value !== undefined) {
+      formData.append(key, value.toString());
+    }
+    return formData;
+  }, new FormData());
+  const response = await fetch(`https://api.example.com/bookmarks`, {
+    method: 'POST',
+    body: formData,
+  });
+  const createdBook: BookmarkRecord = await response.json();
+  return createdBook;
+};
+
 const deleteBookmark = async (bookmarkId: string): Promise<BookmarkRecord> => {
   const response = await fetch(
     `https://api.example.com/bookmarks/${bookmarkId}`,
@@ -142,6 +161,7 @@ const updateBookmark = async (
 
 export {
   createBook,
+  createBookmark,
   deleteBook,
   deleteBookmark,
   getBook,
