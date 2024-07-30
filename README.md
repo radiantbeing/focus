@@ -1,5 +1,7 @@
 # FOCUS
 
+[FE 리포지토리](https://github.com/radiantbeing/focus-client) | [BE 리포지토리](https://github.com/Win-9/Focus)
+
 > 향상된 독서 경험을 위한 전자 책갈피 웹 애플리케이션
 
 ![사각형의 아이콘, 'FOCUS' 문자열, 책 배경사진으로 이루어진 히어로 이미지](./docs/hero.png)
