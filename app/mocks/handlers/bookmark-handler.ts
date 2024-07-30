@@ -17,8 +17,8 @@ const getBookmarks = http.get<
   PathParams,
   DefaultBodyType,
   GetBookmarksResponseBody,
-  'https://api.example.com/bookmarks'
->('https://api.example.com/bookmarks', () =>
+  'https://api.example.com/bookmark'
+>('https://api.example.com/bookmark', () =>
   HttpResponse.json(Array.from(allBookmarks.values()))
 );
 
@@ -30,8 +30,8 @@ const getBookmark = http.get<
   GetBookmarkParams,
   DefaultBodyType,
   GetBookmarkResponseBody,
-  'https://api.example.com/bookmarks/:bookmarkId'
->('https://api.example.com/bookmarks/:bookmarkId', ({ params }) => {
+  'https://api.example.com/bookmark/:bookmarkId'
+>('https://api.example.com/bookmark/:bookmarkId', ({ params }) => {
   const { bookmarkId } = params;
   const bookmark = allBookmarks.get(bookmarkId);
   return HttpResponse.json(bookmark);
@@ -42,8 +42,9 @@ type CreateBookmarkResponseBody = BookmarkRecord;
 const createBookmark = http.post<
   PathParams,
   CreateBookmarkRequestBody,
-  CreateBookmarkResponseBody
->('https://api.example.com/bookmarks', async ({ request }) => {
+  CreateBookmarkResponseBody,
+  'https://api.example.com/bookmark'
+>('https://api.example.com/bookmark', async ({ request }) => {
   const formData = await request.formData();
   const mutation: BookmarkMutation = {
     id: formData.get('id')?.toString(),
@@ -78,8 +79,8 @@ const deleteBookmark = http.delete<
   DeleteBookmarkParams,
   DefaultBodyType,
   DeleteBookResponseBody,
-  'https://api.example.com/bookmarks/:bookmarkId'
->('https://api.example.com/bookmarks/:bookmarkId', ({ params }) => {
+  'https://api.example.com/bookmark/:bookmarkId'
+>('https://api.example.com/bookmark/:bookmarkId', ({ params }) => {
   const { bookmarkId } = params;
   const deletedBookmark = allBookmarks.get(bookmarkId);
   if (!deletedBookmark) {
@@ -97,9 +98,10 @@ type UpdateBookmarkResponseBody = BookmarkRecord;
 const updateBookmark = http.put<
   UpdateBookmarkParams,
   UpdateBookmarkRequestBody,
-  UpdateBookmarkResponseBody
+  UpdateBookmarkResponseBody,
+  'https://api.example.com/bookmark/:bookmarkId'
 >(
-  'https://api.example.com/bookmarks/:bookmarkId',
+  'https://api.example.com/bookmark/:bookmarkId',
   async ({ params, request }) => {
     const { bookmarkId } = params;
     const bookmark = allBookmarks.get(bookmarkId);

@@ -13,8 +13,8 @@ const getBooks = http.get<
   PathParams,
   DefaultBodyType,
   GetBooksResponseBody,
-  'https://api.example.com/books'
->('https://api.example.com/books', () => {
+  'https://api.example.com/book'
+>('https://api.example.com/book', () => {
   return HttpResponse.json(Array.from(allBooks.values()));
 });
 
@@ -26,8 +26,8 @@ const getBook = http.get<
   GetBookParams,
   DefaultBodyType,
   GetBookResponseBody,
-  'https://api.example.com/books/:bookId'
->('https://api.example.com/books/:bookId', ({ params }) => {
+  'https://api.example.com/book/:bookId'
+>('https://api.example.com/book/:bookId', ({ params }) => {
   const { bookId } = params;
   const book = allBooks.get(bookId);
   return HttpResponse.json(book);
@@ -38,8 +38,9 @@ type CreateBookResponseBody = BookRecord;
 const createBook = http.post<
   PathParams,
   CreateBookRequestBody,
-  CreateBookResponseBody
->('https://api.example.com/books', async ({ request }) => {
+  CreateBookResponseBody,
+  'https://api.example.com/book'
+>('https://api.example.com/book', async ({ request }) => {
   const formData = await request.formData();
   const mutation: BookMutationWithId = {
     id: formData.get('id')?.toString() ?? generateId(),
@@ -69,8 +70,9 @@ type DeleteBookResponseBody = BookRecord | null;
 const deleteBook = http.delete<
   DeleteBookParams,
   DefaultBodyType,
-  DeleteBookResponseBody
->('https://api.example.com/books/:bookId', ({ params }) => {
+  DeleteBookResponseBody,
+  'https://api.example.com/book/:bookId'
+>('https://api.example.com/book/:bookId', ({ params }) => {
   const { bookId } = params;
   const deletedBook = allBooks.get(bookId);
   if (!deletedBook) {
@@ -88,8 +90,9 @@ type UpdateBookResponseBody = BookRecord;
 const updateBook = http.put<
   UpdateBookParams,
   UpdateBookRequestBody,
-  UpdateBookResponseBody
->('https://api.example.com/books/:bookId', async ({ params, request }) => {
+  UpdateBookResponseBody,
+  'https://api.example.com/book/:bookId'
+>('https://api.example.com/book/:bookId', async ({ params, request }) => {
   const { bookId } = params;
   const book = allBooks.get(bookId);
   if (!book) {
