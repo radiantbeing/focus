@@ -1,13 +1,10 @@
+/**
+ * @deprecated 이 파일은 더 이상 사용되지 않으며, 함수들은 리팩토링되어 `/app/api` 경로로 이동됩니다.
+ */
 import type { BookMutation, BookRecord } from '~/types/book';
 import { BookmarkMutation, BookmarkRecord } from '~/types/bookmark';
 
 const { FOCUS_API_URL } = process.env;
-
-const getBooks = async (): Promise<BookRecord[]> => {
-  const response = await fetch(`${FOCUS_API_URL}/book`);
-  const books: BookRecord[] = await response.json();
-  return books;
-};
 
 const getBook = async (bookId: string): Promise<BookRecord> => {
   const response = await fetch(`${FOCUS_API_URL}/book/${bookId}`);
@@ -58,12 +55,6 @@ const updateBook = async (
   });
   const updatedBook: BookRecord = await response.json();
   return updatedBook;
-};
-
-const getBookmarks = async (): Promise<BookmarkRecord[]> => {
-  const response = await fetch(`${FOCUS_API_URL}/bookmark`);
-  const bookmarks: BookmarkRecord[] = await response.json();
-  return bookmarks;
 };
 
 const getBookmark = async (bookmarkId: string): Promise<BookmarkRecord> => {
@@ -126,8 +117,6 @@ export {
   deleteBookmark,
   getBook,
   getBookmark,
-  getBookmarks,
-  getBooks,
   updateBook,
   updateBookmark,
 };

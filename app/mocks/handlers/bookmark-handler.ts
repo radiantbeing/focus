@@ -13,12 +13,17 @@ const generateId = () => Math.random().toString(36).substring(2, 9);
 const allBookmarks: Map<string, BookmarkRecord> = new Map();
 
 type GetBookmarksResponseBody = BookmarkRecord[];
+/**
+ * HTTP GET 요청에 의해 책갈피 목록을 반환하는 핸들러 함수입니다.
+ *
+ * @returns {Promise<GetBookmarksResponseBody>} 책갈피 목록을 포함하는 Promise 객체
+ */
 const getBookmarks = http.get<
   PathParams,
   DefaultBodyType,
   GetBookmarksResponseBody,
-  'https://api.example.com/bookmark'
->('https://api.example.com/bookmark', () =>
+  'https://api.example.com/bookmarks'
+>('https://api.example.com/bookmarks', () =>
   HttpResponse.json(Array.from(allBookmarks.values()))
 );
 

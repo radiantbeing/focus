@@ -9,12 +9,17 @@ const generateId = () => Math.random().toString(36).substring(2, 9);
 const allBooks: Map<string, BookRecord> = new Map();
 
 type GetBooksResponseBody = BookRecord[];
+/**
+ * HTTP GET 요청에 의해 도서 목록을 반환하는 핸들러 함수입니다.
+ *
+ * @returns {Promise<GetBooksResponseBody>} 도서 목록을 포함하는 Promise 객체
+ */
 const getBooks = http.get<
   PathParams,
   DefaultBodyType,
   GetBooksResponseBody,
-  'https://api.example.com/book'
->('https://api.example.com/book', () => {
+  'https://api.example.com/books'
+>('https://api.example.com/books', () => {
   return HttpResponse.json(Array.from(allBooks.values()));
 });
 

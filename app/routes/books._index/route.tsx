@@ -1,13 +1,15 @@
 import { Form, json, useLoaderData } from '@remix-run/react';
 import { RiAddLine } from '@remixicon/react';
 
+import { getBooks } from '~/api/book';
 import { ActionHeader } from '~/components/action-header';
 import { IconButton } from '~/components/icon-button';
 import { RecordContainer, RecordItem, RecordList } from '~/components/record';
-import { getBooks } from '~/libs/data';
+import { urlBuilder } from '~/libs/url-builder';
 
 export const loader = async () => {
-  const books = await getBooks();
+  const url = urlBuilder.build('/books');
+  const books = await getBooks(url);
   return json({ books });
 };
 

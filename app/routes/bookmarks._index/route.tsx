@@ -1,6 +1,7 @@
 import { Form, json, useLoaderData } from '@remix-run/react';
 import { RiAddLine } from '@remixicon/react';
 
+import { getBookmarks } from '~/api/bookmark';
 import { ActionHeader } from '~/components/action-header';
 import { IconButton } from '~/components/icon-button';
 import {
@@ -9,11 +10,12 @@ import {
   RecordItem,
   RecordList,
 } from '~/components/record';
-import { getBookmarks } from '~/libs/data';
+import { urlBuilder } from '~/libs/url-builder';
 import { BookmarkRecord } from '~/types/bookmark';
 
 export const loader = async () => {
-  const bookmarks = await getBookmarks();
+  const url = urlBuilder.build('/bookmarks');
+  const bookmarks = await getBookmarks(url);
   return json({ bookmarks });
 };
 
