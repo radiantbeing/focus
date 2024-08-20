@@ -8,6 +8,7 @@ import {
 } from '@remix-run/react';
 import { RiCloseLine, RiSaveLine } from '@remixicon/react';
 
+import { getBooks } from '~/api/book';
 import { ActionHeader } from '~/components/action-header';
 import { FormBody } from '~/components/form-body';
 import { FormLabel } from '~/components/form-label';
@@ -15,11 +16,13 @@ import { IconButton } from '~/components/icon-button';
 import { Input } from '~/components/input';
 import { Select } from '~/components/select';
 import { Textarea } from '~/components/textarea';
-import { createBookmark, getBooks } from '~/libs/data';
+import { createBookmark } from '~/libs/data';
+import { urlBuilder } from '~/libs/url-builder';
 import { BookmarkMutation } from '~/types/bookmark';
 
 export const loader = async () => {
-  const books = await getBooks();
+  const url = urlBuilder.build('/books');
+  const books = await getBooks(url);
   return json({ books });
 };
 
