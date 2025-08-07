@@ -1,4 +1,5 @@
 {
     "tabWidth": 4,
-    "trailingComma": "none"
+    "trailingComma": "none",
+    "plugins": ["prettier-plugin-tailwindcss"]
 }
