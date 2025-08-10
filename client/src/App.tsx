@@ -1,9 +1,9 @@
 import { Bolt, Bookmark, House, LibraryBig } from "lucide-react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { type Book } from "../../shared/types";
 import { getBooks } from "./services/book";
 
-export default function App() {
+export default function App(): React.JSX.Element {
     const [books, setBooks] = useState<Book[]>([]);
 
     useEffect(function () {
@@ -19,7 +19,7 @@ export default function App() {
                 setBooks([]);
             });
 
-        return function () {
+        return function (): void {
             ignore = true;
         };
     }, []);

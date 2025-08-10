@@ -30,6 +30,11 @@ export default tseslint.config([
                 tsconfigRootDir: import.meta.dirname
             }
         },
-        rules: { "sort-imports": "error" }
+        rules: {
+            "sort-imports": "error",
+            "no-use-before-define": "off",
+            "@typescript-eslint/no-use-before-define": "error",
+            "@typescript-eslint/explicit-function-return-type": "error"
+        }
     }
 ]);

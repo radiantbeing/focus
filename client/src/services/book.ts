@@ -1,7 +1,8 @@
-import { Books } from "../../../shared/validations";
-import { ZodError } from "zod";
+import z, { ZodError } from "zod";
+import { type Book } from "../../../shared/types";
+import { BookSchema } from "../../../shared/validations";
 
-export async function getBooks() {
+export async function getBooks(): Promise<Book[]> {
     try {
         const res = await fetch("http://localhost:3000/books");
 
@@ -10,8 +11,7 @@ export async function getBooks() {
         }
 
         const data: unknown = await res.json();
-        const books = Books.parse(data);
-        return books;
+        return z.array(BookSchema).parse(data);
     } catch (error) {
         if (error instanceof ZodError) {
             throw new Error("DATA_VALIDATION_ERROR");
