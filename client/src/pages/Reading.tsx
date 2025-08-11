@@ -59,7 +59,9 @@ export default function Reading(): React.JSX.Element {
             <article>
                 {Object.keys(bookmarksByWeekOfMonth).map((weekOfMonth) => (
                     <div key={weekOfMonth}>
-                        <div className="my-2 border-y-1">{weekOfMonth}</div>
+                        <div className="my-2 border-y-1 border-gray-500 bg-gray-100 pl-0.5">
+                            {weekOfMonth}
+                        </div>
                         <ul className="divide-y divide-gray-300">
                             {[...bookmarksByWeekOfMonth[weekOfMonth]]
                                 .sort(
