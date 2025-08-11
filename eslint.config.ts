@@ -29,7 +29,7 @@ export default tseslint.config([
 
     {
         languageOptions: {
-            ecmaVersion: 2022,
+            ecmaVersion: 2023,
             globals: { ...globals.browser, ...globals.node },
             parserOptions: {
                 projectService: true,
