@@ -5,3 +5,11 @@ export const BookSchema = z.object({
     id: z.number(),
     title: z.string()
 });
+
+export const BookmarkSchema = z.object({
+    bookId: z.number(),
+    date: z.coerce.date(),
+    id: z.number(),
+    page: z.number(),
+    summary: z.string()
+});

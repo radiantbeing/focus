@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import Layout from "./components/Layout";
 import Library from "./pages/Library";
 import NotFound from "./pages/NotFound";
+import Reading from "./pages/Reading";
 import Splash from "./pages/Splash";
 import "./main.css";
 
@@ -17,6 +18,7 @@ if (root) {
                     <Route element={<Splash />} index />
                     <Route element={<Layout />}>
                         <Route element={<Library />} path="library" />
+                        <Route element={<Reading />} path="reading" />
                         <Route element={<NotFound />} path="*" />
                     </Route>
                 </Routes>

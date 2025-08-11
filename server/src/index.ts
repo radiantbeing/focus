@@ -1,6 +1,6 @@
 import express from "express";
 
-import { BOOKS } from "./constants.js";
+import { BOOKMARKS, BOOKS } from "./constants.js";
 
 const app = express();
 const port = 3000;
@@ -18,6 +18,10 @@ app.get("/", function (req, res) {
 
 app.get("/books", function (req, res) {
     res.json(BOOKS);
+});
+
+app.get("/bookmarks", function (req, res) {
+    res.json(BOOKMARKS);
 });
 
 app.listen(port, function () {

@@ -10,21 +10,22 @@ export default function Navs(): React.JSX.Element {
                     "flex flex-1 flex-col items-center gap-y-0.5 text-sm " +
                     (isActive ? "text-black" : "text-gray-400")
                 }
-                to="/library"
+                to="/reading"
             >
-                <LibraryBig size={18} />
-                <span>서재</span>
+                <Bookmark size={18} />
+                <span>책갈피</span>
             </NavLink>
             <NavLink
                 className={({ isActive }) =>
                     "flex flex-1 flex-col items-center gap-y-0.5 text-sm " +
                     (isActive ? "text-black" : "text-gray-400")
                 }
-                to="/bookmarks"
+                to="/library"
             >
-                <Bookmark size={18} />
-                <span>책갈피</span>
+                <LibraryBig size={18} />
+                <span>서재</span>
             </NavLink>
+
             <NavLink
                 className={({ isActive }) =>
                     "flex flex-1 flex-col items-center gap-y-0.5 text-sm " +
