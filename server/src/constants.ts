@@ -1,4 +1,4 @@
-import { type Book } from "../../shared/types.js";
+import type { Book } from "../../shared/types.js";
 
 export const BOOKS: Book[] = [
     {

@@ -1,6 +1,7 @@
-import Library from "./pages/Library";
-import Navs from "./components/Navs";
 import React from "react";
+
+import Navs from "./components/Navs";
+import Library from "./pages/Library";
 
 export default function App(): React.JSX.Element {
     return (

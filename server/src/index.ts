@@ -1,5 +1,6 @@
-import { BOOKS } from "./constants.js";
 import express from "express";
+
+import { BOOKS } from "./constants.js";
 
 const app = express();
 const port = 3000;

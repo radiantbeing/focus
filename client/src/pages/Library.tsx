@@ -1,5 +1,7 @@
-import { type Book } from "../../../shared/types";
 import React from "react";
+
+import type { Book } from "../../../shared/types";
+
 import { getBooks } from "../services/book";
 
 export default function Library(): React.JSX.Element {

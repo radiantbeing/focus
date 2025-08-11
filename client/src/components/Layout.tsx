@@ -1,6 +1,7 @@
-import Navs from "./Navs";
-import { Outlet } from "react-router";
 import React from "react";
+import { Outlet } from "react-router";
+
+import Navs from "./Navs";
 
 export default function App(): React.JSX.Element {
     return (

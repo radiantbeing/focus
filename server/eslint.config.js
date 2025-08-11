@@ -1,7 +1,8 @@
-import { globalIgnores } from "eslint/config";
-import globals from "globals";
 import jseslint from "@eslint/js";
 import prettierConfig from "eslint-config-prettier/flat";
+import perfectionist from "eslint-plugin-perfectionist";
+import { globalIgnores } from "eslint/config";
+import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config([
@@ -11,6 +12,8 @@ export default tseslint.config([
 
     tseslint.configs.strictTypeChecked,
     tseslint.configs.stylisticTypeChecked,
+
+    perfectionist.configs["recommended-natural"],
 
     prettierConfig,
 
@@ -26,10 +29,9 @@ export default tseslint.config([
             }
         },
         rules: {
-            "sort-imports": "error",
-            "no-use-before-define": "off",
+            "@typescript-eslint/explicit-function-return-type": "error",
             "@typescript-eslint/no-use-before-define": "error",
-            "@typescript-eslint/explicit-function-return-type": "error"
+            "no-use-before-define": "off"
         }
     }
 ]);

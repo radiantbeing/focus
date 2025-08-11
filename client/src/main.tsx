@@ -1,11 +1,12 @@
-import "./main.css";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
+
 import Layout from "./components/Layout";
 import Library from "./pages/Library";
 import NotFound from "./pages/NotFound";
 import Splash from "./pages/Splash";
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import "./main.css";
 
 const root = document.getElementById("root");
 if (root) {
@@ -13,10 +14,10 @@ if (root) {
         <StrictMode>
             <BrowserRouter>
                 <Routes>
-                    <Route index element={<Splash />} />
+                    <Route element={<Splash />} index />
                     <Route element={<Layout />}>
-                        <Route path="library" element={<Library />} />
-                        <Route path="*" element={<NotFound />} />
+                        <Route element={<Library />} path="library" />
+                        <Route element={<NotFound />} path="*" />
                     </Route>
                 </Routes>
             </BrowserRouter>

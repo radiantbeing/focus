@@ -1,5 +1,7 @@
 import z, { ZodError } from "zod";
-import { type Book } from "../../../shared/types";
+
+import type { Book } from "../../../shared/types";
+
 import { BookSchema } from "../../../shared/validations";
 
 export async function getBooks(): Promise<Book[]> {
