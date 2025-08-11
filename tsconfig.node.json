@@ -5,11 +5,11 @@
         "lib": ["ES2023"],
         "module": "Node16",
         "moduleResolution": "node16",
-        "outDir": "dist/",
+        "outDir": "server/dist/",
         "skipLibCheck": true,
         "strict": true,
         "target": "ES2023",
         "verbatimModuleSyntax": true
     },
-    "include": ["src/**/*"]
+    "include": ["server/", "shared/"]
 }

@@ -8,7 +8,7 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config([
-    globalIgnores(["client/dist/"]),
+    globalIgnores(["client/dist/", "server/dist/"]),
 
     jseslint.configs.recommended,
 
@@ -17,19 +17,22 @@ export default tseslint.config([
 
     perfectionist.configs["recommended-natural"],
 
-    reactHooks.configs["recommended-latest"],
-    reactRefresh.configs.vite,
+    {
+        extends: [
+            reactHooks.configs["recommended-latest"],
+            reactRefresh.configs.vite
+        ],
+        files: ["client/"]
+    },
 
     prettierConfig,
 
     {
         languageOptions: {
             ecmaVersion: 2022,
-            globals: globals.browser,
+            globals: { ...globals.browser, ...globals.node },
             parserOptions: {
-                projectService: {
-                    allowDefaultProject: ["eslint.config.js"]
-                },
+                projectService: true,
                 tsconfigRootDir: import.meta.dirname
             }
         },
