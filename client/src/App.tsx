@@ -1,7 +1,7 @@
 import React from "react";
 
 import Navs from "./components/Navs";
-import Library from "./pages/Library";
+import Bookmarks from "./pages/bookmarks/Bookmarks";
 
 export default function App(): React.JSX.Element {
   return (
@@ -10,7 +10,7 @@ export default function App(): React.JSX.Element {
         FOCUS
       </header>
       <main className="px-3 pt-14 pb-17">
-        <Library />
+        <Bookmarks />
       </main>
       <Navs />
     </div>

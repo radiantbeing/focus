@@ -1,12 +1,12 @@
 import React from "react";
 
-import type { Book, Bookmark } from "../../../shared/types";
+import type { Book, Bookmark } from "../../../../shared/types";
 
-import { getBooks } from "../services/book";
-import { getBookmarks } from "../services/bookmark";
-import { getWeekOfMonth } from "../utils/date";
+import { getBooks } from "../../services/book";
+import { getBookmarks } from "../../services/bookmark";
+import { getWeekOfMonth } from "../../utils/date";
 
-export default function Reading(): React.JSX.Element {
+export default function Bookmarks(): React.JSX.Element {
   const [bookmarks, setBookmarks] = React.useState<Bookmark[]>([]);
   const [books, setBooks] = React.useState<Book[]>([]);
 

@@ -3,9 +3,9 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
 
 import Layout from "./components/Layout";
-import Library from "./pages/Library";
+import Bookmarks from "./pages/bookmarks/Bookmarks";
+import Books from "./pages/books/Books";
 import NotFound from "./pages/NotFound";
-import Reading from "./pages/Reading";
 import Splash from "./pages/Splash";
 import "./main.css";
 
@@ -17,8 +17,12 @@ if (root) {
         <Routes>
           <Route element={<Splash />} index />
           <Route element={<Layout />}>
-            <Route element={<Library />} path="books" />
-            <Route element={<Reading />} path="bookmarks" />
+            <Route path="books">
+              <Route element={<Books />} index />
+            </Route>
+            <Route path="bookmarks">
+              <Route element={<Bookmarks />} index />
+            </Route>
             <Route element={<NotFound />} path="*" />
           </Route>
         </Routes>
