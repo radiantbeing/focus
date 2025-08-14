@@ -1,15 +1,17 @@
 import * as z from "zod";
 
-export const BookSchema = z.object({
-  author: z.string(),
-  id: z.number(),
-  title: z.string()
-});
-
 export const BookmarkSchema = z.object({
-  bookId: z.number(),
+  bookId: z.number().int().min(0),
   date: z.coerce.date(),
-  id: z.number(),
-  page: z.number(),
+  id: z.number().int().min(0),
+  page: z.number().int().min(1),
   summary: z.string()
 });
+
+export const BookSchema = z.object({
+  author: z.string().min(1),
+  id: z.number().int().min(0),
+  title: z.string().min(1)
+});
+
+export const NewBookSchema = BookSchema.omit({ id: true });
