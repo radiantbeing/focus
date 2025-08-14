@@ -8,38 +8,38 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config([
-    globalIgnores(["client/dist/", "server/dist/"]),
+  globalIgnores(["client/dist/", "server/dist/"]),
 
-    jseslint.configs.recommended,
+  jseslint.configs.recommended,
 
-    tseslint.configs.strictTypeChecked,
-    tseslint.configs.stylisticTypeChecked,
+  tseslint.configs.strictTypeChecked,
+  tseslint.configs.stylisticTypeChecked,
 
-    perfectionist.configs["recommended-natural"],
+  perfectionist.configs["recommended-natural"],
 
-    {
-        extends: [
-            reactHooks.configs["recommended-latest"],
-            reactRefresh.configs.vite
-        ],
-        files: ["client/"]
+  {
+    extends: [
+      reactHooks.configs["recommended-latest"],
+      reactRefresh.configs.vite
+    ],
+    files: ["client/"]
+  },
+
+  prettierConfig,
+
+  {
+    languageOptions: {
+      ecmaVersion: 2023,
+      globals: { ...globals.browser, ...globals.node },
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname
+      }
     },
-
-    prettierConfig,
-
-    {
-        languageOptions: {
-            ecmaVersion: 2023,
-            globals: { ...globals.browser, ...globals.node },
-            parserOptions: {
-                projectService: true,
-                tsconfigRootDir: import.meta.dirname
-            }
-        },
-        rules: {
-            "@typescript-eslint/explicit-function-return-type": "error",
-            "@typescript-eslint/no-use-before-define": "error",
-            "no-use-before-define": "off"
-        }
+    rules: {
+      "@typescript-eslint/explicit-function-return-type": "error",
+      "@typescript-eslint/no-use-before-define": "error",
+      "no-use-before-define": "off"
     }
+  }
 ]);

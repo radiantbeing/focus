@@ -11,18 +11,18 @@ import "./main.css";
 
 const root = document.getElementById("root");
 if (root) {
-    createRoot(root).render(
-        <StrictMode>
-            <BrowserRouter>
-                <Routes>
-                    <Route element={<Splash />} index />
-                    <Route element={<Layout />}>
-                        <Route element={<Library />} path="library" />
-                        <Route element={<Reading />} path="reading" />
-                        <Route element={<NotFound />} path="*" />
-                    </Route>
-                </Routes>
-            </BrowserRouter>
-        </StrictMode>
-    );
+  createRoot(root).render(
+    <StrictMode>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Splash />} index />
+          <Route element={<Layout />}>
+            <Route element={<Library />} path="library" />
+            <Route element={<Reading />} path="reading" />
+            <Route element={<NotFound />} path="*" />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </StrictMode>
+  );
 }
