@@ -7,7 +7,7 @@ export default function Splash(): React.JSX.Element {
       <header className="font-[Tinos] text-4xl">FOCUS</header>
       <Link
         className="flex items-center rounded-xs bg-gray-100 px-3 py-2"
-        to="/library"
+        to="/bookmarks"
       >
         시작하기
       </Link>

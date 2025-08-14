@@ -10,7 +10,7 @@ export default function Navs(): React.JSX.Element {
           "flex flex-1 flex-col items-center gap-y-0.5 text-sm " +
           (isActive ? "text-black" : "text-gray-400")
         }
-        to="/reading"
+        to="/bookmarks"
       >
         <Bookmark size={18} />
         <span>책갈피</span>
@@ -20,7 +20,7 @@ export default function Navs(): React.JSX.Element {
           "flex flex-1 flex-col items-center gap-y-0.5 text-sm " +
           (isActive ? "text-black" : "text-gray-400")
         }
-        to="/library"
+        to="/books"
       >
         <LibraryBig size={18} />
         <span>서재</span>

@@ -17,8 +17,8 @@ if (root) {
         <Routes>
           <Route element={<Splash />} index />
           <Route element={<Layout />}>
-            <Route element={<Library />} path="library" />
-            <Route element={<Reading />} path="reading" />
+            <Route element={<Library />} path="books" />
+            <Route element={<Reading />} path="bookmarks" />
             <Route element={<NotFound />} path="*" />
           </Route>
         </Routes>
