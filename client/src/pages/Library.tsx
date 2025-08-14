@@ -1,3 +1,4 @@
+import { Plus } from "lucide-react";
 import React from "react";
 
 import type { Book } from "../../../shared/types";
@@ -32,9 +33,14 @@ export default function Library(): React.JSX.Element {
 
   return (
     <>
-      <div className="mt-1 mb-4 flex items-baseline gap-x-1">
-        <h1 className="text-xl font-bold">서재</h1>
-        <div className="text-xs text-gray-600">{books.length}권</div>
+      <div className="mt-1 mb-4 flex items-center justify-between">
+        <div className="flex items-baseline gap-x-1">
+          <h1 className="text-xl font-bold">서재</h1>
+          <div className="text-xs text-gray-600">{books.length}권</div>
+        </div>
+        <button className="cursor-pointer rounded-sm border border-gray-300 p-2">
+          <Plus size={16} />
+        </button>
       </div>
       <article>
         <ul className="divide-y divide-gray-300">
