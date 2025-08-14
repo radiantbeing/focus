@@ -65,16 +65,23 @@ export default function Reading(): React.JSX.Element {
               <ul className="divide-y divide-gray-300">
                 {bookmarksByWeekOfMonth[weekOfMonth]
                   .toSorted((a, b) => b.date.getTime() - a.date.getTime())
-                  .map(({ bookId, date, id, summary }) => (
+                  .map(({ bookId, date, id, page, summary }) => (
                     <li className="py-2" key={id}>
                       <a href={`/bookmarks/${id.toString()}`}>
-                        <div className="flex items-center justify-between">
-                          <h2 className="font-bold">
-                            {bookById[bookId].title}
-                          </h2>
-                          <span className="text-xs text-gray-600">
-                            {`${(date.getMonth() + 1).toString()}월 ${date.getDate().toString()}일`}
-                          </span>
+                        <div className="flex items-baseline justify-between">
+                          <div className="flex items-baseline gap-x-1">
+                            <h2 className="font-bold">
+                              {bookById[bookId].title}
+                            </h2>
+                            <span className="text-xs text-gray-600">
+                              p.{page}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-xs text-gray-600">
+                              {`${(date.getMonth() + 1).toString()}월 ${date.getDate().toString()}일`}
+                            </span>
+                          </div>
                         </div>
                         <div className="truncate text-gray-600">{summary}</div>
                       </a>
