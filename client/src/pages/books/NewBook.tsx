@@ -55,18 +55,18 @@ export default function NewBook(): React.JSX.Element {
           <div className="mb-2 font-bold">도서명</div>
           <input
             className="block w-full border border-gray-300 px-1.5 py-1"
-            onChange={handleAuthorChange}
+            onChange={handleTitleChange}
             required
-            value={inputs.author}
+            value={inputs.title}
           />
         </label>
         <label className="block">
           <div className="mb-2 font-bold">저자</div>
           <input
             className="block w-full border border-gray-300 px-1.5 py-1"
-            onChange={handleTitleChange}
+            onChange={handleAuthorChange}
             required
-            value={inputs.title}
+            value={inputs.author}
           />
         </label>
         <button
