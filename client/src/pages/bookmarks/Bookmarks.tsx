@@ -60,7 +60,7 @@ export default function Bookmarks(): React.JSX.Element {
           .map((weekOfMonth) => (
             <div key={weekOfMonth}>
               <div className="mb-2 pl-0.5 text-sm">{weekOfMonth}</div>
-              <ul className="divide-y divide-gray-300 rounded-sm border border-gray-300 px-2.5">
+              <ul className="divide-y divide-gray-300 border-l-1 border-gray-300 px-2.5">
                 {bookmarksByWeekOfMonth[weekOfMonth]
                   .toSorted((a, b) => b.date.getTime() - a.date.getTime())
                   .map(({ bookId, date, id, page, summary }) => (
