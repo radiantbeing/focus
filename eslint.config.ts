@@ -37,9 +37,7 @@ export default tseslint.config([
       }
     },
     rules: {
-      "@typescript-eslint/explicit-function-return-type": "error",
-      "@typescript-eslint/no-use-before-define": "error",
-      "no-use-before-define": "off"
+      "@typescript-eslint/explicit-function-return-type": "error"
     }
   }
 ]);
