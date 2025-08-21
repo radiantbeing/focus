@@ -2,7 +2,7 @@ import express from "express";
 
 import type { Book } from "../../shared/types.js";
 
-import { NewBookSchema } from "../../shared/validations.js";
+import { BookSchema, NewBookSchema } from "../../shared/validations.js";
 import { BOOKMARKS, BOOKS } from "./constants.js";
 
 const app = express();
@@ -34,6 +34,63 @@ app.get("/books", function (req, res) {
   res.json(store.books);
 });
 
+app.delete("/books/:id", function (req, res) {
+  try {
+    const id = BookSchema.shape.id.parse(parseInt(req.params.id));
+    const bookIndex = store.books.findIndex((book) => book.id === id);
+
+    if (bookIndex === -1) {
+      res.status(404).json({ error: "BOOK_NOT_FOUND" });
+      return;
+    }
+
+    store.books.splice(bookIndex, 1);
+    res.status(204).send();
+  } catch {
+    res.status(400).json({ error: "INVALID_INPUT" });
+  }
+});
+
+app.get("/books/:id", function (req, res) {
+  try {
+    const id = BookSchema.shape.id.parse(parseInt(req.params.id));
+    const book = store.books.find((book) => book.id === id);
+
+    if (!book) {
+      res.status(404).json({ error: "BOOK_NOT_FOUND" });
+      return;
+    }
+
+    res.json(book);
+  } catch {
+    res.status(400).json({ error: "INVALID_INPUT" });
+  }
+});
+
+app.put("/books/:id", function (req, res) {
+  try {
+    const id = BookSchema.shape.id.parse(parseInt(req.params.id));
+    const bookIndex = store.books.findIndex((book) => book.id === id);
+
+    if (bookIndex === -1) {
+      res.status(404).json({ error: "BOOK_NOT_FOUND" });
+      return;
+    }
+
+    const { author, title } = NewBookSchema.parse(req.body);
+    const updatedBook: Book = {
+      ...store.books[bookIndex],
+      author,
+      title
+    };
+
+    store.books[bookIndex] = updatedBook;
+    res.json(updatedBook);
+  } catch {
+    res.status(400).json({ error: "INVALID_INPUT" });
+  }
+});
+
 app.post("/books", function (req, res) {
   try {
     const { author, title } = NewBookSchema.parse(req.body);
@@ -44,7 +101,7 @@ app.post("/books", function (req, res) {
       title
     };
     store.books.push(newBook);
-    res.json(newBook);
+    res.status(201).json(newBook);
   } catch {
     res.status(400).json({ error: "INVALID_INPUT" });
   }
