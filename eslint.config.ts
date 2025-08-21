@@ -22,7 +22,7 @@ export default tseslint.config([
       reactHooks.configs["recommended-latest"],
       reactRefresh.configs.vite
     ],
-    files: ["client/"]
+    files: ["client/**/*"]
   },
 
   prettierConfig,
