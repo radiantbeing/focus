@@ -14,4 +14,8 @@ export const BookSchema = z.object({
   title: z.string().min(1)
 });
 
+export const NewBookmarkSchema = BookmarkSchema.omit({ id: true });
+
 export const NewBookSchema = BookSchema.omit({ id: true });
+
+export const UpdateBookmarkSchema = NewBookmarkSchema.partial();

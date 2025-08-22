@@ -3,15 +3,19 @@ import express from "express";
 import type { Book } from "../../shared/types.js";
 
 import { BookSchema, NewBookSchema } from "../../shared/validations.js";
-import { BOOKMARKS, BOOKS } from "./constants.js";
+import { BOOKS } from "./constants.js";
+import BookmarkRepository from "./repositories/bookmark.js";
+import { BookmarkService } from "./services/bookmark.js";
 
 const app = express();
 const port = 3000;
 
 const store = {
-  bookmarks: BOOKMARKS,
   books: BOOKS
 };
+
+const bookmarkRepository = new BookmarkRepository();
+const bookmarkService = new BookmarkService(bookmarkRepository);
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:5173");
@@ -27,7 +31,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/bookmarks", function (req, res) {
-  res.json(store.bookmarks);
+  res.json(bookmarkService.listBookmarks());
 });
 
 app.get("/books", function (req, res) {
