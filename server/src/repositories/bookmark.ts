@@ -1,5 +1,6 @@
 import type {
   Bookmark,
+  BookmarkId,
   NewBookmark,
   UpdateBookmark
 } from "../../../shared/types.js";
@@ -8,16 +9,18 @@ export default class BookmarkRepository {
   #bookmarks = BOOKMARKS;
 
   create(bookmark: NewBookmark): Bookmark {
-    const newBookmark = { id: this.#bookmarks.length + 1, ...bookmark };
+    const newBookmark = { id: this.#bookmarks.length, ...bookmark };
     this.#bookmarks.push(newBookmark);
     return newBookmark;
   }
 
-  delete(id: Bookmark["id"]): void {
+  delete(id: BookmarkId): BookmarkId | undefined {
+    const length = this.#bookmarks.length;
     this.#bookmarks = this.#bookmarks.filter((b) => b.id !== id);
+    return this.#bookmarks.length < length ? id : undefined;
   }
 
-  get(id: Bookmark["id"]): Bookmark | undefined {
+  get(id: BookmarkId): Bookmark | undefined {
     return this.#bookmarks.find((b) => b.id === id);
   }
 
@@ -25,16 +28,14 @@ export default class BookmarkRepository {
     return this.#bookmarks;
   }
 
-  update(id: Bookmark["id"], data: UpdateBookmark): Bookmark | undefined {
+  update(id: BookmarkId, data: UpdateBookmark): Bookmark | undefined {
     const index = this.#bookmarks.findIndex((b) => b.id === id);
 
     if (index === -1) {
       return;
     }
 
-    this.#bookmarks[index] = { ...this.#bookmarks[index], ...data };
-
-    return this.#bookmarks[index];
+    return Object.assign(this.#bookmarks[index], data);
   }
 }
 

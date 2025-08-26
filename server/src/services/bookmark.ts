@@ -1,12 +1,13 @@
 import type {
   Bookmark,
+  BookmarkId,
   NewBookmark,
   UpdateBookmark
 } from "../../../shared/types.js";
 
 import BookmarkRepository from "../repositories/bookmark.js";
 
-export class BookmarkService {
+export default class BookmarkService {
   #bookmarkRepository: BookmarkRepository;
 
   constructor(bookmarkRepository: BookmarkRepository) {
@@ -17,11 +18,11 @@ export class BookmarkService {
     return this.#bookmarkRepository.create(data);
   }
 
-  deleteBookmark(id: Bookmark["id"]): void {
-    this.#bookmarkRepository.delete(id);
+  deleteBookmark(id: BookmarkId): BookmarkId | undefined {
+    return this.#bookmarkRepository.delete(id);
   }
 
-  getBookmark(id: Bookmark["id"]): Bookmark | undefined {
+  getBookmark(id: BookmarkId): Bookmark | undefined {
     return this.#bookmarkRepository.get(id);
   }
 
@@ -29,10 +30,7 @@ export class BookmarkService {
     return this.#bookmarkRepository.list();
   }
 
-  updateBookmark(
-    id: Bookmark["id"],
-    data: UpdateBookmark
-  ): Bookmark | undefined {
+  updateBookmark(id: BookmarkId, data: UpdateBookmark): Bookmark | undefined {
     return this.#bookmarkRepository.update(id, data);
   }
 }
