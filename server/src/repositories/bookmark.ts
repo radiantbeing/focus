@@ -8,9 +8,11 @@ import type {
 
 export default class BookmarkRepository {
   #bookmarks = BOOKMARKS;
+  #lastId = BOOKMARKS.length - 1;
 
   create(bookmark: NewBookmark): Bookmark {
-    const newBookmark = { id: this.#bookmarks.length, ...bookmark };
+    const newBookmark = { ...bookmark, id: this.#lastId + 1 };
+    this.#lastId += 1;
     this.#bookmarks.push(newBookmark);
     return newBookmark;
   }

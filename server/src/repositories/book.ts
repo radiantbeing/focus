@@ -7,9 +7,11 @@ import type {
 
 export default class BookRepository {
   #books = BOOKS;
+  #lastId = BOOKS.length - 1;
 
   create(book: NewBook): Book {
-    const newBook = { ...book, id: this.#books.length };
+    const newBook = { ...book, id: this.#lastId + 1 };
+    this.#lastId += 1;
     this.#books.push(newBook);
     return newBook;
   }
