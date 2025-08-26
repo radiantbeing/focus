@@ -5,12 +5,18 @@ import type {
   UpdateBook
 } from "../../../shared/types.js";
 import type BookRepository from "../repositories/book.js";
+import type BookmarkRepository from "../repositories/bookmark.js";
 
 export default class BookService {
+  #bookmarkRepository: BookmarkRepository;
   #bookRepository: BookRepository;
 
-  constructor(bookRepository: BookRepository) {
+  constructor(
+    bookRepository: BookRepository,
+    bookmarkRepository: BookmarkRepository
+  ) {
     this.#bookRepository = bookRepository;
+    this.#bookmarkRepository = bookmarkRepository;
   }
 
   createBook(data: NewBook): Book {
@@ -18,7 +24,16 @@ export default class BookService {
   }
 
   deleteBook(id: BookId): BookId | undefined {
-    return this.#bookRepository.delete(id);
+    const deletedBookId = this.#bookRepository.delete(id);
+
+    if (deletedBookId === undefined) {
+      return;
+    }
+
+    const bookmarks = this.#bookmarkRepository.listByBookId(deletedBookId);
+    bookmarks.forEach((b) => this.#bookmarkRepository.delete(b.id));
+
+    return deletedBookId;
   }
 
   getBook(id: BookId): Book | undefined {

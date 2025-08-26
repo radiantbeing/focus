@@ -11,9 +11,9 @@ const app = express();
 const port = 3000;
 
 const bookRepository = new BookRepository();
-const bookService = new BookService(bookRepository);
-
 const bookmarkRepository = new BookmarkRepository();
+
+const bookService = new BookService(bookRepository, bookmarkRepository);
 const bookmarkService = new BookmarkService(bookmarkRepository);
 
 app.use((req, res, next) => {

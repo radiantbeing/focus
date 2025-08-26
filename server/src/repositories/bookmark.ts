@@ -1,4 +1,5 @@
 import type {
+  BookId,
   Bookmark,
   BookmarkId,
   NewBookmark,
@@ -26,6 +27,10 @@ export default class BookmarkRepository {
 
   list(): Bookmark[] {
     return this.#bookmarks;
+  }
+
+  listByBookId(bookId: BookId): Bookmark[] {
+    return this.#bookmarks.filter((b) => b.bookId === bookId);
   }
 
   update(id: BookmarkId, data: UpdateBookmark): Bookmark | undefined {
