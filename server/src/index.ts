@@ -1,6 +1,7 @@
 import express from "express";
 
 import { BookIdSchema, NewBookSchema } from "../../shared/validations.js";
+import { ERR_MSG } from "./constants.js";
 import BookRepository from "./repositories/book.js";
 import BookmarkRepository from "./repositories/bookmark.js";
 import BookService from "./services/book.js";
@@ -42,13 +43,13 @@ app.get("/books/:id", function (req, res) {
     const book = bookService.getBook(id);
 
     if (book === undefined) {
-      res.status(404).json({ error: "BOOK_NOT_FOUND" });
+      res.status(404).json({ error: ERR_MSG.ITEM_NOT_FOUND });
       return;
     }
 
     res.json(book);
   } catch {
-    res.status(400).json({ error: "INVALID_INPUT" });
+    res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
 });
 
@@ -58,7 +59,7 @@ app.post("/books", function (req, res) {
     const createdBook = bookService.createBook(bookData);
     res.status(201).json(createdBook);
   } catch {
-    res.status(400).json({ error: "INVALID_INPUT" });
+    res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
 });
 
@@ -69,13 +70,13 @@ app.put("/books/:id", function (req, res) {
     const updatedBook = bookService.updateBook(id, bookData);
 
     if (updatedBook === undefined) {
-      res.status(404).json({ error: "BOOK_NOT_FOUND" });
+      res.status(404).json({ error: ERR_MSG.ITEM_NOT_FOUND });
       return;
     }
 
     res.json(updatedBook);
   } catch {
-    res.status(400).json({ error: "INVALID_INPUT" });
+    res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
 });
 
@@ -85,13 +86,13 @@ app.delete("/books/:id", function (req, res) {
     const deletedBookId = bookService.deleteBook(id);
 
     if (deletedBookId === undefined) {
-      res.status(404).json({ error: "BOOK_NOT_FOUND" });
+      res.status(404).json({ error: ERR_MSG.ITEM_NOT_FOUND });
       return;
     }
 
     res.status(204).send(deletedBookId);
   } catch {
-    res.status(400).json({ error: "INVALID_INPUT" });
+    res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
 });
 
