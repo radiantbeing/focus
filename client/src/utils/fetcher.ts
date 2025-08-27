@@ -15,7 +15,7 @@ export async function fetcher(
 }
 
 function getBaseUrl(): string {
-  if (import.meta.env.MODE === "development") {
+  if (import.meta.env.DEV) {
     return "http://localhost:3532";
   }
 
