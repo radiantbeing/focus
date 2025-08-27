@@ -54,13 +54,13 @@ export default function Bookmarks(): React.JSX.Element {
         <h1 className="text-xl font-bold">책갈피</h1>
         <div className="text-xs text-gray-600">{bookmarks.length}매</div>
       </div>
-      <article className="space-y-4">
+      <article className="space-y-6">
         {Object.keys(bookmarksByWeekOfMonth)
           .toSorted((a, b) => b.localeCompare(a))
           .map((weekOfMonth) => (
-            <div className="border-l border-gray-300" key={weekOfMonth}>
-              <div className="mb-2 ml-2 text-sm">{weekOfMonth}</div>
-              <ul className="px-2.5">
+            <div key={weekOfMonth}>
+              <div className="mb-2 text-sm italic">{weekOfMonth}</div>
+              <ul className="divide-y-1 divide-gray-300">
                 {bookmarksByWeekOfMonth[weekOfMonth]
                   .toSorted((a, b) => b.date.getTime() - a.date.getTime())
                   .map(({ bookId, date, id, page, summary }) => (
