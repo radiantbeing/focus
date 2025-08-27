@@ -8,7 +8,7 @@ import BookService from "./services/book.js";
 import BookmarkService from "./services/bookmark.js";
 
 const app = express();
-const port = 3000;
+const port = 3532;
 
 const bookRepository = new BookRepository();
 const bookmarkRepository = new BookmarkRepository();
