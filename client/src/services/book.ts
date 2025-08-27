@@ -31,7 +31,7 @@ export async function getBook(id: number): Promise<Book> {
   return book;
 }
 
-export async function getBooks(): Promise<Book[]> {
+export async function listBooks(): Promise<Book[]> {
   const data = await fetcher("/books");
   const books = z.array(BookSchema).parse(data);
   return books;

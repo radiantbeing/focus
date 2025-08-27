@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 import type { Book } from "../../../../shared/types";
 
-import { getBooks } from "../../services/book";
+import { listBooks } from "../../services/book";
 
 export default function Books(): React.JSX.Element {
   const [books, setBooks] = React.useState<Book[]>([]);
@@ -12,7 +12,7 @@ export default function Books(): React.JSX.Element {
   React.useEffect(function () {
     let ignore = false;
 
-    getBooks()
+    listBooks()
       .then(function (books) {
         if (!ignore) {
           setBooks(books);

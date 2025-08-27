@@ -2,8 +2,8 @@ import React from "react";
 
 import type { Book, Bookmark } from "../../../../shared/types";
 
-import { getBooks } from "../../services/book";
-import { getBookmarks } from "../../services/bookmark";
+import { listBooks } from "../../services/book";
+import { listBookmarks } from "../../services/bookmark";
 import { getWeekOfMonth } from "../../utils/date";
 
 export default function Bookmarks(): React.JSX.Element {
@@ -26,7 +26,7 @@ export default function Bookmarks(): React.JSX.Element {
   React.useEffect(function () {
     let ignore = false;
 
-    Promise.all([getBooks(), getBookmarks()])
+    Promise.all([listBooks(), listBookmarks()])
       .then(function ([books, bookmarks]) {
         if (!ignore) {
           setBookmarks(bookmarks);
