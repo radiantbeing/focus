@@ -10,27 +10,25 @@ import tseslint from "typescript-eslint";
 export default tseslint.config([
   globalIgnores(["client/dist/", "server/dist/"]),
 
-  jseslint.configs.recommended,
-
-  tseslint.configs.strictTypeChecked,
-  tseslint.configs.stylisticTypeChecked,
-
-  perfectionist.configs["recommended-natural"],
+  {
+    extends: [
+      jseslint.configs.recommended,
+      perfectionist.configs["recommended-natural"]
+    ],
+    files: ["**/*.{ts,tsx,js}"],
+    languageOptions: {
+      ecmaVersion: 2023,
+      globals: { ...globals.browser, ...globals.node }
+    }
+  },
 
   {
     extends: [
-      reactHooks.configs["recommended-latest"],
-      reactRefresh.configs.vite
+      tseslint.configs.strictTypeChecked,
+      tseslint.configs.stylisticTypeChecked
     ],
-    files: ["client/**/*"]
-  },
-
-  prettierConfig,
-
-  {
+    files: ["**/*.{ts,tsx}"],
     languageOptions: {
-      ecmaVersion: 2023,
-      globals: { ...globals.browser, ...globals.node },
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname
@@ -39,5 +37,20 @@ export default tseslint.config([
     rules: {
       "@typescript-eslint/explicit-function-return-type": "error"
     }
-  }
+  },
+
+  {
+    extends: [
+      reactHooks.configs["recommended-latest"],
+      reactRefresh.configs.vite
+    ],
+    files: ["**/*.tsx"]
+  },
+
+  {
+    extends: [tseslint.configs.disableTypeChecked],
+    files: ["**/*.js"]
+  },
+
+  prettierConfig
 ]);
