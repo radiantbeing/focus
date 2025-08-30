@@ -13,22 +13,16 @@ export default tseslint.config([
   {
     extends: [
       jseslint.configs.recommended,
-      perfectionist.configs["recommended-natural"]
-    ],
-    files: ["**/*.{ts,tsx,js}"],
-    languageOptions: {
-      ecmaVersion: 2023,
-      globals: { ...globals.browser, ...globals.node }
-    }
-  },
-
-  {
-    extends: [
+      perfectionist.configs["recommended-natural"],
+      reactHooks.configs["recommended-latest"],
+      reactRefresh.configs.vite,
       tseslint.configs.strictTypeChecked,
       tseslint.configs.stylisticTypeChecked
     ],
-    files: ["**/*.{ts,tsx}"],
+    files: ["client/**/*.{ts,tsx}"],
     languageOptions: {
+      ecmaVersion: 2023,
+      globals: globals.browser,
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname
@@ -41,15 +35,23 @@ export default tseslint.config([
 
   {
     extends: [
-      reactHooks.configs["recommended-latest"],
-      reactRefresh.configs.vite
+      jseslint.configs.recommended,
+      perfectionist.configs["recommended-natural"],
+      tseslint.configs.strictTypeChecked,
+      tseslint.configs.stylisticTypeChecked
     ],
-    files: ["**/*.tsx"]
-  },
-
-  {
-    extends: [tseslint.configs.disableTypeChecked],
-    files: ["**/*.js"]
+    files: ["server/**/*.ts"],
+    languageOptions: {
+      ecmaVersion: 2023,
+      globals: globals.node,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname
+      }
+    },
+    rules: {
+      "@typescript-eslint/explicit-function-return-type": "error"
+    }
   },
 
   prettierConfig
