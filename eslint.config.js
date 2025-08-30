@@ -40,7 +40,7 @@ export default tseslint.config([
       tseslint.configs.strictTypeChecked,
       tseslint.configs.stylisticTypeChecked
     ],
-    files: ["server/**/*.ts"],
+    files: ["shared/**/*.ts", "server/**/*.ts"],
     languageOptions: {
       ecmaVersion: 2023,
       globals: globals.node,
