@@ -25,16 +25,48 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+// 인덱스:
+
 app.get("/", function (req, res) {
   res.send("FOCUS 서버가 작동 중입니다...");
 });
+
+// 책갈피:
 
 app.get("/bookmarks", function (req, res) {
   res.json(bookmarkService.listBookmarks());
 });
 
+// 도서:
+
 app.get("/books", function (req, res) {
   res.json(bookService.listBooks());
+});
+
+app.post("/books", function (req, res) {
+  try {
+    const bookData = NewBookSchema.parse(req.body);
+    const createdBook = bookService.createBook(bookData);
+    res.status(201).json(createdBook);
+  } catch {
+    res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
+  }
+});
+
+app.delete("/books/:id", function (req, res) {
+  try {
+    const id = BookIdSchema.parse(parseInt(req.params.id));
+    const deletedBookId = bookService.deleteBook(id);
+
+    if (deletedBookId === undefined) {
+      res.status(404).json({ error: ERR_MSG.ITEM_NOT_FOUND });
+      return;
+    }
+
+    res.status(204).send(deletedBookId);
+  } catch {
+    res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
+  }
 });
 
 app.get("/books/:id", function (req, res) {
@@ -53,16 +85,6 @@ app.get("/books/:id", function (req, res) {
   }
 });
 
-app.post("/books", function (req, res) {
-  try {
-    const bookData = NewBookSchema.parse(req.body);
-    const createdBook = bookService.createBook(bookData);
-    res.status(201).json(createdBook);
-  } catch {
-    res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
-  }
-});
-
 app.put("/books/:id", function (req, res) {
   try {
     const id = BookIdSchema.parse(parseInt(req.params.id));
@@ -75,22 +97,6 @@ app.put("/books/:id", function (req, res) {
     }
 
     res.json(updatedBook);
-  } catch {
-    res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
-  }
-});
-
-app.delete("/books/:id", function (req, res) {
-  try {
-    const id = BookIdSchema.parse(parseInt(req.params.id));
-    const deletedBookId = bookService.deleteBook(id);
-
-    if (deletedBookId === undefined) {
-      res.status(404).json({ error: ERR_MSG.ITEM_NOT_FOUND });
-      return;
-    }
-
-    res.status(204).send(deletedBookId);
   } catch {
     res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
