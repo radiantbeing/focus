@@ -29,7 +29,16 @@ export default tseslint.config([
       }
     },
     rules: {
-      "@typescript-eslint/explicit-function-return-type": "error"
+      "@typescript-eslint/explicit-function-return-type": "error",
+      "@typescript-eslint/no-misused-promises": [
+        "error",
+        {
+          checksVoidReturn: {
+            arguments: false,
+            attributes: false
+          }
+        }
+      ]
     }
   },
 
