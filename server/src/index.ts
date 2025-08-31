@@ -3,6 +3,7 @@ import express from "express";
 import {
   BookIdSchema,
   BookmarkIdSchema,
+  NewBookmarkSchema,
   NewBookSchema,
   UpdateBookmarkSchema
 } from "../../shared/validations.js";
@@ -134,6 +135,16 @@ app.get("/bookmarks/:bookmarkId", function (req, res) {
     }
 
     res.json(bookmark);
+  } catch {
+    res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
+  }
+});
+
+app.post("/bookmarks", function (req, res) {
+  try {
+    const bookmarkData = NewBookmarkSchema.parse(req.body);
+    const createdBookmark = bookmarkService.createBookmark(bookmarkData);
+    res.status(201).json(createdBookmark);
   } catch {
     res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
