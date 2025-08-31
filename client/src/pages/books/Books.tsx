@@ -50,10 +50,10 @@ export default function Books(): React.JSX.Element {
         <ul className="divide-y divide-gray-300">
           {books.map((book) => (
             <li className="py-2 first:pt-0" key={book.id}>
-              <a href={`/books/${book.id.toString()}`}>
+              <Link to={`/books/${book.id.toString()}`}>
                 <h2 className="font-bold">{book.title}</h2>
                 <div className="text-gray-600">{book.author}</div>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

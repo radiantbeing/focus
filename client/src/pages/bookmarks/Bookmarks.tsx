@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 import type { Book, Bookmark } from "../../../../shared/types";
 
@@ -65,7 +66,7 @@ export default function Bookmarks(): React.JSX.Element {
                   .toSorted((a, b) => b.date.getTime() - a.date.getTime())
                   .map(({ bookId, date, id, page, summary }) => (
                     <li className="py-2" key={id}>
-                      <a href={`/bookmarks/${id.toString()}`}>
+                      <Link to={`/bookmarks/${id.toString()}`}>
                         <div className="flex items-baseline justify-between">
                           <div className="flex items-baseline gap-x-1">
                             <h2 className="font-bold">
@@ -82,7 +83,7 @@ export default function Bookmarks(): React.JSX.Element {
                           </div>
                         </div>
                         <div className="truncate text-gray-600">{summary}</div>
-                      </a>
+                      </Link>
                     </li>
                   ))}
               </ul>
