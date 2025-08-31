@@ -1,6 +1,11 @@
 import express from "express";
 
-import { BookIdSchema, NewBookSchema } from "../../shared/validations.js";
+import {
+  BookIdSchema,
+  BookmarkIdSchema,
+  NewBookSchema,
+  UpdateBookmarkSchema
+} from "../../shared/validations.js";
 import { ERR_MSG } from "./constants.js";
 import BookRepository from "./repositories/book.js";
 import BookmarkRepository from "./repositories/bookmark.js";
@@ -31,12 +36,6 @@ app.get("/", function (req, res) {
   res.send("FOCUS 서버가 작동 중입니다...");
 });
 
-// 책갈피:
-
-app.get("/bookmarks", function (req, res) {
-  res.json(bookmarkService.listBookmarks());
-});
-
 // 도서:
 
 app.get("/books", function (req, res) {
@@ -63,7 +62,7 @@ app.delete("/books/:id", function (req, res) {
       return;
     }
 
-    res.status(204).send(deletedBookId);
+    res.status(200).send(deletedBookId);
   } catch {
     res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
@@ -97,6 +96,64 @@ app.put("/books/:id", function (req, res) {
     }
 
     res.json(updatedBook);
+  } catch {
+    res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
+  }
+});
+
+// 책갈피:
+
+app.get("/bookmarks", function (req, res) {
+  res.json(bookmarkService.listBookmarks());
+});
+
+app.delete("/bookmarks/:bookmarkId", function (req, res) {
+  try {
+    const id = BookmarkIdSchema.parse(parseInt(req.params.bookmarkId));
+    const deletedBookmarkId = bookmarkService.deleteBookmark(id);
+
+    if (deletedBookmarkId === undefined) {
+      res.status(404).json({ error: ERR_MSG.ITEM_NOT_FOUND });
+      return;
+    }
+
+    res.status(200).send(deletedBookmarkId);
+  } catch {
+    res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
+  }
+});
+
+app.get("/bookmarks/:bookmarkId", function (req, res) {
+  try {
+    const bookmarkId = BookmarkIdSchema.parse(parseInt(req.params.bookmarkId));
+    const bookmark = bookmarkService.getBookmark(bookmarkId);
+
+    if (bookmark === undefined) {
+      res.status(404).json({ error: ERR_MSG.ITEM_NOT_FOUND });
+      return;
+    }
+
+    res.json(bookmark);
+  } catch {
+    res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
+  }
+});
+
+app.put("/bookmarks/:bookmarkId", function (req, res) {
+  try {
+    const bookmarkId = BookIdSchema.parse(parseInt(req.params.bookmarkId));
+    const bookmarkData = UpdateBookmarkSchema.parse(req.body);
+    const updatedBookmark = bookmarkService.updateBookmark(
+      bookmarkId,
+      bookmarkData
+    );
+
+    if (updatedBookmark === undefined) {
+      res.status(404).json({ error: ERR_MSG.ITEM_NOT_FOUND });
+      return;
+    }
+
+    res.json(updatedBookmark);
   } catch {
     res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
