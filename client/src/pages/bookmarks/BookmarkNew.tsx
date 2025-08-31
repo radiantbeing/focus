@@ -1,10 +1,10 @@
 import React from "react";
-import { useFormStatus } from "react-dom";
 import { useNavigate } from "react-router";
 
 import type { Book } from "../../../../shared/types";
 
 import { NewBookmarkSchema } from "../../../../shared/validations";
+import Submit from "../../components/Submit";
 import { listBooks } from "../../services/book";
 import { createBookmark } from "../../services/bookmark";
 
@@ -54,14 +54,15 @@ export default function BookmarkNew(): React.JSX.Element {
   }
 
   return (
-    <>
+    <form action={handleSubmit}>
       <div className="mt-1 mb-4 flex items-center justify-between">
         <div className="flex items-baseline gap-x-1">
           <h1 className="text-xl font-bold">책갈피 추가</h1>
         </div>
+        <Submit />
       </div>
       <article>
-        <form action={handleSubmit} className="mt-4 space-y-5">
+        <div className="mt-4 space-y-5">
           <label className="block">
             <div className="mb-2 font-bold">도서</div>
             <select
@@ -94,22 +95,8 @@ export default function BookmarkNew(): React.JSX.Element {
               name="summary"
             />
           </label>
-          <Submit />
-        </form>
+        </div>
       </article>
-    </>
-  );
-}
-
-function Submit(): React.JSX.Element {
-  const { pending } = useFormStatus();
-  return (
-    <button
-      className="flex items-center rounded-xs bg-gray-100 px-3 py-2"
-      disabled={pending}
-      type="submit"
-    >
-      {pending ? "제출 중..." : "제출"}
-    </button>
+    </form>
   );
 }

@@ -1,12 +1,12 @@
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, Undo2 } from "lucide-react";
 import React from "react";
-import { useFormStatus } from "react-dom";
 import { Link, useLocation, useNavigate, useParams } from "react-router";
 
 import type { Book, Bookmark } from "../../../../shared/types";
 
 import { NewBookmarkSchema } from "../../../../shared/validations";
 import IconFrame from "../../components/IconFrame";
+import Submit from "../../components/Submit";
 import { listBooks } from "../../services/book";
 import {
   deleteBookmark,
@@ -73,6 +73,10 @@ export default function BookmarkDetail(): React.JSX.Element {
     await navigate("/bookmarks");
   }
 
+  async function handleUndoButtonClick(): Promise<void> {
+    await navigate(-1);
+  }
+
   async function handleSubmit(formData: FormData): Promise<void> {
     if (bookmarkId === undefined) {
       return;
@@ -112,7 +116,7 @@ export default function BookmarkDetail(): React.JSX.Element {
   }
 
   return (
-    <>
+    <form action={handleSubmit}>
       <div className="mt-1 mb-4 flex items-center justify-between">
         <div className="flex items-baseline gap-x-1">
           <h1 className="text-xl font-bold">책갈피 상세</h1>
@@ -120,20 +124,30 @@ export default function BookmarkDetail(): React.JSX.Element {
         <div className="flex gap-x-1">
           {!edit && (
             <IconFrame>
+              <button onClick={handleDeleteButtonClick}>
+                <Trash2 size={16} />
+              </button>
+            </IconFrame>
+          )}
+          {!edit && (
+            <IconFrame>
               <Link to="edit">
                 <Pencil size={16} />
               </Link>
             </IconFrame>
           )}
-          <IconFrame>
-            <button onClick={handleDeleteButtonClick}>
-              <Trash2 size={16} />
-            </button>
-          </IconFrame>
+          {edit && (
+            <IconFrame>
+              <button onClick={handleUndoButtonClick} type="button">
+                <Undo2 size={16} />
+              </button>
+            </IconFrame>
+          )}
+          {edit && <Submit />}
         </div>
       </div>
       <article>
-        <form action={handleSubmit} className="mt-4 space-y-5">
+        <div className="mt-4 space-y-5">
           <label className="block">
             <div className="mb-2 font-bold">도서</div>
             <select
@@ -180,22 +194,8 @@ export default function BookmarkDetail(): React.JSX.Element {
               name="summary"
             />
           </label>
-          {edit && <Submit />}
-        </form>
+        </div>
       </article>
-    </>
-  );
-}
-
-function Submit(): React.JSX.Element {
-  const { pending } = useFormStatus();
-  return (
-    <button
-      className="flex items-center rounded-xs bg-gray-100 px-3 py-2"
-      disabled={pending}
-      type="submit"
-    >
-      {pending ? "제출 중..." : "수정"}
-    </button>
+    </form>
   );
 }

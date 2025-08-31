@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import type { NewBook } from "../../../../shared/types";
 
 import { NewBookSchema } from "../../../../shared/validations";
+import Submit from "../../components/Submit";
 import { createBook } from "../../services/book";
 
 export default function BookNew(): React.JSX.Element {
@@ -46,36 +47,35 @@ export default function BookNew(): React.JSX.Element {
   }
 
   return (
-    <article>
-      <header className="mt-1 mb-4">
-        <h1 className="text-xl font-bold">도서 추가</h1>
-      </header>
-      <form className="mt-4 space-y-5" method="post" onSubmit={handleSubmit}>
-        <label className="block">
-          <div className="mb-2 font-bold">도서명</div>
-          <input
-            className="block w-full border border-gray-300 px-1.5 py-1"
-            onChange={handleTitleChange}
-            required
-            value={inputs.title}
-          />
-        </label>
-        <label className="block">
-          <div className="mb-2 font-bold">저자</div>
-          <input
-            className="block w-full border border-gray-300 px-1.5 py-1"
-            onChange={handleAuthorChange}
-            required
-            value={inputs.author}
-          />
-        </label>
-        <button
-          className="flex items-center rounded-xs bg-gray-100 px-3 py-2"
-          type="submit"
-        >
-          제출
-        </button>
-      </form>
-    </article>
+    <form method="post" onSubmit={handleSubmit}>
+      <div className="mt-1 mb-4 flex items-center justify-between">
+        <div className="flex items-baseline gap-x-1">
+          <h1 className="text-xl font-bold">도서 추가</h1>
+        </div>
+        <Submit />
+      </div>
+      <article>
+        <div className="mt-4 space-y-5">
+          <label className="block">
+            <div className="mb-2 font-bold">도서명</div>
+            <input
+              className="block w-full border border-gray-300 px-1.5 py-1"
+              onChange={handleTitleChange}
+              required
+              value={inputs.title}
+            />
+          </label>
+          <label className="block">
+            <div className="mb-2 font-bold">저자</div>
+            <input
+              className="block w-full border border-gray-300 px-1.5 py-1"
+              onChange={handleAuthorChange}
+              required
+              value={inputs.author}
+            />
+          </label>
+        </div>
+      </article>
+    </form>
   );
 }
