@@ -3,13 +3,13 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
 
 import Layout from "./components/Layout";
-import Bookmark from "./pages/bookmarks/Bookmark";
-import Bookmarks from "./pages/bookmarks/Bookmarks";
-import Book from "./pages/books/Book";
-import Books from "./pages/books/Books";
-import NewBook from "./pages/books/NewBook";
-import NotFound from "./pages/NotFound";
-import Splash from "./pages/Splash";
+import BookmarkPage from "./pages/bookmarks/BookmarkPage";
+import BookmarksPage from "./pages/bookmarks/BookmarksPage";
+import BookPage from "./pages/books/BookPage";
+import BooksPage from "./pages/books/BooksPage";
+import NewBookPage from "./pages/books/NewBookPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import SplashPage from "./pages/SplashPage";
 import "./main.css";
 
 const root = document.getElementById("root");
@@ -18,19 +18,19 @@ if (root) {
     <StrictMode>
       <BrowserRouter>
         <Routes>
-          <Route element={<Splash />} index />
+          <Route element={<SplashPage />} index />
           <Route element={<Layout />}>
             <Route path="books">
-              <Route element={<Books />} index />
-              <Route element={<NewBook />} path="new" />
-              <Route element={<Book />} path=":bookId/edit?" />
+              <Route element={<BooksPage />} index />
+              <Route element={<NewBookPage />} path="new" />
+              <Route element={<BookPage />} path=":bookId/edit?" />
             </Route>
             <Route path="bookmarks">
-              <Route element={<Bookmarks />} index />
-              <Route element={<Bookmark />} path="new" />
-              <Route element={<Bookmark />} path=":bookmarkId/edit?" />
+              <Route element={<BookmarksPage />} index />
+              <Route element={<BookmarkPage />} path="new" />
+              <Route element={<BookmarkPage />} path=":bookmarkId/edit?" />
             </Route>
-            <Route element={<NotFound />} path="*" />
+            <Route element={<NotFoundPage />} path="*" />
           </Route>
         </Routes>
       </BrowserRouter>

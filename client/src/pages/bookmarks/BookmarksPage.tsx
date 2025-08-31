@@ -8,7 +8,7 @@ import { listBooks } from "../../services/book";
 import { listBookmarks } from "../../services/bookmark";
 import { getWeekOfMonth } from "../../utils/date";
 
-export default function Bookmarks(): React.JSX.Element {
+export default function BookmarksPage(): React.JSX.Element {
   const [bookmarks, setBookmarks] = React.useState<Bookmark[]>([]);
   const [books, setBooks] = React.useState<Book[]>([]);
 

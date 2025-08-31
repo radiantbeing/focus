@@ -12,7 +12,7 @@ import {
   getBookmark,
   updateBookmark
 } from "../../services/bookmark";
-import NotFound from "../NotFound";
+import NotFoundPage from "../NotFoundPage";
 
 export default function BookmarkPage(): React.JSX.Element {
   const location = useLocation();
@@ -103,7 +103,7 @@ export default function BookmarkPage(): React.JSX.Element {
   const edit = location.pathname.endsWith("/edit");
 
   if (bookmarkId === undefined) {
-    return <NotFound />;
+    return <NotFoundPage />;
   }
 
   if (books === null || bookmark === null) {

@@ -6,7 +6,7 @@ import type { NewBook } from "../../../../shared/types";
 import { NewBookSchema } from "../../../../shared/validations";
 import { createBook } from "../../services/book";
 
-export default function NewBook(): React.JSX.Element {
+export default function NewBookPage(): React.JSX.Element {
   const navigate = useNavigate();
   const [inputs, setInputs] = React.useState<NewBook>({
     author: "",
