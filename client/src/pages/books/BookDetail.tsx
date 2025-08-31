@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router";
 import type { Book } from "../../../../shared/types";
 
 import { NewBookSchema } from "../../../../shared/validations";
+import IconFrame from "../../components/IconFrame";
 import { deleteBook, getBook, updateBook } from "../../services/book";
 import NotFound from "../NotFound";
 
@@ -63,30 +64,29 @@ export default function BookDetail(): React.JSX.Element {
         </div>
         <div className="flex gap-x-1">
           {!edit && (
-            <Link
-              className="cursor-pointer rounded-sm border border-gray-300 p-2"
-              to="edit"
-            >
-              <Pencil size={16} />
-            </Link>
+            <IconFrame>
+              <Link to="edit">
+                <Pencil size={16} />
+              </Link>
+            </IconFrame>
           )}
-
-          <button
-            className="cursor-pointer rounded-sm border border-gray-300 p-2"
-            onClick={function () {
-              deleteBook(parseInt(bookId))
-                .then(function () {
-                  return navigate("/books");
-                })
-                .catch(function (error: unknown) {
-                  if (import.meta.env.DEV) {
-                    console.error(error);
-                  }
-                });
-            }}
-          >
-            <Trash2 size={16} />
-          </button>
+          <IconFrame>
+            <button
+              onClick={function () {
+                deleteBook(parseInt(bookId))
+                  .then(function () {
+                    return navigate("/books");
+                  })
+                  .catch(function (error: unknown) {
+                    if (import.meta.env.DEV) {
+                      console.error(error);
+                    }
+                  });
+              }}
+            >
+              <Trash2 size={16} />
+            </button>
+          </IconFrame>
         </div>
       </div>
       <article>

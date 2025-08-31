@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router";
 import type { Book, Bookmark } from "../../../../shared/types";
 
 import { NewBookmarkSchema } from "../../../../shared/validations";
+import IconFrame from "../../components/IconFrame";
 import { listBooks } from "../../services/book";
 import {
   deleteBookmark,
@@ -118,19 +119,17 @@ export default function BookmarkDetail(): React.JSX.Element {
         </div>
         <div className="flex gap-x-1">
           {!edit && (
-            <Link
-              className="cursor-pointer rounded-sm border border-gray-300 p-2"
-              to="edit"
-            >
-              <Pencil size={16} />
-            </Link>
+            <IconFrame>
+              <Link to="edit">
+                <Pencil size={16} />
+              </Link>
+            </IconFrame>
           )}
-          <button
-            className="cursor-pointer rounded-sm border border-gray-300 p-2"
-            onClick={handleDeleteButtonClick}
-          >
-            <Trash2 size={16} />
-          </button>
+          <IconFrame>
+            <button onClick={handleDeleteButtonClick}>
+              <Trash2 size={16} />
+            </button>
+          </IconFrame>
         </div>
       </div>
       <article>

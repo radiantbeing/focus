@@ -4,6 +4,7 @@ import { Link } from "react-router";
 
 import type { Book } from "../../../../shared/types";
 
+import IconFrame from "../../components/IconFrame";
 import { listBooks } from "../../services/book";
 
 export default function BookList(): React.JSX.Element {
@@ -39,12 +40,11 @@ export default function BookList(): React.JSX.Element {
           <h1 className="text-xl font-bold">서재</h1>
           <div className="text-xs text-gray-600">{books.length}권</div>
         </div>
-        <Link
-          className="cursor-pointer rounded-sm border border-gray-300 p-2"
-          to="/books/new"
-        >
-          <Plus size={16} />
-        </Link>
+        <IconFrame>
+          <Link to="/books/new">
+            <Plus size={16} />
+          </Link>
+        </IconFrame>
       </div>
       <article>
         <ul className="divide-y divide-gray-300">

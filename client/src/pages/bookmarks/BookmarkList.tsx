@@ -4,6 +4,7 @@ import { Link } from "react-router";
 
 import type { Book, BookId, Bookmark } from "../../../../shared/types";
 
+import IconFrame from "../../components/IconFrame";
 import { listBooks } from "../../services/book";
 import { listBookmarks } from "../../services/bookmark";
 
@@ -47,12 +48,11 @@ export default function BookmarkList(): React.JSX.Element {
           <h1 className="text-xl font-bold">책갈피</h1>
           <div className="text-xs text-gray-600">{bookmarks.length}매</div>
         </div>
-        <Link
-          className="cursor-pointer rounded-sm border border-gray-300 p-2"
-          to="/bookmarks/new"
-        >
-          <Plus size={16} />
-        </Link>
+        <IconFrame>
+          <Link to="/bookmarks/new">
+            <Plus size={16} />
+          </Link>
+        </IconFrame>
       </div>
       <article className="space-y-6">
         <ul className="divide-y-1 divide-gray-300">
