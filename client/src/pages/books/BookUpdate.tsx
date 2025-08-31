@@ -1,15 +1,16 @@
-import { Pencil, Trash2 } from "lucide-react";
+import { Undo2 } from "lucide-react";
 import React from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 import type { Book } from "../../../../shared/types";
 
 import { NewBookSchema } from "../../../../shared/validations";
 import IconFrame from "../../components/IconFrame";
-import { deleteBook, getBook, updateBook } from "../../services/book";
+import Submit from "../../components/Submit";
+import { getBook, updateBook } from "../../services/book";
 import NotFound from "../NotFound";
 
-export default function BookDetail(): React.JSX.Element {
+export default function BookUpdate(): React.JSX.Element {
   const { bookId } = useParams();
   const navigate = useNavigate();
   const [book, setBook] = React.useState<Book | null>(null);
@@ -44,6 +45,38 @@ export default function BookDetail(): React.JSX.Element {
     [bookId]
   );
 
+  function handleSubmit(formData: FormData): void {
+    if (bookId === undefined) {
+      return;
+    }
+
+    const author = formData.get("author") ?? "작자 미상";
+    const title = formData.get("title") ?? "무제";
+
+    try {
+      const validInputs = NewBookSchema.parse({ author, title });
+
+      updateBook(parseInt(bookId), validInputs)
+        .then(function (updatedBook) {
+          setBook(updatedBook);
+          return navigate(`/books/${updatedBook.id.toString()}`);
+        })
+        .catch(function (error: unknown) {
+          if (import.meta.env.DEV) {
+            console.error(error);
+          }
+        });
+    } catch (error: unknown) {
+      if (import.meta.env.DEV) {
+        console.error(error);
+      }
+    }
+  }
+
+  async function handleUndoButtonClick(): Promise<void> {
+    await navigate(-1);
+  }
+
   if (bookId === undefined) {
     return <NotFound />;
   }
@@ -53,58 +86,18 @@ export default function BookDetail(): React.JSX.Element {
   }
 
   return (
-    <form
-      action={function (formData) {
-        const author = formData.get("author") ?? "작자 미상";
-        const title = formData.get("title") ?? "무제";
-
-        try {
-          const validInputs = NewBookSchema.parse({ author, title });
-
-          updateBook(parseInt(bookId), validInputs)
-            .then(function (updatedBook) {
-              setBook(updatedBook);
-              return navigate(`/books/${updatedBook.id.toString()}`);
-            })
-            .catch(function (error: unknown) {
-              if (import.meta.env.DEV) {
-                console.error(error);
-              }
-            });
-        } catch (error: unknown) {
-          if (import.meta.env.DEV) {
-            console.error(error);
-          }
-        }
-      }}
-    >
+    <form action={handleSubmit}>
       <div className="mt-1 mb-4 flex items-center justify-between">
         <div className="flex items-baseline gap-x-1">
           <h1 className="text-xl font-bold">도서 상세</h1>
         </div>
         <div className="flex gap-x-1">
           <IconFrame>
-            <button
-              onClick={function () {
-                deleteBook(parseInt(bookId))
-                  .then(function () {
-                    return navigate("/books");
-                  })
-                  .catch(function (error: unknown) {
-                    if (import.meta.env.DEV) {
-                      console.error(error);
-                    }
-                  });
-              }}
-            >
-              <Trash2 size={16} />
+            <button onClick={handleUndoButtonClick} type="button">
+              <Undo2 size={16} />
             </button>
           </IconFrame>
-          <IconFrame>
-            <Link to="edit">
-              <Pencil size={16} />
-            </Link>
-          </IconFrame>
+          <Submit />
         </div>
       </div>
       <article>
@@ -114,7 +107,6 @@ export default function BookDetail(): React.JSX.Element {
             <input
               className="block w-full border border-gray-300 px-1.5 py-1 disabled:bg-gray-100"
               defaultValue={book.title}
-              disabled
               name="title"
               required
             />
@@ -124,7 +116,6 @@ export default function BookDetail(): React.JSX.Element {
             <input
               className="block w-full border border-gray-300 px-1.5 py-1 disabled:bg-gray-100"
               defaultValue={book.author}
-              disabled
               name="author"
               required
             />
