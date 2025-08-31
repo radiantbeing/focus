@@ -8,7 +8,7 @@ import { NewBookmarkSchema } from "../../../../shared/validations";
 import { listBooks } from "../../services/book";
 import { createBookmark } from "../../services/bookmark";
 
-export default function NewBookmarkPage(): React.JSX.Element {
+export default function BookmarkNew(): React.JSX.Element {
   const navigate = useNavigate();
 
   const [books, setBooks] = React.useState<Book[]>([]);

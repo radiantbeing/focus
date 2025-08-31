@@ -12,9 +12,9 @@ import {
   getBookmark,
   updateBookmark
 } from "../../services/bookmark";
-import NotFoundPage from "../NotFoundPage";
+import NotFoundPage from "../NotFound";
 
-export default function BookmarkPage(): React.JSX.Element {
+export default function BookmarkDetail(): React.JSX.Element {
   const location = useLocation();
   const navigate = useNavigate();
   const { bookmarkId } = useParams();

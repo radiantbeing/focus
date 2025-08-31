@@ -7,7 +7,7 @@ import type { Book, BookId, Bookmark } from "../../../../shared/types";
 import { listBooks } from "../../services/book";
 import { listBookmarks } from "../../services/bookmark";
 
-export default function BookmarksPage(): React.JSX.Element {
+export default function BookmarkList(): React.JSX.Element {
   const [bookmarks, setBookmarks] = React.useState<Bookmark[]>([]);
   const [books, setBooks] = React.useState<Book[]>([]);
 

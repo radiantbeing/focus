@@ -6,7 +6,7 @@ import type { Book } from "../../../../shared/types";
 
 import { listBooks } from "../../services/book";
 
-export default function BooksPage(): React.JSX.Element {
+export default function BookList(): React.JSX.Element {
   const [books, setBooks] = React.useState<Book[]>([]);
 
   React.useEffect(function () {

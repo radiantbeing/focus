@@ -7,9 +7,9 @@ import type { Book } from "../../../../shared/types";
 
 import { NewBookSchema } from "../../../../shared/validations";
 import { deleteBook, getBook, updateBook } from "../../services/book";
-import NotFound from "../NotFoundPage";
+import NotFound from "../NotFound";
 
-export default function BookPage(): React.JSX.Element {
+export default function BookDetail(): React.JSX.Element {
   const { bookId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();

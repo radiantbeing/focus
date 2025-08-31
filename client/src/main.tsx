@@ -3,14 +3,14 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
 
 import Layout from "./components/Layout";
-import BookmarkPage from "./pages/bookmarks/BookmarkPage";
-import BookmarksPage from "./pages/bookmarks/BookmarksPage";
-import NewBookmarkPage from "./pages/bookmarks/NewBookmarkPage";
-import BookPage from "./pages/books/BookPage";
-import BooksPage from "./pages/books/BooksPage";
-import NewBookPage from "./pages/books/NewBookPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import SplashPage from "./pages/SplashPage";
+import BookmarkDetail from "./pages/bookmarks/BookmarkDetail";
+import BookmarkList from "./pages/bookmarks/BookmarkList";
+import BookmarkNew from "./pages/bookmarks/BookmarkNew";
+import BookDetail from "./pages/books/BookDetail";
+import BookList from "./pages/books/BookList";
+import BookNew from "./pages/books/BookNew";
+import NotFound from "./pages/NotFound";
+import Splash from "./pages/Splash";
 import "./main.css";
 
 const root = document.getElementById("root");
@@ -19,19 +19,19 @@ if (root) {
     <StrictMode>
       <BrowserRouter>
         <Routes>
-          <Route element={<SplashPage />} index />
+          <Route element={<Splash />} index />
           <Route element={<Layout />}>
             <Route path="books">
-              <Route element={<BooksPage />} index />
-              <Route element={<NewBookPage />} path="new" />
-              <Route element={<BookPage />} path=":bookId/edit?" />
+              <Route element={<BookList />} index />
+              <Route element={<BookNew />} path="new" />
+              <Route element={<BookDetail />} path=":bookId/edit?" />
             </Route>
             <Route path="bookmarks">
-              <Route element={<BookmarksPage />} index />
-              <Route element={<NewBookmarkPage />} path="new" />
-              <Route element={<BookmarkPage />} path=":bookmarkId/edit?" />
+              <Route element={<BookmarkList />} index />
+              <Route element={<BookmarkNew />} path="new" />
+              <Route element={<BookmarkDetail />} path=":bookmarkId/edit?" />
             </Route>
-            <Route element={<NotFoundPage />} path="*" />
+            <Route element={<NotFound />} path="*" />
           </Route>
         </Routes>
       </BrowserRouter>
