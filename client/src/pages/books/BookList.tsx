@@ -1,63 +1,57 @@
-import { Plus } from "lucide-react";
+import { Plus, RefreshCcw } from "lucide-react";
 import React from "react";
 import { Link } from "react-router";
 
-import type { Book } from "../../../../shared/types";
-
+import Error from "../../components/Error";
 import IconFrame from "../../components/IconFrame";
-import { listBooks } from "../../services/book";
+import Loading from "../../components/Loading";
+import useBooks from "../../hooks/book/use-books";
 
 export default function BookList(): React.JSX.Element {
-  const [books, setBooks] = React.useState<Book[]>([]);
+  const { books, error, loading, refetch } = useBooks();
 
-  React.useEffect(function () {
-    let ignore = false;
+  function handleRefreshClick(): void {
+    refetch();
+  }
 
-    listBooks()
-      .then(function (books) {
-        if (!ignore) {
-          setBooks(books);
-        }
-      })
-      .catch(function (error: unknown) {
-        if (import.meta.env.DEV) {
-          console.error(error);
-        }
-        if (!ignore) {
-          setBooks([]);
-        }
-      });
+  if (error) {
+    return <Error text="도서 목록을 가져오지 못했습니다." />;
+  }
 
-    return function (): void {
-      ignore = true;
-    };
-  }, []);
+  if (loading) {
+    return <Loading text="도서 목록을 가져오는 중입니다." />;
+  }
 
   return (
-    <>
+    <article>
       <div className="mt-1 mb-4 flex items-center justify-between">
         <div className="flex items-baseline gap-x-1">
           <h1 className="text-xl font-bold">서재</h1>
           <div className="text-xs text-gray-600">{books.length}권</div>
         </div>
-        <IconFrame>
-          <Link to="/books/new">
-            <Plus size={16} />
-          </Link>
-        </IconFrame>
+        <div className="flex gap-x-1">
+          <IconFrame>
+            <button onClick={handleRefreshClick}>
+              <RefreshCcw size={16} />
+            </button>
+          </IconFrame>
+          <IconFrame>
+            <Link to="/books/new">
+              <Plus size={16} />
+            </Link>
+          </IconFrame>
+        </div>
       </div>
-      <article>
-        <ul className="divide-y divide-gray-300">
-          {books.map((book) => (
-            <li className="py-2 first:pt-0" key={book.id}>
-              <Link to={`/books/${book.id.toString()}`}>
-                <h2 className="font-bold">{book.title}</h2>
-                <div className="text-gray-600">{book.author}</div>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </article>
-    </>
+      <ul className="divide-y divide-gray-300">
+        {books.map((book) => (
+          <li className="py-2 first:pt-0" key={book.id}>
+            <Link to={`/books/${book.id.toString()}`}>
+              <h2 className="font-bold">{book.title}</h2>
+              <div className="text-gray-600">{book.author}</div>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </article>
   );
 }
