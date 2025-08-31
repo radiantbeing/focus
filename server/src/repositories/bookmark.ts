@@ -11,7 +11,7 @@ export default class BookmarkRepository {
   #lastId = BOOKMARKS.length - 1;
 
   create(bookmark: NewBookmark): Bookmark {
-    const newBookmark = { ...bookmark, id: this.#lastId + 1 };
+    const newBookmark = { ...bookmark, date: new Date(), id: this.#lastId + 1 };
     this.#lastId += 1;
     this.#bookmarks.push(newBookmark);
     return newBookmark;
