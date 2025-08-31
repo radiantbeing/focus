@@ -1,3 +1,4 @@
+import { Plus } from "lucide-react";
 import React from "react";
 import { Link } from "react-router";
 
@@ -51,9 +52,17 @@ export default function Bookmarks(): React.JSX.Element {
 
   return (
     <>
-      <div className="mt-1 mb-4 flex items-baseline gap-x-1">
-        <h1 className="text-xl font-bold">책갈피</h1>
-        <div className="text-xs text-gray-600">{bookmarks.length}매</div>
+      <div className="mt-1 mb-4 flex items-center justify-between">
+        <div className="flex items-baseline gap-x-1">
+          <h1 className="text-xl font-bold">책갈피</h1>
+          <div className="text-xs text-gray-600">{bookmarks.length}매</div>
+        </div>
+        <Link
+          className="cursor-pointer rounded-sm border border-gray-300 p-2"
+          to="/bookmarks/new"
+        >
+          <Plus size={16} />
+        </Link>
       </div>
       <article className="space-y-6">
         {Object.keys(bookmarksByWeekOfMonth)

@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
 
 import Layout from "./components/Layout";
+import Bookmark from "./pages/bookmarks/Bookmark";
 import Bookmarks from "./pages/bookmarks/Bookmarks";
 import Book from "./pages/books/Book";
 import Books from "./pages/books/Books";
@@ -26,6 +27,8 @@ if (root) {
             </Route>
             <Route path="bookmarks">
               <Route element={<Bookmarks />} index />
+              <Route element={<Bookmark />} path="new" />
+              <Route element={<Bookmark />} path=":bookmarkId/edit?" />
             </Route>
             <Route element={<NotFound />} path="*" />
           </Route>
