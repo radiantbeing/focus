@@ -3,11 +3,23 @@ import * as z from "zod";
 import type {
   Bookmark,
   BookmarkId,
+  NewBookmark,
   UpdateBookmark
 } from "../../../shared/types";
 
 import { BookmarkIdSchema, BookmarkSchema } from "../../../shared/validations";
 import { fetcher } from "../utils/fetcher";
+
+export async function createBookmark(
+  bookmarkData: NewBookmark
+): Promise<Bookmark> {
+  const data = await fetcher("/bookmarks", {
+    body: JSON.stringify(bookmarkData),
+    method: "POST"
+  });
+  const createdBookmark = BookmarkSchema.parse(data);
+  return createdBookmark;
+}
 
 export async function deleteBookmark(
   bookmarkId: BookmarkId

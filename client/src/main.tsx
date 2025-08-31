@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import Layout from "./components/Layout";
 import BookmarkPage from "./pages/bookmarks/BookmarkPage";
 import BookmarksPage from "./pages/bookmarks/BookmarksPage";
+import NewBookmarkPage from "./pages/bookmarks/NewBookmarkPage";
 import BookPage from "./pages/books/BookPage";
 import BooksPage from "./pages/books/BooksPage";
 import NewBookPage from "./pages/books/NewBookPage";
@@ -27,7 +28,7 @@ if (root) {
             </Route>
             <Route path="bookmarks">
               <Route element={<BookmarksPage />} index />
-              <Route element={<BookmarkPage />} path="new" />
+              <Route element={<NewBookmarkPage />} path="new" />
               <Route element={<BookmarkPage />} path=":bookmarkId/edit?" />
             </Route>
             <Route element={<NotFoundPage />} path="*" />
