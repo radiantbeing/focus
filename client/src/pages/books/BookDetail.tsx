@@ -2,101 +2,54 @@ import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
 import { Link, useNavigate, useParams } from "react-router";
 
-import type { Book } from "../../../../shared/types";
-
-import { NewBookSchema } from "../../../../shared/validations";
+import Error from "../../components/Error";
 import IconFrame from "../../components/IconFrame";
-import { deleteBook, getBook, updateBook } from "../../services/book";
-import NotFound from "../NotFound";
+import Loading from "../../components/Loading";
+import useBook from "../../hooks/book/use-book";
+import { deleteBook } from "../../services/book";
 
 export default function BookDetail(): React.JSX.Element {
   const { bookId } = useParams();
+  const { book, error, loading } = useBook(bookId ? parseInt(bookId) : null);
   const navigate = useNavigate();
-  const [book, setBook] = React.useState<Book | null>(null);
 
-  React.useEffect(
-    function () {
-      if (bookId === undefined) {
-        return;
-      }
+  function handleDelete(): void {
+    if (bookId === undefined) {
+      return;
+    }
 
-      let ignore = false;
+    deleteBook(parseInt(bookId))
+      .then(function () {
+        return navigate("/books");
+      })
+      .catch(function (error: unknown) {
+        if (import.meta.env.DEV) {
+          console.error(error);
+        }
+      });
+  }
 
-      getBook(parseInt(bookId))
-        .then(function (books) {
-          if (!ignore) {
-            setBook(books);
-          }
-        })
-        .catch(function (error: unknown) {
-          if (import.meta.env.DEV) {
-            console.error(error);
-          }
-          if (!ignore) {
-            setBook(null);
-          }
-        });
+  if (error !== null) {
+    return <Error text={`[${error.name}] ${error.message}`} />;
+  }
 
-      return function (): void {
-        ignore = true;
-      };
-    },
-    [bookId]
-  );
-
-  if (bookId === undefined) {
-    return <NotFound />;
+  if (loading) {
+    return <Loading text="도서 정보를 가져오는 중입니다." />;
   }
 
   if (book === null) {
-    return <div>로딩 중...</div>;
+    return <Error text="도서를 찾을 수 없습니다." />;
   }
 
   return (
-    <form
-      action={function (formData) {
-        const author = formData.get("author") ?? "작자 미상";
-        const title = formData.get("title") ?? "무제";
-
-        try {
-          const validInputs = NewBookSchema.parse({ author, title });
-
-          updateBook(parseInt(bookId), validInputs)
-            .then(function (updatedBook) {
-              setBook(updatedBook);
-              return navigate(`/books/${updatedBook.id.toString()}`);
-            })
-            .catch(function (error: unknown) {
-              if (import.meta.env.DEV) {
-                console.error(error);
-              }
-            });
-        } catch (error: unknown) {
-          if (import.meta.env.DEV) {
-            console.error(error);
-          }
-        }
-      }}
-    >
-      <div className="mt-1 mb-4 flex items-center justify-between">
+    <article>
+      <header className="mt-1 mb-4 flex items-center justify-between">
         <div className="flex items-baseline gap-x-1">
           <h1 className="text-xl font-bold">도서 상세</h1>
         </div>
         <div className="flex gap-x-1">
           <IconFrame>
-            <button
-              onClick={function () {
-                deleteBook(parseInt(bookId))
-                  .then(function () {
-                    return navigate("/books");
-                  })
-                  .catch(function (error: unknown) {
-                    if (import.meta.env.DEV) {
-                      console.error(error);
-                    }
-                  });
-              }}
-            >
+            <button onClick={handleDelete}>
               <Trash2 size={16} />
             </button>
           </IconFrame>
@@ -106,31 +59,25 @@ export default function BookDetail(): React.JSX.Element {
             </Link>
           </IconFrame>
         </div>
+      </header>
+      <div className="mt-4 space-y-5">
+        <label className="block">
+          <div className="mb-2 font-bold">도서명</div>
+          <input
+            className="block w-full border border-gray-300 px-1.5 py-1 disabled:bg-gray-100"
+            defaultValue={book.title}
+            disabled
+          />
+        </label>
+        <label className="block">
+          <div className="mb-2 font-bold">저자</div>
+          <input
+            className="block w-full border border-gray-300 px-1.5 py-1 disabled:bg-gray-100"
+            defaultValue={book.author}
+            disabled
+          />
+        </label>
       </div>
-      <article>
-        <div className="mt-4 space-y-5">
-          <label className="block">
-            <div className="mb-2 font-bold">도서명</div>
-            <input
-              className="block w-full border border-gray-300 px-1.5 py-1 disabled:bg-gray-100"
-              defaultValue={book.title}
-              disabled
-              name="title"
-              required
-            />
-          </label>
-          <label className="block">
-            <div className="mb-2 font-bold">저자</div>
-            <input
-              className="block w-full border border-gray-300 px-1.5 py-1 disabled:bg-gray-100"
-              defaultValue={book.author}
-              disabled
-              name="author"
-              required
-            />
-          </label>
-        </div>
-      </article>
-    </form>
+    </article>
   );
 }
