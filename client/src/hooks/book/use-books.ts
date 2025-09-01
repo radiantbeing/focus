@@ -14,7 +14,7 @@ interface UseBooksReturn {
 export default function useBooks(): UseBooksReturn {
   const [books, setBooks] = React.useState<Book[]>([]);
   const [error, setError] = React.useState<Error | null>(null);
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const [refetchTrigger, setRefetchTrigger] = React.useState(0);
 
   React.useEffect(
