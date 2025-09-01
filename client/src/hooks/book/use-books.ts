@@ -21,15 +21,15 @@ export default function useBooks(): UseBooksReturn {
     function () {
       let ignore = false;
 
-      async function loadBooks(): Promise<void> {
-        try {
-          setLoading(true);
-          setError(null);
-          const books = await listBooks();
+      setLoading(true);
+      setError(null);
+      listBooks()
+        .then(function (books) {
           if (!ignore) {
             setBooks(books);
           }
-        } catch (error: unknown) {
+        })
+        .catch(function (error: unknown) {
           if (!ignore) {
             setError(
               error instanceof Error
@@ -38,19 +38,13 @@ export default function useBooks(): UseBooksReturn {
                     "도서 목록을 요청했지만 유효한 응답을 받지 못했습니다."
                   )
             );
-
-            if (import.meta.env.DEV) {
-              console.error(error);
-            }
           }
-        } finally {
+        })
+        .finally(function () {
           if (!ignore) {
             setLoading(false);
           }
-        }
-      }
-
-      void loadBooks();
+        });
 
       return function (): void {
         ignore = true;
