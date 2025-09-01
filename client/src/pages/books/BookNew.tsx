@@ -1,28 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router";
 
-import { NewBookSchema } from "../../../../shared/validations";
 import Submit from "../../components/Submit";
-import { createBook } from "../../services/book";
+import useCreateBook from "../../hooks/book/use-create-book";
 
 export default function BookNew(): React.JSX.Element {
-  const navigate = useNavigate();
-
-  async function handleSubmit(formData: FormData): Promise<void> {
-    const author = formData.get("author");
-    const title = formData.get("title");
-
-    if (typeof author !== "string" || typeof title !== "string") {
-      return;
-    }
-
-    const inputs = NewBookSchema.parse({ author, title });
-    const createdBook = await createBook(inputs);
-    await navigate(`/books/${createdBook.id.toString()}`);
-  }
+  const { handleCreate } = useCreateBook();
 
   return (
-    <form action={handleSubmit}>
+    <form action={handleCreate}>
       <div className="mt-1 mb-4 flex items-center justify-between">
         <div className="flex items-baseline gap-x-1">
           <h1 className="text-xl font-bold">도서 추가</h1>

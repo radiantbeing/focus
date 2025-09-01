@@ -2,98 +2,48 @@ import { Undo2 } from "lucide-react";
 import React from "react";
 import { useNavigate, useParams } from "react-router";
 
-import type { Book } from "../../../../shared/types";
-
-import { NewBookSchema } from "../../../../shared/validations";
+import Error from "../../components/Error";
 import IconFrame from "../../components/IconFrame";
+import Loading from "../../components/Loading";
 import Submit from "../../components/Submit";
-import { getBook, updateBook } from "../../services/book";
-import NotFound from "../NotFound";
+import useBook from "../../hooks/book/use-book";
+import useUpdateBook from "../../hooks/book/use-update-book";
 
 export default function BookUpdate(): React.JSX.Element {
-  const { bookId } = useParams();
   const navigate = useNavigate();
-  const [book, setBook] = React.useState<Book | null>(null);
-
-  React.useEffect(
-    function () {
-      if (bookId === undefined) {
-        return;
-      }
-
-      let ignore = false;
-
-      getBook(parseInt(bookId))
-        .then(function (books) {
-          if (!ignore) {
-            setBook(books);
-          }
-        })
-        .catch(function (error: unknown) {
-          if (import.meta.env.DEV) {
-            console.error(error);
-          }
-          if (!ignore) {
-            setBook(null);
-          }
-        });
-
-      return function (): void {
-        ignore = true;
-      };
-    },
-    [bookId]
+  const { bookId } = useParams();
+  const { book, error, loading } = useBook(
+    bookId !== undefined ? parseInt(bookId) : null
+  );
+  const { handleUpdate } = useUpdateBook(
+    bookId !== undefined ? parseInt(bookId) : null
   );
 
-  function handleSubmit(formData: FormData): void {
-    if (bookId === undefined) {
-      return;
-    }
-
-    const author = formData.get("author") ?? "작자 미상";
-    const title = formData.get("title") ?? "무제";
-
-    try {
-      const validInputs = NewBookSchema.parse({ author, title });
-
-      updateBook(parseInt(bookId), validInputs)
-        .then(function (updatedBook) {
-          setBook(updatedBook);
-          return navigate(`/books/${updatedBook.id.toString()}`);
-        })
-        .catch(function (error: unknown) {
-          if (import.meta.env.DEV) {
-            console.error(error);
-          }
-        });
-    } catch (error: unknown) {
-      if (import.meta.env.DEV) {
-        console.error(error);
-      }
-    }
-  }
-
-  async function handleUndoButtonClick(): Promise<void> {
+  async function handleUndo(): Promise<void> {
     await navigate(-1);
   }
 
-  if (bookId === undefined) {
-    return <NotFound />;
+  if (error !== null) {
+    return <Error text={`[${error.name}] ${error.message}`} />;
+  }
+
+  if (loading) {
+    return <Loading text="도서 정보를 가져오는 중입니다." />;
   }
 
   if (book === null) {
-    return <div>로딩 중...</div>;
+    return <Error text="도서를 찾을 수 없습니다." />;
   }
 
   return (
-    <form action={handleSubmit}>
+    <form action={handleUpdate}>
       <div className="mt-1 mb-4 flex items-center justify-between">
         <div className="flex items-baseline gap-x-1">
           <h1 className="text-xl font-bold">도서 상세</h1>
         </div>
         <div className="flex gap-x-1">
           <IconFrame>
-            <button onClick={handleUndoButtonClick} type="button">
+            <button onClick={handleUndo} type="button">
               <Undo2 size={16} />
             </button>
           </IconFrame>

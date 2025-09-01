@@ -1,33 +1,17 @@
 import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 import Error from "../../components/Error";
 import IconFrame from "../../components/IconFrame";
 import Loading from "../../components/Loading";
 import useBook from "../../hooks/book/use-book";
-import { deleteBook } from "../../services/book";
+import useDeleteBook from "../../hooks/book/use-delete-book";
 
 export default function BookDetail(): React.JSX.Element {
   const { bookId } = useParams();
   const { book, error, loading } = useBook(bookId ? parseInt(bookId) : null);
-  const navigate = useNavigate();
-
-  function handleDelete(): void {
-    if (bookId === undefined) {
-      return;
-    }
-
-    deleteBook(parseInt(bookId))
-      .then(function () {
-        return navigate("/books");
-      })
-      .catch(function (error: unknown) {
-        if (import.meta.env.DEV) {
-          console.error(error);
-        }
-      });
-  }
+  const { handleDelete } = useDeleteBook(bookId ? parseInt(bookId) : null);
 
   if (error !== null) {
     return <Error text={`[${error.name}] ${error.message}`} />;
