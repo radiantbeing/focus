@@ -1,10 +1,10 @@
 import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 import type { Book, Bookmark } from "../../../../shared/types";
 
-import IconFrame from "../../components/IconFrame";
+import IconButton from "../../components/IconButton";
 import { listBooks } from "../../services/book";
 import { deleteBookmark, getBookmark } from "../../services/bookmark";
 import NotFoundPage from "../NotFound";
@@ -82,18 +82,13 @@ export default function BookmarkDetail(): React.JSX.Element {
         </div>
         <menu className="flex gap-x-1">
           <li>
-            <IconFrame>
-              <button onClick={handleDeleteClick}>
-                <Trash2 size={16} />
-              </button>
-            </IconFrame>
+            <IconButton
+              icon={<Trash2 size={16} />}
+              onClick={handleDeleteClick}
+            />
           </li>
           <li>
-            <IconFrame>
-              <Link to="edit">
-                <Pencil size={16} />
-              </Link>
-            </IconFrame>
+            <IconButton as="link" icon={<Pencil size={16} />} to="edit" />
           </li>
         </menu>
       </div>

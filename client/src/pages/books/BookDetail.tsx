@@ -1,9 +1,9 @@
 import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
-import { Link, useParams } from "react-router";
+import { useParams } from "react-router";
 
 import Error from "../../components/Error";
-import IconFrame from "../../components/IconFrame";
+import IconButton from "../../components/IconButton";
 import Loading from "../../components/Loading";
 import useBook from "../../hooks/book/use-book";
 import useDeleteBook from "../../hooks/book/use-delete-book";
@@ -32,16 +32,8 @@ export default function BookDetail(): React.JSX.Element {
           <h1 className="text-xl font-bold">도서 상세</h1>
         </div>
         <div className="flex gap-x-1">
-          <IconFrame>
-            <button onClick={handleDelete}>
-              <Trash2 size={16} />
-            </button>
-          </IconFrame>
-          <IconFrame>
-            <Link to="edit">
-              <Pencil size={16} />
-            </Link>
-          </IconFrame>
+          <IconButton icon={<Trash2 size={16} />} onClick={handleDelete} />
+          <IconButton as="link" icon={<Pencil size={16} />} to="edit" />
         </div>
       </header>
       <div className="mt-4 space-y-5">

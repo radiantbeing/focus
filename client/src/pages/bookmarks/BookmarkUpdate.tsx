@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router";
 import type { Book, Bookmark } from "../../../../shared/types";
 
 import { NewBookmarkSchema } from "../../../../shared/validations";
-import IconFrame from "../../components/IconFrame";
+import IconButton from "../../components/IconButton";
 import Submit from "../../components/Submit";
 import { listBooks } from "../../services/book";
 import { getBookmark, updateBookmark } from "../../services/bookmark";
@@ -106,11 +106,11 @@ export default function BookmarkUpdate(): React.JSX.Element {
           <h1 className="text-xl font-bold">책갈피 상세</h1>
         </div>
         <div className="flex gap-x-1">
-          <IconFrame>
-            <button onClick={handleUndoButtonClick} type="button">
-              <Undo2 size={16} />
-            </button>
-          </IconFrame>
+          <IconButton
+            icon={<Undo2 size={16} />}
+            onClick={handleUndoButtonClick}
+            type="button"
+          />
           <Submit />
         </div>
       </div>

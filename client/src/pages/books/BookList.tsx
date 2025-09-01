@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router";
 
 import Error from "../../components/Error";
-import IconFrame from "../../components/IconFrame";
+import IconButton from "../../components/IconButton";
 import Loading from "../../components/Loading";
 import useBooks from "../../hooks/book/use-books";
 
@@ -30,16 +30,11 @@ export default function BookList(): React.JSX.Element {
           <div className="text-xs text-gray-600">{books.length}권</div>
         </div>
         <div className="flex gap-x-1">
-          <IconFrame>
-            <button onClick={handleRefreshClick}>
-              <RefreshCcw size={16} />
-            </button>
-          </IconFrame>
-          <IconFrame>
-            <Link to="/books/new">
-              <Plus size={16} />
-            </Link>
-          </IconFrame>
+          <IconButton
+            icon={<RefreshCcw size={16} />}
+            onClick={handleRefreshClick}
+          />
+          <IconButton as="link" icon={<Plus size={16} />} to="/books/new" />
         </div>
       </div>
       <ul className="divide-y divide-gray-300">
