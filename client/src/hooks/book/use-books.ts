@@ -60,7 +60,7 @@ export default function useBooks(): UseBooksReturn {
   );
 
   function refetch(): void {
-    setRefetchTrigger(refetchTrigger + 1);
+    setRefetchTrigger((prev) => prev + 1);
   }
 
   return {
