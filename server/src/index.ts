@@ -63,7 +63,7 @@ app.delete("/books/:id", function (req, res) {
       return;
     }
 
-    res.status(200).send(deletedBookId);
+    res.status(200).json(deletedBookId);
   } catch {
     res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
@@ -118,7 +118,7 @@ app.delete("/bookmarks/:bookmarkId", function (req, res) {
       return;
     }
 
-    res.status(200).send(deletedBookmarkId);
+    res.status(200).json(deletedBookmarkId);
   } catch {
     res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
