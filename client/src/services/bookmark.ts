@@ -24,7 +24,7 @@ export async function createBookmark(
 export async function deleteBookmark(
   bookmarkId: BookmarkId
 ): Promise<BookmarkId> {
-  const data = await fetcher(`/bookmarks/${bookmarkId.toString()}`, {
+  const data = await fetcher(`/bookmarks/${bookmarkId}`, {
     method: "DELETE"
   });
   const deletedBookmarkId = BookmarkIdSchema.parse(data);
@@ -32,7 +32,7 @@ export async function deleteBookmark(
 }
 
 export async function getBookmark(bookmarkId: BookmarkId): Promise<Bookmark> {
-  const data = await fetcher(`/bookmarks/${bookmarkId.toString()}`);
+  const data = await fetcher(`/bookmarks/${bookmarkId}`);
   const bookmark = BookmarkSchema.parse(data);
   return bookmark;
 }
@@ -47,7 +47,7 @@ export async function updateBookmark(
   bookmarkId: BookmarkId,
   bookmarkData: UpdateBookmark
 ): Promise<Bookmark> {
-  const data = await fetcher(`/bookmarks/${bookmarkId.toString()}`, {
+  const data = await fetcher(`/bookmarks/${bookmarkId}`, {
     body: JSON.stringify(bookmarkData),
     method: "PUT"
   });
