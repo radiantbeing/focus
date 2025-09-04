@@ -16,7 +16,8 @@ export default function SettingsList(): React.JSX.Element {
         `• 모든 도서 삭제
 • 모든 책갈피 삭제
 
-이 작업은 되돌릴 수 없습니다. 계속하시겠습니까?`
+이 작업은 되돌릴 수 없습니다.
+계속하시겠습니까?`
       )
     ) {
       return;
@@ -31,7 +32,8 @@ export default function SettingsList(): React.JSX.Element {
       !confirm(
         `• 모든 책갈피 삭제
 
-이 작업은 되돌릴 수 없습니다. 계속하시겠습니까?`
+이 작업은 되돌릴 수 없습니다.
+계속하시겠습니까?`
       )
     ) {
       return;
