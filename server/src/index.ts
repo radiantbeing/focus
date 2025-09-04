@@ -55,7 +55,7 @@ app.post("/books", function (req, res) {
 
 app.delete("/books/:id", function (req, res) {
   try {
-    const id = BookIdSchema.parse(parseInt(req.params.id));
+    const id = BookIdSchema.parse(req.params.id);
     const deletedBookId = bookService.deleteBook(id);
 
     if (deletedBookId === undefined) {
@@ -71,7 +71,7 @@ app.delete("/books/:id", function (req, res) {
 
 app.get("/books/:id", function (req, res) {
   try {
-    const id = BookIdSchema.parse(parseInt(req.params.id));
+    const id = BookIdSchema.parse(req.params.id);
     const book = bookService.getBook(id);
 
     if (book === undefined) {
@@ -87,7 +87,7 @@ app.get("/books/:id", function (req, res) {
 
 app.put("/books/:id", function (req, res) {
   try {
-    const id = BookIdSchema.parse(parseInt(req.params.id));
+    const id = BookIdSchema.parse(req.params.id);
     const bookData = NewBookSchema.parse(req.body);
     const updatedBook = bookService.updateBook(id, bookData);
 
@@ -110,7 +110,7 @@ app.get("/bookmarks", function (req, res) {
 
 app.delete("/bookmarks/:bookmarkId", function (req, res) {
   try {
-    const id = BookmarkIdSchema.parse(parseInt(req.params.bookmarkId));
+    const id = BookmarkIdSchema.parse(req.params.bookmarkId);
     const deletedBookmarkId = bookmarkService.deleteBookmark(id);
 
     if (deletedBookmarkId === undefined) {
@@ -126,7 +126,7 @@ app.delete("/bookmarks/:bookmarkId", function (req, res) {
 
 app.get("/bookmarks/:bookmarkId", function (req, res) {
   try {
-    const bookmarkId = BookmarkIdSchema.parse(parseInt(req.params.bookmarkId));
+    const bookmarkId = BookmarkIdSchema.parse(req.params.bookmarkId);
     const bookmark = bookmarkService.getBookmark(bookmarkId);
 
     if (bookmark === undefined) {
@@ -152,7 +152,7 @@ app.post("/bookmarks", function (req, res) {
 
 app.put("/bookmarks/:bookmarkId", function (req, res) {
   try {
-    const bookmarkId = BookIdSchema.parse(parseInt(req.params.bookmarkId));
+    const bookmarkId = BookIdSchema.parse(req.params.bookmarkId);
     const bookmarkData = UpdateBookmarkSchema.parse(req.body);
     const updatedBookmark = bookmarkService.updateBookmark(
       bookmarkId,

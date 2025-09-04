@@ -11,7 +11,7 @@ interface UseBookmarkReturn {
   refetch: () => void;
 }
 
-export default function useBookmark(id: BookmarkId | null): UseBookmarkReturn {
+export default function useBookmark(id?: BookmarkId): UseBookmarkReturn {
   const [bookmark, setBookmark] = React.useState<Bookmark | null>(null);
   const [error, setError] = React.useState<Error | null>(null);
   const [loading, setLoading] = React.useState(true);
@@ -19,7 +19,7 @@ export default function useBookmark(id: BookmarkId | null): UseBookmarkReturn {
 
   React.useEffect(
     function () {
-      if (id === null || isNaN(id)) {
+      if (id === undefined) {
         setError(new Error("책갈피 식별자가 유효하지 않습니다."));
         setLoading(false);
         return;

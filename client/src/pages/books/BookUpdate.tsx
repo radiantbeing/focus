@@ -12,12 +12,8 @@ import useUpdateBook from "../../hooks/book/use-update-book";
 export default function BookUpdate(): React.JSX.Element {
   const navigate = useNavigate();
   const { bookId } = useParams();
-  const { book, error, loading } = useBook(
-    bookId !== undefined ? parseInt(bookId) : null
-  );
-  const { handleUpdate } = useUpdateBook(
-    bookId !== undefined ? parseInt(bookId) : null
-  );
+  const { book, error, loading } = useBook(bookId);
+  const { handleUpdate } = useUpdateBook(bookId);
 
   async function handleUndo(): Promise<void> {
     await navigate(-1);

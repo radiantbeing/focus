@@ -16,13 +16,13 @@ export default function useCreateBookmark(): UseCreateBookmarkReturn {
     const summary = formData.get("summary");
 
     const inputs = NewBookmarkSchema.parse({
-      bookId: typeof bookId === "string" ? parseInt(bookId) : bookId,
+      bookId: bookId,
       page: typeof page === "string" ? parseInt(page) : page,
       summary
     });
     const createdBookmark = await createBookmark(inputs);
 
-    await navigate(`/bookmarks/${createdBookmark.id.toString()}`);
+    await navigate(`/bookmarks/${createdBookmark.id}`);
   }
 
   return { handleCreate };

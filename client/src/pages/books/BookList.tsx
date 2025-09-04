@@ -15,7 +15,7 @@ export default function BookList(): React.JSX.Element {
   }
 
   if (error) {
-    return <ErrorDisplay message="도서 목록을 가져오지 못했습니다." />;
+    return <ErrorDisplay error={error} />;
   }
 
   if (loading) {

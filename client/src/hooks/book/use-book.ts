@@ -11,7 +11,7 @@ interface UseBookReturn {
   refetch: () => void;
 }
 
-export default function useBook(id: BookId | null): UseBookReturn {
+export default function useBook(id?: BookId): UseBookReturn {
   const [book, setBook] = React.useState<Book | null>(null);
   const [error, setError] = React.useState<Error | null>(null);
   const [loading, setLoading] = React.useState(true);
@@ -19,7 +19,7 @@ export default function useBook(id: BookId | null): UseBookReturn {
 
   React.useEffect(
     function () {
-      if (id === null || isNaN(id)) {
+      if (id === undefined) {
         setBook(null);
         setError(new Error("도서 식별자가 유효하지 않습니다."));
         setLoading(false);

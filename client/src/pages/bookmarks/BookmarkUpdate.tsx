@@ -19,10 +19,8 @@ export default function BookmarkUpdate(): React.JSX.Element {
     bookmark,
     error: bookmarkError,
     loading: bookmarkLoading
-  } = useBookmark(bookmarkId === undefined ? null : parseInt(bookmarkId));
-  const { handleUpdate } = useUpdateBookmark(
-    bookmarkId === undefined ? null : parseInt(bookmarkId)
-  );
+  } = useBookmark(bookmarkId);
+  const { handleUpdate } = useUpdateBookmark(bookmarkId);
 
   async function handleUndoButtonClick(): Promise<void> {
     await navigate(-1);

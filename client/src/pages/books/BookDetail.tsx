@@ -10,8 +10,8 @@ import useDeleteBook from "../../hooks/book/use-delete-book";
 
 export default function BookDetail(): React.JSX.Element {
   const { bookId } = useParams();
-  const { book, error, loading } = useBook(bookId ? parseInt(bookId) : null);
-  const { handleDelete } = useDeleteBook(bookId ? parseInt(bookId) : null);
+  const { book, error, loading } = useBook(bookId);
+  const { handleDelete } = useDeleteBook(bookId);
 
   if (error !== null) {
     return <ErrorDisplay error={error} />;

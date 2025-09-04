@@ -17,16 +17,16 @@ export async function createBook({
   return createdBook;
 }
 
-export async function deleteBook(id: number): Promise<BookId> {
-  const data = await fetcher(`/books/${id.toString()}`, {
+export async function deleteBook(id: BookId): Promise<BookId> {
+  const data = await fetcher(`/books/${id}`, {
     method: "DELETE"
   });
   const deletedBookId = BookIdSchema.parse(data);
   return deletedBookId;
 }
 
-export async function getBook(id: number): Promise<Book> {
-  const data = await fetcher(`/books/${id.toString()}`);
+export async function getBook(id: BookId): Promise<Book> {
+  const data = await fetcher(`/books/${id}`);
   const book = BookSchema.parse(data);
   return book;
 }
@@ -37,8 +37,8 @@ export async function listBooks(): Promise<Book[]> {
   return books;
 }
 
-export async function updateBook(id: number, bookData: NewBook): Promise<Book> {
-  const data = await fetcher(`/books/${id.toString()}`, {
+export async function updateBook(id: BookId, bookData: NewBook): Promise<Book> {
+  const data = await fetcher(`/books/${id}`, {
     body: JSON.stringify(bookData),
     method: "PUT"
   });

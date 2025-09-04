@@ -9,11 +9,11 @@ interface UseUpdateBookReturn {
   handleUpdate: (formData: FormData) => Promise<void>;
 }
 
-export default function useUpdateBook(id: BookId | null): UseUpdateBookReturn {
+export default function useUpdateBook(id?: BookId): UseUpdateBookReturn {
   const navigate = useNavigate();
 
   async function handleUpdate(formData: FormData): Promise<void> {
-    if (id === null) {
+    if (id === undefined) {
       return;
     }
 
@@ -23,7 +23,7 @@ export default function useUpdateBook(id: BookId | null): UseUpdateBookReturn {
     const inputs = NewBookSchema.parse({ author, title });
 
     const updatedBook = await updateBook(id, inputs);
-    await navigate(`/books/${updatedBook.id.toString()}`);
+    await navigate(`/books/${updatedBook.id}`);
   }
 
   return { handleUpdate };

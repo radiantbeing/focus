@@ -18,14 +18,13 @@ export default function BookmarkDetail(): React.JSX.Element {
     bookmark,
     error: bookmarkError,
     loading: bookmarkLoading
-  } = useBookmark(bookmarkId === undefined ? null : parseInt(bookmarkId));
+  } = useBookmark(bookmarkId);
 
   async function handleDeleteClick(): Promise<void> {
     if (bookmarkId === undefined) {
       return;
     }
-
-    await deleteBookmark(parseInt(bookmarkId));
+    await deleteBookmark(bookmarkId);
     await navigate("/bookmarks");
   }
 

@@ -10,12 +10,12 @@ interface UseUpdateBookmarkReturn {
 }
 
 export default function useUpdateBookmark(
-  id: BookmarkId | null
+  id?: BookmarkId
 ): UseUpdateBookmarkReturn {
   const navigate = useNavigate();
 
   async function handleUpdate(formData: FormData): Promise<void> {
-    if (id === null) {
+    if (id === undefined) {
       return;
     }
 
@@ -24,13 +24,13 @@ export default function useUpdateBookmark(
     const summary = formData.get("summary");
 
     const inputs = NewBookmarkSchema.parse({
-      bookId: typeof bookId === "string" ? parseInt(bookId) : bookId,
+      bookId: bookId,
       page: typeof page === "string" ? parseInt(page) : page,
       summary
     });
 
     const updatedBookmark = await updateBookmark(id, inputs);
-    await navigate(`/bookmarks/${updatedBookmark.id.toString()}`);
+    await navigate(`/bookmarks/${updatedBookmark.id}`);
   }
 
   return { handleUpdate };

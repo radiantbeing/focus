@@ -8,11 +8,11 @@ interface UseDeleteBookReturn {
   handleDelete: () => Promise<void>;
 }
 
-export default function useDeleteBook(id: BookId | null): UseDeleteBookReturn {
+export default function useDeleteBook(id?: BookId): UseDeleteBookReturn {
   const navigate = useNavigate();
 
   async function handleDelete(): Promise<void> {
-    if (id === null) {
+    if (id === undefined) {
       return;
     }
 

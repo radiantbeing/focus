@@ -1,7 +1,10 @@
 import * as z from "zod";
 
-export const BookIdSchema = z.number().int().min(0);
-export const BookmarkIdSchema = z.number().int().min(0);
+export const BookIdSchema = z
+  .string()
+  .regex(/^\d+$/)
+  .refine((val) => parseInt(val) >= 0);
+export const BookmarkIdSchema = BookIdSchema;
 
 export const BookSchema = z.object({
   author: z.string().min(1),
