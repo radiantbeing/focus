@@ -2,7 +2,7 @@ import { Undo2 } from "lucide-react";
 import React from "react";
 import { useNavigate, useParams } from "react-router";
 
-import Error from "../../components/Error";
+import ErrorDisplay from "../../components/ErrorDisplay";
 import IconButton from "../../components/IconButton";
 import Loading from "../../components/Loading";
 import Submit from "../../components/Submit";
@@ -24,7 +24,7 @@ export default function BookUpdate(): React.JSX.Element {
   }
 
   if (error !== null) {
-    return <Error text={`[${error.name}] ${error.message}`} />;
+    return <ErrorDisplay error={error} />;
   }
 
   if (loading) {
@@ -32,7 +32,7 @@ export default function BookUpdate(): React.JSX.Element {
   }
 
   if (book === null) {
-    return <Error text="도서를 찾을 수 없습니다." />;
+    return <ErrorDisplay message="도서를 찾을 수 없습니다." />;
   }
 
   return (

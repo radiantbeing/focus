@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 import type { Book, BookId } from "../../../../shared/types";
 
-import Error from "../../components/Error";
+import ErrorDisplay from "../../components/ErrorDisplay";
 import IconButton from "../../components/IconButton";
 import Loading from "../../components/Loading";
 import useBooks from "../../hooks/book/use-books";
@@ -28,11 +28,11 @@ export default function BookmarkList(): React.JSX.Element {
   }
 
   if (booksError !== null) {
-    return <Error text="도서 목록을 가져오지 못했습니다." />;
+    return <ErrorDisplay message="도서 목록을 가져오지 못했습니다." />;
   }
 
   if (bookmarksError !== null) {
-    return <Error text="책갈피 목록을 가져오지 못했습니다." />;
+    return <ErrorDisplay message="책갈피 목록을 가져오지 못했습니다." />;
   }
 
   if (booksLoading) {

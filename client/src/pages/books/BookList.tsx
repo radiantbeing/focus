@@ -2,7 +2,7 @@ import { Plus, RefreshCcw } from "lucide-react";
 import React from "react";
 import { Link } from "react-router";
 
-import Error from "../../components/Error";
+import ErrorDisplay from "../../components/ErrorDisplay";
 import IconButton from "../../components/IconButton";
 import Loading from "../../components/Loading";
 import useBooks from "../../hooks/book/use-books";
@@ -15,7 +15,7 @@ export default function BookList(): React.JSX.Element {
   }
 
   if (error) {
-    return <Error text="도서 목록을 가져오지 못했습니다." />;
+    return <ErrorDisplay message="도서 목록을 가져오지 못했습니다." />;
   }
 
   if (loading) {

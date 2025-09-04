@@ -2,7 +2,7 @@ import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
 import { useParams } from "react-router";
 
-import Error from "../../components/Error";
+import ErrorDisplay from "../../components/ErrorDisplay";
 import IconButton from "../../components/IconButton";
 import Loading from "../../components/Loading";
 import useBook from "../../hooks/book/use-book";
@@ -14,7 +14,7 @@ export default function BookDetail(): React.JSX.Element {
   const { handleDelete } = useDeleteBook(bookId ? parseInt(bookId) : null);
 
   if (error !== null) {
-    return <Error text={`[${error.name}] ${error.message}`} />;
+    return <ErrorDisplay error={error} />;
   }
 
   if (loading) {
@@ -22,7 +22,7 @@ export default function BookDetail(): React.JSX.Element {
   }
 
   if (book === null) {
-    return <Error text="도서를 찾을 수 없습니다." />;
+    return <ErrorDisplay message="도서를 찾을 수 없습니다." />;
   }
 
   return (

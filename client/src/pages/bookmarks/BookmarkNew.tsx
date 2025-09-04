@@ -1,6 +1,6 @@
 import React from "react";
 
-import Error from "../../components/Error";
+import ErrorDisplay from "../../components/ErrorDisplay";
 import Loading from "../../components/Loading";
 import Submit from "../../components/Submit";
 import useBooks from "../../hooks/book/use-books";
@@ -11,7 +11,7 @@ export default function BookmarkNew(): React.JSX.Element {
   const { books, error, loading } = useBooks();
 
   if (error !== null) {
-    return <Error text="도서 목록을 가져오지 못했습니다." />;
+    return <ErrorDisplay message="도서 목록을 가져오지 못했습니다." />;
   }
 
   if (loading) {

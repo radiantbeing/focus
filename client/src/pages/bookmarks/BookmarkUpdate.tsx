@@ -2,7 +2,7 @@ import { Undo2 } from "lucide-react";
 import React from "react";
 import { useNavigate, useParams } from "react-router";
 
-import Error from "../../components/Error";
+import ErrorDisplay from "../../components/ErrorDisplay";
 import IconButton from "../../components/IconButton";
 import Loading from "../../components/Loading";
 import Submit from "../../components/Submit";
@@ -29,11 +29,11 @@ export default function BookmarkUpdate(): React.JSX.Element {
   }
 
   if (booksError !== null) {
-    return <Error text={`[${booksError.name}] ${booksError.message}`} />;
+    return <ErrorDisplay error={booksError} />;
   }
 
   if (bookmarkError !== null) {
-    return <Error text={`[${bookmarkError.name}] ${bookmarkError.message}`} />;
+    return <ErrorDisplay error={bookmarkError} />;
   }
 
   if (booksLoading) {
@@ -45,7 +45,7 @@ export default function BookmarkUpdate(): React.JSX.Element {
   }
 
   if (bookmark === null) {
-    return <Error text="책갈피를 찾을 수 없습니다." />;
+    return <ErrorDisplay message="책갈피를 찾을 수 없습니다." />;
   }
 
   return (
