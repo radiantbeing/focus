@@ -22,7 +22,7 @@ export default function IconButton(props: IconButtonProps): React.JSX.Element {
     const { icon, ...linkProps } = props;
     return (
       <Link
-        className="flex w-fit cursor-pointer items-center justify-center rounded-sm border border-gray-300 p-2"
+        className="flex w-fit cursor-pointer items-center justify-center rounded-sm border border-gray-300 p-2 hover:bg-gray-100"
         {...linkProps}
       >
         {icon}
@@ -33,7 +33,7 @@ export default function IconButton(props: IconButtonProps): React.JSX.Element {
   const { icon, ...buttonProps } = props;
   return (
     <button
-      className="flex w-fit cursor-pointer items-center justify-center rounded-sm border border-gray-300 p-2"
+      className="flex w-fit cursor-pointer items-center justify-center rounded-sm border border-gray-300 p-2 hover:bg-gray-100"
       {...buttonProps}
     >
       {icon}
