@@ -78,7 +78,9 @@ export default function BookmarkList(): React.JSX.Element {
                       </span>
                     </div>
                   </div>
-                  <div className="truncate text-gray-600">{summary}</div>
+                  <div className="truncate text-sm text-gray-600">
+                    {summary}
+                  </div>
                 </Link>
               </li>
             ))}

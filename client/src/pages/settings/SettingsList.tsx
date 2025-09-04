@@ -60,7 +60,7 @@ export default function SettingsList(): React.JSX.Element {
           <article className="flex items-center justify-between">
             <header>
               <h2 className="font-bold">도서 초기화</h2>
-              <p className="truncate text-gray-600">
+              <p className="text-sm text-gray-600">
                 모든 도서와 관련 책갈피를 삭제합니다.
               </p>
             </header>
@@ -71,9 +71,7 @@ export default function SettingsList(): React.JSX.Element {
           <article className="flex items-center justify-between">
             <header>
               <h2 className="font-bold">책갈피 초기화</h2>
-              <p className="truncate text-gray-600">
-                모든 책갈피를 삭제합니다.
-              </p>
+              <p className="text-sm text-gray-600">모든 책갈피를 삭제합니다.</p>
             </header>
             <IconButton
               icon={<Play size={16} />}
@@ -85,8 +83,8 @@ export default function SettingsList(): React.JSX.Element {
           <article className="flex items-center justify-between">
             <header>
               <h2 className="font-bold">내보내기</h2>
-              <p className="truncate text-gray-600">
-                모든 도서와 책갈피 데이터를 JSON 파일로 내보냅니다.
+              <p className="text-sm text-gray-600">
+                모든 기록을 JSON 파일로 내보냅니다.
               </p>
             </header>
             <IconButton icon={<Play size={16} />} onClick={handleExportData} />
