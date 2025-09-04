@@ -12,6 +12,7 @@ import BookList from "./pages/books/BookList";
 import BookNew from "./pages/books/BookNew";
 import BookUpdate from "./pages/books/BookUpdate";
 import NotFound from "./pages/NotFound";
+import SettingsList from "./pages/settings/SettingsList";
 import Splash from "./pages/Splash";
 import "./main.css";
 
@@ -34,6 +35,9 @@ if (root) {
               <Route element={<BookmarkNew />} path="new" />
               <Route element={<BookmarkDetail />} path=":bookmarkId" />
               <Route element={<BookmarkUpdate />} path=":bookmarkId/edit" />
+            </Route>
+            <Route path="settings">
+              <Route element={<SettingsList />} index />
             </Route>
             <Route element={<NotFound />} path="*" />
           </Route>
