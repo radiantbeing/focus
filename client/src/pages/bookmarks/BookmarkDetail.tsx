@@ -1,16 +1,15 @@
 import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 
 import ErrorDisplay from "../../components/ErrorDisplay";
 import IconButton from "../../components/IconButton";
 import Loading from "../../components/Loading";
 import useBooks from "../../hooks/book/use-books";
 import useBookmark from "../../hooks/bookmark/use-bookmark";
-import { deleteBookmark } from "../../services/bookmark";
+import useDeleteBookmark from "../../hooks/bookmark/use-delete-bookmark";
 
 export default function BookmarkDetail(): React.JSX.Element {
-  const navigate = useNavigate();
   const { bookmarkId } = useParams();
 
   const { books, error: booksError, loading: booksLoading } = useBooks();
@@ -19,14 +18,7 @@ export default function BookmarkDetail(): React.JSX.Element {
     error: bookmarkError,
     loading: bookmarkLoading
   } = useBookmark(bookmarkId);
-
-  async function handleDeleteClick(): Promise<void> {
-    if (bookmarkId === undefined) {
-      return;
-    }
-    await deleteBookmark(bookmarkId);
-    await navigate("/bookmarks");
-  }
+  const { handleDelete } = useDeleteBookmark(bookmarkId);
 
   if (booksError !== null) {
     return <ErrorDisplay error={booksError} />;
@@ -56,10 +48,7 @@ export default function BookmarkDetail(): React.JSX.Element {
         </div>
         <menu className="flex gap-x-1">
           <li>
-            <IconButton
-              icon={<Trash2 size={16} />}
-              onClick={handleDeleteClick}
-            />
+            <IconButton icon={<Trash2 size={16} />} onClick={handleDelete} />
           </li>
           <li>
             <IconButton as="link" icon={<Pencil size={16} />} to="edit" />
