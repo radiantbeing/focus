@@ -193,3 +193,11 @@ app.listen(port, function () {
     `서버 애플리케이션이 http://localhost:${port.toString()}/ 에서 작동 중입니다.`
   );
 });
+
+// 설정:
+
+app.get("/settings/export", function (req, res) {
+  const bookmarks = bookmarkService.listBookmarks();
+  const books = bookService.listBooks();
+  res.status(200).json({ bookmarks, books });
+});
