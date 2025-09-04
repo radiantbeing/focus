@@ -15,7 +15,7 @@ export default function BookmarkNew(): React.JSX.Element {
   }
 
   if (loading) {
-    return <Loading text="도서 목록을 가져오는 중입니다." />;
+    return <Loading message="도서 목록을 가져오는 중입니다." />;
   }
 
   return (

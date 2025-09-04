@@ -28,7 +28,7 @@ export default function BookUpdate(): React.JSX.Element {
   }
 
   if (loading) {
-    return <Loading text="도서 정보를 가져오는 중입니다." />;
+    return <Loading message="도서 정보를 가져오는 중입니다." />;
   }
 
   if (book === null) {

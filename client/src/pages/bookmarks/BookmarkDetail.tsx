@@ -38,11 +38,11 @@ export default function BookmarkDetail(): React.JSX.Element {
   }
 
   if (booksLoading) {
-    return <Loading text="도서 목록을 가져오는 중입니다." />;
+    return <Loading message="도서 목록을 가져오는 중입니다." />;
   }
 
   if (bookmarkLoading) {
-    return <Loading text="책갈피 정보를 가져오는 중입니다." />;
+    return <Loading message="책갈피 정보를 가져오는 중입니다." />;
   }
 
   if (bookmark === null) {

@@ -36,11 +36,11 @@ export default function BookmarkList(): React.JSX.Element {
   }
 
   if (booksLoading) {
-    return <Loading text="도서 목록을 가져오는 중입니다." />;
+    return <Loading message="도서 목록을 가져오는 중입니다." />;
   }
 
   if (bookmarksLoading) {
-    return <Loading text="도서 목록을 가져오는 중입니다." />;
+    return <Loading message="도서 목록을 가져오는 중입니다." />;
   }
 
   return (
