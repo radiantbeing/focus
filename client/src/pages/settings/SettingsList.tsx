@@ -2,7 +2,12 @@ import { Play } from "lucide-react";
 import React from "react";
 
 import IconButton from "../../components/IconButton";
-import { purgeBookmarks, purgeBooks } from "../../services/settings";
+import {
+  exportData,
+  purgeBookmarks,
+  purgeBooks
+} from "../../services/settings";
+import { downloadJson } from "../../utils/download";
 
 export default function SettingsList(): React.JSX.Element {
   async function handlePurgeBooks(): Promise<void> {
@@ -38,6 +43,11 @@ export default function SettingsList(): React.JSX.Element {
     alert(`${successCount.toString()}개 책갈피가 제거되었습니다.`);
   }
 
+  async function handleExportData(): Promise<void> {
+    const exportedData = await exportData();
+    downloadJson(exportedData);
+  }
+
   return (
     <article>
       <header className="mt-1 mb-4 flex items-center justify-between">
@@ -67,6 +77,17 @@ export default function SettingsList(): React.JSX.Element {
               icon={<Play size={16} />}
               onClick={handlePurgeBookmarks}
             />
+          </article>
+        </li>
+        <li className="py-2 first:pt-0">
+          <article className="flex items-center justify-between">
+            <header>
+              <h2 className="font-bold">내보내기</h2>
+              <p className="truncate text-gray-600">
+                모든 도서와 책갈피 데이터를 JSON 파일로 내보냅니다.
+              </p>
+            </header>
+            <IconButton icon={<Play size={16} />} onClick={handleExportData} />
           </article>
         </li>
       </ul>
