@@ -58,7 +58,7 @@ export default function BookmarkList(): React.JSX.Element {
           <IconButton as="link" icon={<Plus size={16} />} to="/bookmarks/new" />
         </div>
       </div>
-      <article className="space-y-6">
+      <article>
         <ul className="divide-y-1 divide-gray-300">
           {bookmarks
             .toSorted((a, b) => b.date.getTime() - a.date.getTime())
@@ -85,6 +85,15 @@ export default function BookmarkList(): React.JSX.Element {
               </li>
             ))}
         </ul>
+        {bookmarks.length === 0 && (
+          <p className="text-gray-600">
+            읽고 있는{" "}
+            <Link className="underline" to="/books/new">
+              도서를 추가
+            </Link>
+            하고 첫 번째 책갈피를 만들어보세요.
+          </p>
+        )}
       </article>
     </>
   );

@@ -23,7 +23,7 @@ export default function BookList(): React.JSX.Element {
   }
 
   return (
-    <article>
+    <>
       <div className="mt-1 mb-4 flex items-center justify-between">
         <div className="flex items-baseline gap-x-1">
           <h1 className="text-xl font-bold">서재</h1>
@@ -37,16 +37,21 @@ export default function BookList(): React.JSX.Element {
           <IconButton as="link" icon={<Plus size={16} />} to="/books/new" />
         </div>
       </div>
-      <ul className="divide-y divide-gray-300">
-        {books.map((book) => (
-          <li className="py-2 first:pt-0" key={book.id}>
-            <Link to={`/books/${book.id}`}>
-              <h2 className="font-bold">{book.title}</h2>
-              <div className="text-sm text-gray-600">{book.author}</div>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </article>
+      <article>
+        <ul className="divide-y divide-gray-300">
+          {books.map((book) => (
+            <li className="py-2 first:pt-0" key={book.id}>
+              <Link to={`/books/${book.id}`}>
+                <h2 className="font-bold">{book.title}</h2>
+                <div className="text-sm text-gray-600">{book.author}</div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        {books.length === 0 && (
+          <p className="text-gray-600">첫 번째 도서를 추가해보세요.</p>
+        )}
+      </article>
+    </>
   );
 }
