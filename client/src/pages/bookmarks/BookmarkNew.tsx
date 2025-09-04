@@ -1,60 +1,25 @@
 import React from "react";
-import { useNavigate } from "react-router";
 
-import type { Book } from "../../../../shared/types";
-
-import { NewBookmarkSchema } from "../../../../shared/validations";
+import Error from "../../components/Error";
+import Loading from "../../components/Loading";
 import Submit from "../../components/Submit";
-import { listBooks } from "../../services/book";
-import { createBookmark } from "../../services/bookmark";
+import useBooks from "../../hooks/book/use-books";
+import useCreateBookmark from "../../hooks/bookmark/use-create-bookmark";
 
 export default function BookmarkNew(): React.JSX.Element {
-  const navigate = useNavigate();
+  const { handleCreate } = useCreateBookmark();
+  const { books, error, loading } = useBooks();
 
-  const [books, setBooks] = React.useState<Book[]>([]);
+  if (error !== null) {
+    return <Error text="도서 목록을 가져오지 못했습니다." />;
+  }
 
-  React.useEffect(function () {
-    let ignore = false;
-
-    async function loadBooks(): Promise<void> {
-      const books = await listBooks();
-      if (!ignore) {
-        setBooks(books);
-      }
-    }
-
-    loadBooks().catch(console.error);
-
-    return function (): void {
-      ignore = true;
-    };
-  }, []);
-
-  async function handleSubmit(formData: FormData): Promise<void> {
-    const bookId = formData.get("bookId");
-    const page = formData.get("page");
-    const summary = formData.get("summary");
-
-    if (
-      typeof bookId !== "string" ||
-      typeof page !== "string" ||
-      typeof summary !== "string"
-    ) {
-      return;
-    }
-
-    const inputs = NewBookmarkSchema.parse({
-      bookId: parseInt(bookId),
-      page: parseInt(page),
-      summary
-    });
-
-    const createdBookmark = await createBookmark(inputs);
-    await navigate(`/bookmarks/${createdBookmark.id.toString()}`);
+  if (loading) {
+    return <Loading text="도서 목록을 가져오는 중입니다." />;
   }
 
   return (
-    <form action={handleSubmit}>
+    <form action={handleCreate}>
       <div className="mt-1 mb-4 flex items-center justify-between">
         <div className="flex items-baseline gap-x-1">
           <h1 className="text-xl font-bold">책갈피 추가</h1>
