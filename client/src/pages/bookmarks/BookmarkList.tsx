@@ -74,7 +74,7 @@ export default function BookmarkList(): React.JSX.Element {
                     </div>
                     <div>
                       <span className="text-xs text-gray-600">
-                        {`${(date.getMonth() + 1).toString()}월 ${date.getDate().toString()}일`}
+                        {`${date.getFullYear().toString()}년 ${(date.getMonth() + 1).toString()}월 ${date.getDate().toString()}일`}
                       </span>
                     </div>
                   </div>
