@@ -16,7 +16,7 @@ export default function useCreateBook(): UseCreateBookReturn {
 
     const inputs = NewBookSchema.parse({ author, title });
     const createdBook = await createBook(inputs);
-    await navigate(`/books/${createdBook.id.toString()}`);
+    await navigate(`/books/${createdBook.id}`);
   }
 
   return { handleCreate };

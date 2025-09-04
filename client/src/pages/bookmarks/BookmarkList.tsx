@@ -64,7 +64,7 @@ export default function BookmarkList(): React.JSX.Element {
             .toSorted((a, b) => b.date.getTime() - a.date.getTime())
             .map(({ bookId, date, id, page, summary }) => (
               <li className="py-2 first:pt-0" key={id}>
-                <Link to={`/bookmarks/${id.toString()}`}>
+                <Link to={`/bookmarks/${id}`}>
                   <div className="flex items-baseline justify-between">
                     <div className="flex items-baseline gap-x-1">
                       <h2 className="font-bold">
