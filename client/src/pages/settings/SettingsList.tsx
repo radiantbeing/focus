@@ -59,7 +59,7 @@ export default function SettingsList(): React.JSX.Element {
         <li className="py-2 first:pt-0">
           <article className="flex items-center justify-between">
             <header>
-              <h2 className="font-bold">도서 초기화</h2>
+              <h2 className="font-bold">도서 및 책갈피 초기화</h2>
               <p className="text-sm text-gray-600">
                 모든 도서와 관련 책갈피를 삭제합니다.
               </p>
