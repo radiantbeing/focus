@@ -2,60 +2,23 @@ import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
 import { useNavigate, useParams } from "react-router";
 
-import type { Book, Bookmark } from "../../../../shared/types";
-
+import Error from "../../components/Error";
 import IconButton from "../../components/IconButton";
-import { listBooks } from "../../services/book";
-import { deleteBookmark, getBookmark } from "../../services/bookmark";
-import NotFoundPage from "../NotFound";
+import Loading from "../../components/Loading";
+import useBooks from "../../hooks/book/use-books";
+import useBookmark from "../../hooks/bookmark/use-bookmark";
+import { deleteBookmark } from "../../services/bookmark";
 
 export default function BookmarkDetail(): React.JSX.Element {
   const navigate = useNavigate();
   const { bookmarkId } = useParams();
 
-  const [bookmark, setBookmark] = React.useState<Bookmark | null>(null);
-  const [books, setBooks] = React.useState<Book[] | null>(null);
-
-  React.useEffect(
-    function () {
-      if (bookmarkId === undefined) {
-        return;
-      }
-
-      let ignore = false;
-
-      listBooks()
-        .then(function (books) {
-          if (!ignore) {
-            setBooks(books);
-          }
-        })
-        .catch(function () {
-          if (!ignore) {
-            setBooks(null);
-          }
-        });
-
-      getBookmark(parseInt(bookmarkId))
-        .then(function (bookmark) {
-          if (!ignore) {
-            setBookmark(bookmark);
-          }
-        })
-        .catch(function () {
-          {
-            if (!ignore) {
-              setBookmark(null);
-            }
-          }
-        });
-
-      return function (): void {
-        ignore = true;
-      };
-    },
-    [bookmarkId]
-  );
+  const { books, error: booksError, loading: booksLoading } = useBooks();
+  const {
+    bookmark,
+    error: bookmarkError,
+    loading: bookmarkLoading
+  } = useBookmark(bookmarkId === undefined ? null : parseInt(bookmarkId));
 
   async function handleDeleteClick(): Promise<void> {
     if (bookmarkId === undefined) {
@@ -66,12 +29,24 @@ export default function BookmarkDetail(): React.JSX.Element {
     await navigate("/bookmarks");
   }
 
-  if (bookmarkId === undefined) {
-    return <NotFoundPage />;
+  if (booksError !== null) {
+    return <Error text={`[${booksError.name}] ${booksError.message}`} />;
   }
 
-  if (books === null || bookmark === null) {
-    return <div>로딩 중...</div>;
+  if (bookmarkError !== null) {
+    return <Error text={`[${bookmarkError.name}] ${bookmarkError.message}`} />;
+  }
+
+  if (booksLoading) {
+    return <Loading text="도서 목록을 가져오는 중입니다." />;
+  }
+
+  if (bookmarkLoading) {
+    return <Loading text="책갈피 정보를 가져오는 중입니다." />;
+  }
+
+  if (bookmark === null) {
+    return <Error text="책갈피를 찾을 수 없습니다." />;
   }
 
   return (
