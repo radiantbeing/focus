@@ -28,7 +28,7 @@ export default function ErrorDisplay({
   }
 
   return (
-    <article className="flex h-full flex-col items-center justify-center gap-y-3">
+    <article className="fixed inset-0 flex h-full flex-col items-center justify-center gap-y-3">
       <TriangleAlert className="text-gray-600" size={48} />
       <p>{message ?? defaultMessage}</p>
     </article>
