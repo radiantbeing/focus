@@ -13,6 +13,18 @@ export default function BookDetail(): React.JSX.Element {
   const { book, error, loading } = useBook(bookId);
   const { handleDelete } = useDeleteBook(bookId);
 
+  async function handleDeleteClick(): Promise<void> {
+    if (
+      !confirm(`• 현재 도서 삭제
+
+이 작업은 되돌릴 수 없습니다.
+계속하시겠습니까?`)
+    ) {
+      return;
+    }
+    await handleDelete();
+  }
+
   if (error !== null) {
     return <ErrorDisplay error={error} />;
   }
@@ -32,7 +44,7 @@ export default function BookDetail(): React.JSX.Element {
           <h1 className="text-xl font-bold">도서 상세</h1>
         </div>
         <div className="flex gap-x-1">
-          <IconButton icon={<Trash2 size={16} />} onClick={handleDelete} />
+          <IconButton icon={<Trash2 size={16} />} onClick={handleDeleteClick} />
           <IconButton as="link" icon={<Pencil size={16} />} to="edit" />
         </div>
       </header>

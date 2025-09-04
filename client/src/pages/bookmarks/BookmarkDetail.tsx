@@ -20,6 +20,18 @@ export default function BookmarkDetail(): React.JSX.Element {
   } = useBookmark(bookmarkId);
   const { handleDelete } = useDeleteBookmark(bookmarkId);
 
+  async function handleDeleteClick(): Promise<void> {
+    if (
+      !confirm(`• 현재 책갈피 삭제
+
+이 작업은 되돌릴 수 없습니다.
+계속하시겠습니까?`)
+    ) {
+      return;
+    }
+    await handleDelete();
+  }
+
   if (booksError !== null) {
     return <ErrorDisplay error={booksError} />;
   }
@@ -48,7 +60,10 @@ export default function BookmarkDetail(): React.JSX.Element {
         </div>
         <menu className="flex gap-x-1">
           <li>
-            <IconButton icon={<Trash2 size={16} />} onClick={handleDelete} />
+            <IconButton
+              icon={<Trash2 size={16} />}
+              onClick={handleDeleteClick}
+            />
           </li>
           <li>
             <IconButton as="link" icon={<Pencil size={16} />} to="edit" />
