@@ -1,44 +1,46 @@
-import { Plus } from "lucide-react";
+import { Plus, RefreshCcw } from "lucide-react";
 import React from "react";
 import { Link } from "react-router";
 
-import type { Book, BookId, Bookmark } from "../../../../shared/types";
+import type { Book, BookId } from "../../../../shared/types";
 
+import Error from "../../components/Error";
 import IconButton from "../../components/IconButton";
-import { listBooks } from "../../services/book";
-import { listBookmarks } from "../../services/bookmark";
+import Loading from "../../components/Loading";
+import useBooks from "../../hooks/book/use-books";
+import useBookmarks from "../../hooks/bookmark/use-bookmarks";
 
 export default function BookmarkList(): React.JSX.Element {
-  const [bookmarks, setBookmarks] = React.useState<Bookmark[]>([]);
-  const [books, setBooks] = React.useState<Book[]>([]);
-
-  React.useEffect(function () {
-    let ignore = false;
-
-    Promise.all([listBooks(), listBookmarks()])
-      .then(function ([books, bookmarks]) {
-        if (!ignore) {
-          setBookmarks(bookmarks);
-          setBooks(books);
-        }
-      })
-      .catch(function (error: unknown) {
-        if (import.meta.env.DEV) {
-          console.error(error);
-        }
-        if (!ignore) {
-          setBookmarks([]);
-          setBooks([]);
-        }
-      });
-
-    return function (): void {
-      ignore = true;
-    };
-  }, []);
+  const { books, error: booksError, loading: booksLoading } = useBooks();
+  const {
+    bookmarks,
+    error: bookmarksError,
+    loading: bookmarksLoading,
+    refetch: refetchBookmarks
+  } = useBookmarks();
 
   function getBookById(id: BookId): Book | undefined {
     return books.find((b) => b.id === id);
+  }
+
+  function handleRefreshClick(): void {
+    refetchBookmarks();
+  }
+
+  if (booksError !== null) {
+    return <Error text="도서 목록을 가져오지 못했습니다." />;
+  }
+
+  if (bookmarksError !== null) {
+    return <Error text="책갈피 목록을 가져오지 못했습니다." />;
+  }
+
+  if (booksLoading) {
+    return <Loading text="도서 목록을 가져오는 중입니다." />;
+  }
+
+  if (bookmarksLoading) {
+    return <Loading text="도서 목록을 가져오는 중입니다." />;
   }
 
   return (
@@ -48,7 +50,13 @@ export default function BookmarkList(): React.JSX.Element {
           <h1 className="text-xl font-bold">책갈피</h1>
           <div className="text-xs text-gray-600">{bookmarks.length}매</div>
         </div>
-        <IconButton as="link" icon={<Plus size={16} />} to="/bookmarks/new" />
+        <div className="flex gap-x-1">
+          <IconButton
+            icon={<RefreshCcw size={16} />}
+            onClick={handleRefreshClick}
+          />
+          <IconButton as="link" icon={<Plus size={16} />} to="/bookmarks/new" />
+        </div>
       </div>
       <article className="space-y-6">
         <ul className="divide-y-1 divide-gray-300">
