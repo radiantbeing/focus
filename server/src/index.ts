@@ -39,6 +39,15 @@ app.get("/", function (req, res) {
 
 // 도서:
 
+app.delete("/books", function (req, res) {
+  const deletedBookIds = bookService.deleteBooks();
+  if (deletedBookIds.some((id) => id === undefined)) {
+    res.status(207).json(deletedBookIds);
+  } else {
+    res.status(200).json(deletedBookIds);
+  }
+});
+
 app.get("/books", function (req, res) {
   res.json(bookService.listBooks());
 });
@@ -103,6 +112,15 @@ app.put("/books/:id", function (req, res) {
 });
 
 // 책갈피:
+
+app.delete("/bookmarks", function (req, res) {
+  const deletedBookmarkIds = bookmarkService.deleteBookmarks();
+  if (deletedBookmarkIds.some((id) => id === undefined)) {
+    res.status(207).json(deletedBookmarkIds);
+  } else {
+    res.status(200).json(deletedBookmarkIds);
+  }
+});
 
 app.get("/bookmarks", function (req, res) {
   res.json(bookmarkService.listBookmarks());

@@ -36,6 +36,12 @@ export default class BookService {
     return deletedBookId;
   }
 
+  deleteBooks(): (BookId | undefined)[] {
+    this.#bookmarkRepository.deleteAll();
+    const deletedBookIds = this.#bookRepository.deleteAll();
+    return deletedBookIds;
+  }
+
   getBook(id: BookId): Book | undefined {
     return this.#bookRepository.get(id);
   }

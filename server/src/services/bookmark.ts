@@ -23,6 +23,10 @@ export default class BookmarkService {
     return this.#bookmarkRepository.delete(id);
   }
 
+  deleteBookmarks(): (BookmarkId | undefined)[] {
+    return this.#bookmarkRepository.deleteAll();
+  }
+
   getBookmark(id: BookmarkId): Bookmark | undefined {
     return this.#bookmarkRepository.get(id);
   }

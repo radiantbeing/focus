@@ -27,6 +27,12 @@ export default class BookmarkRepository {
     return this.#bookmarks.length < length ? id : undefined;
   }
 
+  deleteAll(): (BookmarkId | undefined)[] {
+    const bookmarkIds = this.#bookmarks.map((b) => b.id);
+    const deletedBookIds = bookmarkIds.map((id) => this.delete(id));
+    return deletedBookIds;
+  }
+
   get(id: BookmarkId): Bookmark | undefined {
     return this.#bookmarks.find((b) => b.id === id);
   }

@@ -22,6 +22,12 @@ export default class BookRepository {
     return this.#books.length < length ? id : undefined;
   }
 
+  deleteAll(): (BookId | undefined)[] {
+    const bookIds = this.#books.map((b) => b.id);
+    const deletedBookIds = bookIds.map((id) => this.delete(id));
+    return deletedBookIds;
+  }
+
   get(id: BookId): Book | undefined {
     return this.#books.find((b) => b.id === id);
   }
