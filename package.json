@@ -26,7 +26,7 @@
     "build:client": "tsc --project tsconfig.app.json && vite build client/",
     "build:server": "rm -rf server/dist/ && tsc --project tsconfig.node.json",
     "preview": "concurrently 'npm run preview:client' 'npm run preview:server'",
-    "preview:client": "vite preview client/",
+    "preview:client": "vite preview client/ --host",
     "preview:server": "node server/dist/server/src/index.js",
     "lint": "concurrently 'npm run lint:client' 'npm run lint:server'",
     "lint:client": "eslint --config eslint.config.js client/",
