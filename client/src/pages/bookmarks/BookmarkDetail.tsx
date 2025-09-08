@@ -90,7 +90,7 @@ export default function BookmarkDetail(): React.JSX.Element {
         <label className="block">
           <div className="mb-2 font-bold">기록일</div>
           <input
-            className="block w-full border border-gray-300 px-1.5 py-1 disabled:bg-gray-100"
+            className="block w-full appearance-none border border-gray-300 px-1.5 py-1 disabled:bg-gray-100"
             defaultValue={bookmark.date.toISOString().substring(0, 10)}
             disabled
             type="date"
