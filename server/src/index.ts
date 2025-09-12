@@ -114,12 +114,8 @@ app.put("/books/:id", function (req, res) {
 // 책갈피:
 
 app.delete("/bookmarks", function (req, res) {
-  const deletedBookmarkIds = bookmarkService.deleteBookmarks();
-  if (deletedBookmarkIds.some((id) => id === undefined)) {
-    res.status(207).json(deletedBookmarkIds);
-  } else {
-    res.status(200).json(deletedBookmarkIds);
-  }
+  const deletedBookmarks = bookmarkService.deleteBookmarks();
+  res.status(200).json(deletedBookmarks);
 });
 
 app.get("/bookmarks", function (req, res) {
