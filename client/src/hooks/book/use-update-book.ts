@@ -23,7 +23,7 @@ export default function useUpdateBook(id?: BookId): UseUpdateBookReturn {
     const inputs = NewBookSchema.parse({ author, title });
 
     const updatedBook = await updateBook(id, inputs);
-    await navigate(`/books/${updatedBook.id}`);
+    await navigate(`/books/${updatedBook.id.toString()}`);
   }
 
   return { handleUpdate };

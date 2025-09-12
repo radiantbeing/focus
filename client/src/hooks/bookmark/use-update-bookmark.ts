@@ -30,7 +30,7 @@ export default function useUpdateBookmark(
     });
 
     const updatedBookmark = await updateBookmark(id, inputs);
-    await navigate(`/bookmarks/${updatedBookmark.id}`);
+    await navigate(`/bookmarks/${updatedBookmark.id.toString()}`);
   }
 
   return { handleUpdate };

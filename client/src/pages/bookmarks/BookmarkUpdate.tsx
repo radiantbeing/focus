@@ -1,6 +1,6 @@
 import { Undo2 } from "lucide-react";
 import React from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 
 import ErrorDisplay from "../../components/ErrorDisplay";
 import IconButton from "../../components/IconButton";
@@ -8,11 +8,12 @@ import Loading from "../../components/Loading";
 import Submit from "../../components/Submit";
 import useBooks from "../../hooks/book/use-books";
 import useBookmark from "../../hooks/bookmark/use-bookmark";
+import useBookmarkIdParam from "../../hooks/bookmark/use-bookmark-id-param";
 import useUpdateBookmark from "../../hooks/bookmark/use-update-bookmark";
 
 export default function BookmarkUpdate(): React.JSX.Element {
   const navigate = useNavigate();
-  const { bookmarkId } = useParams();
+  const bookmarkId = useBookmarkIdParam();
 
   const { books, error: booksError, loading: booksLoading } = useBooks();
   const {
@@ -67,12 +68,12 @@ export default function BookmarkUpdate(): React.JSX.Element {
             <div className="mb-2 font-bold">도서</div>
             <select
               className="block w-full border border-gray-300 px-1.5 py-1 disabled:bg-gray-100"
-              defaultValue={bookmark.bookId}
+              defaultValue={bookmark.bookId.toString()}
               key={bookmark.bookId}
               name="bookId"
             >
               {books.map((book) => (
-                <option key={book.id} value={book.id}>
+                <option key={book.id} value={book.id.toString()}>
                   {book.title} / {book.author}
                 </option>
               ))}

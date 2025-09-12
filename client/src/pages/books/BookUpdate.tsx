@@ -1,17 +1,18 @@
 import { Undo2 } from "lucide-react";
 import React from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 
 import ErrorDisplay from "../../components/ErrorDisplay";
 import IconButton from "../../components/IconButton";
 import Loading from "../../components/Loading";
 import Submit from "../../components/Submit";
 import useBook from "../../hooks/book/use-book";
+import useBookIdParam from "../../hooks/book/use-book-id-param";
 import useUpdateBook from "../../hooks/book/use-update-book";
 
 export default function BookUpdate(): React.JSX.Element {
   const navigate = useNavigate();
-  const { bookId } = useParams();
+  const bookId = useBookIdParam();
   const { book, error, loading } = useBook(bookId);
   const { handleUpdate } = useUpdateBook(bookId);
 

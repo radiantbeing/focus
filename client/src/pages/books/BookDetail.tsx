@@ -1,15 +1,15 @@
 import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
-import { useParams } from "react-router";
 
 import ErrorDisplay from "../../components/ErrorDisplay";
 import IconButton from "../../components/IconButton";
 import Loading from "../../components/Loading";
 import useBook from "../../hooks/book/use-book";
+import useBookIdParam from "../../hooks/book/use-book-id-param";
 import useDeleteBook from "../../hooks/book/use-delete-book";
 
 export default function BookDetail(): React.JSX.Element {
-  const { bookId } = useParams();
+  const bookId = useBookIdParam();
   const { book, error, loading } = useBook(bookId);
   const { handleDelete } = useDeleteBook(bookId);
 

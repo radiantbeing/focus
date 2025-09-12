@@ -28,11 +28,11 @@ export default function BookmarkList(): React.JSX.Element {
   }
 
   if (booksError !== null) {
-    return <ErrorDisplay message="도서 목록을 가져오지 못했습니다." />;
+    return <ErrorDisplay error={booksError} />;
   }
 
   if (bookmarksError !== null) {
-    return <ErrorDisplay message="책갈피 목록을 가져오지 못했습니다." />;
+    return <ErrorDisplay error={bookmarksError} />;
   }
 
   if (booksLoading) {
@@ -64,7 +64,7 @@ export default function BookmarkList(): React.JSX.Element {
             .toSorted((a, b) => b.date.getTime() - a.date.getTime())
             .map(({ bookId, date, id, page, summary }) => (
               <li className="py-2 first:pt-0" key={id}>
-                <Link to={`/bookmarks/${id}`}>
+                <Link to={`/bookmarks/${id.toString()}`}>
                   <div className="flex items-baseline justify-between">
                     <div className="flex items-baseline gap-x-1">
                       <h2 className="font-bold">

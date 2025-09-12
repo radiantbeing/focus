@@ -1,9 +1,20 @@
 import * as z from "zod";
 
-export const BookIdSchema = z
-  .string()
-  .regex(/^\d+$/)
-  .refine((val) => parseInt(val) >= 0);
+const RX_ID = /^\d+$/;
+
+export const BookIdSchema = z.preprocess(
+  function (value) {
+    if (typeof value === "string" && RX_ID.test(value)) {
+      const bigIntValue = BigInt(value);
+      return bigIntValue > BigInt(Number.MAX_SAFE_INTEGER)
+        ? bigIntValue
+        : parseInt(value);
+    }
+    return value;
+  },
+  z.union([z.number().int().min(1), z.bigint().min(1n)])
+);
+
 export const BookmarkIdSchema = BookIdSchema;
 
 export const BookSchema = z.object({

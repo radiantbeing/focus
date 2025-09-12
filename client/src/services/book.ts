@@ -18,7 +18,7 @@ export async function createBook({
 }
 
 export async function deleteBook(id: BookId): Promise<BookId> {
-  const data = await fetcher(`/books/${id}`, {
+  const data = await fetcher(`/books/${id.toString()}`, {
     method: "DELETE"
   });
   const deletedBookId = BookIdSchema.parse(data);
@@ -26,7 +26,7 @@ export async function deleteBook(id: BookId): Promise<BookId> {
 }
 
 export async function getBook(id: BookId): Promise<Book> {
-  const data = await fetcher(`/books/${id}`);
+  const data = await fetcher(`/books/${id.toString()}`);
   const book = BookSchema.parse(data);
   return book;
 }
@@ -38,7 +38,7 @@ export async function listBooks(): Promise<Book[]> {
 }
 
 export async function updateBook(id: BookId, bookData: NewBook): Promise<Book> {
-  const data = await fetcher(`/books/${id}`, {
+  const data = await fetcher(`/books/${id.toString()}`, {
     body: JSON.stringify(bookData),
     method: "PUT"
   });

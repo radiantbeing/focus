@@ -1,16 +1,16 @@
 import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
-import { useParams } from "react-router";
 
 import ErrorDisplay from "../../components/ErrorDisplay";
 import IconButton from "../../components/IconButton";
 import Loading from "../../components/Loading";
 import useBooks from "../../hooks/book/use-books";
 import useBookmark from "../../hooks/bookmark/use-bookmark";
+import useBookmarkIdParam from "../../hooks/bookmark/use-bookmark-id-param";
 import useDeleteBookmark from "../../hooks/bookmark/use-delete-bookmark";
 
 export default function BookmarkDetail(): React.JSX.Element {
-  const { bookmarkId } = useParams();
+  const bookmarkId = useBookmarkIdParam();
 
   const { books, error: booksError, loading: booksLoading } = useBooks();
   const {
@@ -75,13 +75,13 @@ export default function BookmarkDetail(): React.JSX.Element {
           <div className="mb-2 font-bold">도서</div>
           <select
             className="block w-full border border-gray-300 px-1.5 py-1 disabled:bg-gray-100"
-            defaultValue={bookmark.bookId}
+            defaultValue={bookmark.bookId.toString()}
             disabled
             key={bookmark.bookId}
             name="bookId"
           >
             {books.map((book) => (
-              <option key={book.id} value={book.id}>
+              <option key={book.id} value={book.id.toString()}>
                 {book.title} / {book.author}
               </option>
             ))}

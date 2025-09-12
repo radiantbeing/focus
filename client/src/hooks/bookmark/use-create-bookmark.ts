@@ -22,7 +22,7 @@ export default function useCreateBookmark(): UseCreateBookmarkReturn {
     });
     const createdBookmark = await createBookmark(inputs);
 
-    await navigate(`/bookmarks/${createdBookmark.id}`);
+    await navigate(`/bookmarks/${createdBookmark.id.toString()}`);
   }
 
   return { handleCreate };

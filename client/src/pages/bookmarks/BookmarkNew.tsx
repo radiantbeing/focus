@@ -36,7 +36,7 @@ export default function BookmarkNew(): React.JSX.Element {
               required
             >
               {books.map((book) => (
-                <option key={book.id} value={book.id}>
+                <option key={book.id} value={book.id.toString()}>
                   {book.title} / {book.author}
                 </option>
               ))}
