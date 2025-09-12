@@ -40,12 +40,8 @@ app.get("/", function (req, res) {
 // 도서:
 
 app.delete("/books", function (req, res) {
-  const deletedBookIds = bookService.deleteBooks();
-  if (deletedBookIds.some((id) => id === undefined)) {
-    res.status(207).json(deletedBookIds);
-  } else {
-    res.status(200).json(deletedBookIds);
-  }
+  const deletedBooks = bookService.deleteBooks();
+  res.status(200).json(deletedBooks);
 });
 
 app.get("/books", function (req, res) {
