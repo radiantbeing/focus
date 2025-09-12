@@ -33,5 +33,5 @@ export const BookmarkSchema = z.object({
 export const NewBookSchema = BookSchema.omit({ id: true });
 export const NewBookmarkSchema = BookmarkSchema.omit({ date: true, id: true });
 
-export const UpdateBookSchema = NewBookSchema.partial();
-export const UpdateBookmarkSchema = NewBookmarkSchema.partial();
+export const UpdateBookSchema = NewBookSchema;
+export const UpdateBookmarkSchema = NewBookmarkSchema;
