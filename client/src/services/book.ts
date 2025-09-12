@@ -2,7 +2,7 @@ import * as z from "zod";
 
 import type { Book, BookId, NewBook } from "../../../shared/types";
 
-import { BookIdSchema, BookSchema } from "../../../shared/validations";
+import { BookSchema } from "../../../shared/validations";
 import { fetcher } from "../utils/fetcher";
 
 export async function createBook({
@@ -17,12 +17,12 @@ export async function createBook({
   return createdBook;
 }
 
-export async function deleteBook(id: BookId): Promise<BookId> {
+export async function deleteBook(id: BookId): Promise<Book> {
   const data = await fetcher(`/books/${id.toString()}`, {
     method: "DELETE"
   });
-  const deletedBookId = BookIdSchema.parse(data);
-  return deletedBookId;
+  const deletedBook = BookSchema.parse(data);
+  return deletedBook;
 }
 
 export async function getBook(id: BookId): Promise<Book> {
