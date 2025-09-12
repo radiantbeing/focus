@@ -1,7 +1,10 @@
 import { Play } from "lucide-react";
 import React from "react";
 
+import { EXAMPLE_BOOKMARKS, EXAMPLE_BOOKS } from "../../../../shared/examples";
 import IconButton from "../../components/IconButton";
+import { createBook } from "../../services/book";
+import { createBookmark } from "../../services/bookmark";
 import {
   exportData,
   purgeBookmarks,
@@ -50,6 +53,14 @@ export default function SettingsList(): React.JSX.Element {
     downloadJson(exportedData);
   }
 
+  async function handleAddExamples(): Promise<void> {
+    await Promise.all(EXAMPLE_BOOKS.map((book) => createBook(book)));
+    await Promise.all(
+      EXAMPLE_BOOKMARKS.map((bookmark) => createBookmark(bookmark))
+    );
+    alert("예제가 추가되었습니다.");
+  }
+
   return (
     <article>
       <header className="mt-1 mb-4 flex items-center justify-between">
@@ -77,6 +88,15 @@ export default function SettingsList(): React.JSX.Element {
               icon={<Play size={16} />}
               onClick={handlePurgeBookmarks}
             />
+          </article>
+        </li>
+        <li className="py-2 first:pt-0">
+          <article className="flex items-center justify-between">
+            <header>
+              <h2 className="font-bold">예제 데이터 추가</h2>
+              <p className="text-sm text-gray-600">체험용 예제를 추가합니다.</p>
+            </header>
+            <IconButton icon={<Play size={16} />} onClick={handleAddExamples} />
           </article>
         </li>
         <li className="py-2 first:pt-0">
