@@ -53,7 +53,8 @@ app.post("/books", function (req, res) {
     const bookData = NewBookSchema.parse(req.body);
     const createdBook = bookService.createBook(bookData);
     res.status(201).json(createdBook);
-  } catch {
+  } catch (error) {
+    console.error(error);
     res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
 });
@@ -69,7 +70,8 @@ app.delete("/books/:id", function (req, res) {
     }
 
     res.status(200).json(deletedBookId);
-  } catch {
+  } catch (error) {
+    console.error(error);
     res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
 });
@@ -85,7 +87,8 @@ app.get("/books/:id", function (req, res) {
     }
 
     res.json(book);
-  } catch {
+  } catch (error) {
+    console.error(error);
     res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
 });
@@ -102,7 +105,8 @@ app.put("/books/:id", function (req, res) {
     }
 
     res.json(updatedBook);
-  } catch {
+  } catch (error) {
+    console.error(error);
     res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
 });
@@ -133,7 +137,8 @@ app.delete("/bookmarks/:bookmarkId", function (req, res) {
     }
 
     res.status(200).json(deletedBookmarkId);
-  } catch {
+  } catch (error) {
+    console.error(error);
     res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
 });
@@ -149,7 +154,8 @@ app.get("/bookmarks/:bookmarkId", function (req, res) {
     }
 
     res.json(bookmark);
-  } catch {
+  } catch (error) {
+    console.error(error);
     res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
 });
@@ -159,7 +165,8 @@ app.post("/bookmarks", function (req, res) {
     const bookmarkData = NewBookmarkSchema.parse(req.body);
     const createdBookmark = bookmarkService.createBookmark(bookmarkData);
     res.status(201).json(createdBookmark);
-  } catch {
+  } catch (error) {
+    console.error(error);
     res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
 });
@@ -179,7 +186,8 @@ app.put("/bookmarks/:bookmarkId", function (req, res) {
     }
 
     res.json(updatedBookmark);
-  } catch {
+  } catch (error) {
+    console.error(error);
     res.status(400).json({ error: ERR_MSG.INVALID_INPUT });
   }
 });
