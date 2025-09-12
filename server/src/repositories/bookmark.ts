@@ -6,54 +6,81 @@ import type {
   UpdateBookmark
 } from "../../../shared/types.js";
 
-import { EXAMPLE_BOOKMARKS } from "../constants.js";
+import { getDbInstance } from "../db.js";
+
+const db = getDbInstance();
 
 export default class BookmarkRepository {
-  #bookmarks = EXAMPLE_BOOKMARKS;
-  #lastId = EXAMPLE_BOOKMARKS.length - 1;
-
   create(bookmark: NewBookmark): Bookmark {
-    const newBookmark: Bookmark = {
-      ...bookmark,
-      date: new Date(),
-      id: this.#lastId + 1
-    };
-    this.#lastId += 1;
-    this.#bookmarks.push(newBookmark);
-    return newBookmark;
+    const createBookmarkStatement = db.prepare<NewBookmark, Bookmark>(
+      "INSERT INTO bookmarks (bookId, date, page, summary) VALUES (@bookId, datetime(), @page, @summary) RETURNING *;"
+    );
+
+    const createdBookmark = createBookmarkStatement.get(bookmark);
+    if (createdBookmark === undefined) {
+      throw new Error("데이터베이스에 책갈피가 추가되지 않았습니다.");
+    }
+    return createdBookmark;
   }
 
-  delete(id: BookmarkId): BookmarkId | undefined {
-    const length = this.#bookmarks.length;
-    this.#bookmarks = this.#bookmarks.filter((b) => b.id !== id);
-    return this.#bookmarks.length < length ? id : undefined;
+  delete(id: BookmarkId): Bookmark | undefined {
+    const deleteBookmarkStatement = db.prepare<[BookmarkId], Bookmark>(
+      "DELETE FROM bookmarks WHERE id = ? RETURNING *;"
+    );
+
+    const deletedBookmark = deleteBookmarkStatement.get(id);
+    return deletedBookmark;
   }
 
-  deleteAll(): (BookmarkId | undefined)[] {
-    const bookmarkIds = this.#bookmarks.map((b) => b.id);
-    const deletedBookIds = bookmarkIds.map((id) => this.delete(id));
-    return deletedBookIds;
+  deleteAll(): Bookmark[] {
+    const deleteAllBookmarksStatement = db.prepare<[], Bookmark>(
+      "DELETE FROM bookmarks RETURNING *;"
+    );
+
+    const deletedBookmarks = deleteAllBookmarksStatement.all();
+    return deletedBookmarks;
   }
 
   get(id: BookmarkId): Bookmark | undefined {
-    return this.#bookmarks.find((b) => b.id === id);
+    const getBookmarkStatement = db.prepare<[BookmarkId], Bookmark>(
+      "SELECT * FROM bookmarks WHERE id = ?"
+    );
+
+    const bookmark = getBookmarkStatement.get(id);
+    return bookmark;
   }
 
   list(): Bookmark[] {
-    return this.#bookmarks;
+    const listBookmarksStatement = db.prepare<[], Bookmark>(
+      "SELECT * FROM bookmarks;"
+    );
+
+    const bookmarks = listBookmarksStatement.all();
+    return bookmarks;
   }
 
   listByBookId(bookId: BookId): Bookmark[] {
-    return this.#bookmarks.filter((b) => b.bookId === bookId);
+    const listByBookIdStatement = db.prepare<[BookId], Bookmark>(
+      "SELECT * FROM bookmarks WHERE bookId = ?;"
+    );
+
+    const bookmarks = listByBookIdStatement.all(bookId);
+    return bookmarks;
   }
 
   update(id: BookmarkId, data: UpdateBookmark): Bookmark | undefined {
-    const index = this.#bookmarks.findIndex((b) => b.id === id);
+    const updateBookmarkStatement = db.prepare<
+      UpdateBookmark & { id: BookmarkId },
+      Bookmark
+    >(
+      `
+      UPDATE bookmarks
+      SET bookId = @bookId, page = @page, summary = @summary
+      WHERE id = @id
+      RETURNING *`
+    );
 
-    if (index === -1) {
-      return;
-    }
-
-    return Object.assign(this.#bookmarks[index], data);
+    const updatedBookmark = updateBookmarkStatement.get({ id, ...data });
+    return updatedBookmark;
   }
 }

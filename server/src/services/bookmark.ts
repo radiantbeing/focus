@@ -19,11 +19,11 @@ export default class BookmarkService {
     return this.#bookmarkRepository.create(data);
   }
 
-  deleteBookmark(id: BookmarkId): BookmarkId | undefined {
+  deleteBookmark(id: BookmarkId): Bookmark | undefined {
     return this.#bookmarkRepository.delete(id);
   }
 
-  deleteBookmarks(): (BookmarkId | undefined)[] {
+  deleteBookmarks(): Bookmark[] {
     return this.#bookmarkRepository.deleteAll();
   }
 
