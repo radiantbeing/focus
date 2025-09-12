@@ -7,7 +7,7 @@ import type {
   UpdateBookmark
 } from "../../../shared/types";
 
-import { BookmarkIdSchema, BookmarkSchema } from "../../../shared/validations";
+import { BookmarkSchema } from "../../../shared/validations";
 import { fetcher } from "../utils/fetcher";
 
 export async function createBookmark(
@@ -23,12 +23,12 @@ export async function createBookmark(
 
 export async function deleteBookmark(
   bookmarkId: BookmarkId
-): Promise<BookmarkId> {
+): Promise<Bookmark> {
   const data = await fetcher(`/bookmarks/${bookmarkId.toString()}`, {
     method: "DELETE"
   });
-  const deletedBookmarkId = BookmarkIdSchema.parse(data);
-  return deletedBookmarkId;
+  const deletedBookmark = BookmarkSchema.parse(data);
+  return deletedBookmark;
 }
 
 export async function getBookmark(bookmarkId: BookmarkId): Promise<Bookmark> {
