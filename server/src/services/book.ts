@@ -24,19 +24,14 @@ export default class BookService {
   }
 
   deleteBook(id: BookId): Book | undefined {
-    const deletedBook = this.#bookRepository.delete(id);
-
-    if (deletedBook === undefined) {
-      return;
-    }
-
-    const bookmarks = this.#bookmarkRepository.listByBookId(deletedBook.id);
+    const bookmarks = this.#bookmarkRepository.listByBookId(id);
     bookmarks.forEach((b) => this.#bookmarkRepository.delete(b.id));
 
+    const deletedBook = this.#bookRepository.delete(id);
     return deletedBook;
   }
 
-  deleteBooks(): (Book | undefined)[] {
+  deleteBooks(): Book[] {
     this.#bookmarkRepository.deleteAll();
     const deletedBookIds = this.#bookRepository.deleteAll();
     return deletedBookIds;
