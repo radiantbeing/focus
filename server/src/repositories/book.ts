@@ -5,46 +5,78 @@ import type {
   UpdateBook
 } from "../../../shared/types.js";
 
-import { EXAMPLE_BOOKS } from "../constants.js";
+import { getDbInstance } from "../db.js";
+
+const db = getDbInstance();
 
 export default class BookRepository {
-  #books = EXAMPLE_BOOKS;
-  #lastId = EXAMPLE_BOOKS.length - 1;
-
   create(book: NewBook): Book {
-    const newBook: Book = { ...book, id: this.#lastId + 1 };
-    this.#lastId += 1;
-    this.#books.push(newBook);
-    return newBook;
+    const createBookStatement = db.prepare<NewBook, Book>(
+      `
+      INSERT INTO books (author, title)
+      VALUES (@author, @title)
+      RETURNING *;
+      `
+    );
+
+    const createdBook = createBookStatement.get(book);
+    if (createdBook === undefined) {
+      throw new Error("데이터베이스에 도서가 추가되지 않았습니다.");
+    }
+    return createdBook;
   }
 
-  delete(id: BookId): BookId | undefined {
-    const length = this.#books.length;
-    this.#books = this.#books.filter((b) => b.id !== id);
-    return this.#books.length < length ? id : undefined;
+  delete(id: BookId): Book | undefined {
+    const deleteBookStatement = db.prepare<[BookId], Book>(
+      "DELETE FROM books WHERE id = ? RETURNING *"
+    );
+
+    const deletedBook = deleteBookStatement.get(id);
+    return deletedBook;
   }
 
-  deleteAll(): (BookId | undefined)[] {
-    const bookIds = this.#books.map((b) => b.id);
-    const deletedBookIds = bookIds.map((id) => this.delete(id));
-    return deletedBookIds;
+  deleteAll(): (Book | undefined)[] {
+    const deleteAllBooksStatement = db.prepare<[], Book | undefined>(
+      "DELETE FROM books RETURNING *"
+    );
+
+    const deletedBooks = deleteAllBooksStatement.all();
+    return deletedBooks;
   }
 
   get(id: BookId): Book | undefined {
-    return this.#books.find((b) => b.id === id);
+    const getBookStatement = db.prepare<[BookId], Book>(
+      "SELECT * FROM books WHERE id = ?;"
+    );
+
+    const book = getBookStatement.get(id);
+    return book;
   }
 
   list(): Book[] {
-    return this.#books;
+    const selectBooksStatement = db.prepare<[], Book>("SELECT * FROM books;");
+
+    const books = selectBooksStatement.all();
+    return books;
   }
 
   update(id: BookId, data: UpdateBook): Book | undefined {
-    const index = this.#books.findIndex((b) => b.id === id);
+    const updateBookStatement = db.prepare<UpdateBook & { id: BookId }, Book>(
+      `
+      UPDATE books
+      SET
+        author = @author,
+        title = @title
+      WHERE id = @id
+      RETURNING *
+      `
+    );
 
-    if (index === -1) {
-      return;
-    }
-
-    return Object.assign(this.#books[index], data);
+    const updatedBook = updateBookStatement.get({
+      author: data.author,
+      id,
+      title: data.title
+    });
+    return updatedBook;
   }
 }
