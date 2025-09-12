@@ -35,8 +35,8 @@ export default class BookRepository {
     return deletedBook;
   }
 
-  deleteAll(): (Book | undefined)[] {
-    const deleteAllBooksStatement = db.prepare<[], Book | undefined>(
+  deleteAll(): Book[] {
+    const deleteAllBooksStatement = db.prepare<[], Book>(
       "DELETE FROM books RETURNING *"
     );
 
