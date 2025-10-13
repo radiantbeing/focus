@@ -16,7 +16,7 @@ export default function BookmarkList(): React.JSX.Element {
     bookmarks,
     error: bookmarksError,
     loading: bookmarksLoading,
-    refetch: refetchBookmarks
+    refetch: refetchBookmarks,
   } = useBookmarks();
 
   function getBookById(id: BookId): Book | undefined {

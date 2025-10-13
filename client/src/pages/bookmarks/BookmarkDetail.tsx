@@ -16,7 +16,7 @@ export default function BookmarkDetail(): React.JSX.Element {
   const {
     bookmark,
     error: bookmarkError,
-    loading: bookmarkLoading
+    loading: bookmarkLoading,
   } = useBookmark(bookmarkId);
   const { handleDelete } = useDeleteBookmark(bookmarkId);
 

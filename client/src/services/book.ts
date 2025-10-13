@@ -7,11 +7,11 @@ import { fetcher } from "../utils/fetcher";
 
 export async function createBook({
   author,
-  title
+  title,
 }: Pick<Book, "author" | "title">): Promise<Book> {
   const data = await fetcher("/books", {
     body: JSON.stringify({ author, title }),
-    method: "POST"
+    method: "POST",
   });
   const createdBook = BookSchema.parse(data);
   return createdBook;
@@ -19,7 +19,7 @@ export async function createBook({
 
 export async function deleteBook(id: BookId): Promise<Book> {
   const data = await fetcher(`/books/${id.toString()}`, {
-    method: "DELETE"
+    method: "DELETE",
   });
   const deletedBook = BookSchema.parse(data);
   return deletedBook;
@@ -40,7 +40,7 @@ export async function listBooks(): Promise<Book[]> {
 export async function updateBook(id: BookId, bookData: NewBook): Promise<Book> {
   const data = await fetcher(`/books/${id.toString()}`, {
     body: JSON.stringify(bookData),
-    method: "PUT"
+    method: "PUT",
   });
   const book = BookSchema.parse(data);
   return book;

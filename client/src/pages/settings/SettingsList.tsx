@@ -8,7 +8,7 @@ import { createBookmark } from "../../services/bookmark";
 import {
   exportData,
   purgeBookmarks,
-  purgeBooks
+  purgeBooks,
 } from "../../services/settings";
 import { downloadJson } from "../../utils/download";
 

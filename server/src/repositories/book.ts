@@ -2,7 +2,7 @@ import type {
   Book,
   BookId,
   NewBook,
-  UpdateBook
+  UpdateBook,
 } from "../../../shared/types.js";
 
 import { getDbInstance } from "../db.js";
@@ -75,7 +75,7 @@ export default class BookRepository {
     const updatedBook = updateBookStatement.get({
       author: data.author,
       id,
-      title: data.title
+      title: data.title,
     });
     return updatedBook;
   }

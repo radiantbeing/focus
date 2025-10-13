@@ -5,7 +5,7 @@ import {
   BookmarkIdSchema,
   NewBookmarkSchema,
   NewBookSchema,
-  UpdateBookmarkSchema
+  UpdateBookmarkSchema,
 } from "../../shared/validations.js";
 import { ERR_MSG } from "./constants.js";
 import BookRepository from "./repositories/book.js";

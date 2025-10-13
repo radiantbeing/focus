@@ -4,7 +4,7 @@ export async function fetcher(
 ): Promise<unknown> {
   const res = await fetch(`${getBaseUrl()}${url}`, {
     headers: { "Content-Type": "application/json" },
-    ...options
+    ...options,
   });
 
   if (!res.ok) {

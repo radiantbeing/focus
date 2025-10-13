@@ -4,7 +4,7 @@ import type {
   Bookmark,
   BookmarkId,
   NewBookmark,
-  UpdateBookmark
+  UpdateBookmark,
 } from "../../../shared/types";
 
 import { BookmarkSchema } from "../../../shared/validations";
@@ -15,7 +15,7 @@ export async function createBookmark(
 ): Promise<Bookmark> {
   const data = await fetcher("/bookmarks", {
     body: JSON.stringify(bookmarkData),
-    method: "POST"
+    method: "POST",
   });
   const createdBookmark = BookmarkSchema.parse(data);
   return createdBookmark;
@@ -25,7 +25,7 @@ export async function deleteBookmark(
   bookmarkId: BookmarkId
 ): Promise<Bookmark> {
   const data = await fetcher(`/bookmarks/${bookmarkId.toString()}`, {
-    method: "DELETE"
+    method: "DELETE",
   });
   const deletedBookmark = BookmarkSchema.parse(data);
   return deletedBookmark;
@@ -49,7 +49,7 @@ export async function updateBookmark(
 ): Promise<Bookmark> {
   const data = await fetcher(`/bookmarks/${bookmarkId.toString()}`, {
     body: JSON.stringify(bookmarkData),
-    method: "PUT"
+    method: "PUT",
   });
   const updatedBookmark = BookmarkSchema.parse(data);
   return updatedBookmark;

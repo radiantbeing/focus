@@ -67,6 +67,6 @@ export default function useBookmark(id?: BookmarkId): UseBookmarkReturn {
     bookmark,
     error,
     loading,
-    refetch
+    refetch,
   };
 }

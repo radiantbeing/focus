@@ -61,6 +61,6 @@ export default function useBookmarks(): UseBookmarksReturn {
     bookmarks,
     error,
     loading,
-    refetch
+    refetch,
   };
 }

@@ -18,7 +18,7 @@ export default function useCreateBookmark(): UseCreateBookmarkReturn {
     const inputs = NewBookmarkSchema.parse({
       bookId: bookId,
       page: typeof page === "string" ? parseInt(page) : page,
-      summary
+      summary,
     });
     const createdBookmark = await createBookmark(inputs);
 

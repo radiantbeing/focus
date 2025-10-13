@@ -6,7 +6,7 @@ interface LoadingProps {
 }
 
 export default function Loading({
-  message = "로딩 중입니다."
+  message = "로딩 중입니다.",
 }: LoadingProps): React.JSX.Element {
   return (
     <article className="fixed inset-0 flex h-full flex-col items-center justify-center gap-y-3">

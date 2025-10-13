@@ -26,7 +26,7 @@ export default function useUpdateBookmark(
     const inputs = NewBookmarkSchema.parse({
       bookId: bookId,
       page: typeof page === "string" ? parseInt(page) : page,
-      summary
+      summary,
     });
 
     const updatedBookmark = await updateBookmark(id, inputs);

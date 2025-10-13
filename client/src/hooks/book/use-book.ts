@@ -68,6 +68,6 @@ export default function useBook(id?: BookId): UseBookReturn {
     book,
     error,
     loading,
-    refetch
+    refetch,
   };
 }

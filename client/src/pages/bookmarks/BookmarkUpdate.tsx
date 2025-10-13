@@ -19,7 +19,7 @@ export default function BookmarkUpdate(): React.JSX.Element {
   const {
     bookmark,
     error: bookmarkError,
-    loading: bookmarkLoading
+    loading: bookmarkLoading,
   } = useBookmark(bookmarkId);
   const { handleUpdate } = useUpdateBookmark(bookmarkId);
 

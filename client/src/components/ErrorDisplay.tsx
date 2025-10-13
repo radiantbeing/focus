@@ -9,7 +9,7 @@ interface ErrorProps {
 
 export default function ErrorDisplay({
   error,
-  message
+  message,
 }: ErrorProps): React.JSX.Element {
   React.useEffect(
     function () {

@@ -8,7 +8,7 @@ import {
   NewBookmarkSchema,
   NewBookSchema,
   UpdateBookmarkSchema,
-  UpdateBookSchema
+  UpdateBookSchema,
 } from "./validations.js";
 
 export type Book = z.infer<typeof BookSchema>;

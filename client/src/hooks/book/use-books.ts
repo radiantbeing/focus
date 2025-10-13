@@ -61,6 +61,6 @@ export default function useBooks(): UseBooksReturn {
     books,
     error,
     loading,
-    refetch
+    refetch,
   };
 }

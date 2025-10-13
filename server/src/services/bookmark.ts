@@ -3,7 +3,7 @@ import type {
   Bookmark,
   BookmarkId,
   NewBookmark,
-  UpdateBookmark
+  UpdateBookmark,
 } from "../../../shared/types.js";
 
 import BookmarkRepository from "../repositories/bookmark.js";

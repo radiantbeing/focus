@@ -17,7 +17,7 @@ export default tseslint.config([
       reactHooks.configs["recommended-latest"],
       reactRefresh.configs.vite,
       tseslint.configs.strictTypeChecked,
-      tseslint.configs.stylisticTypeChecked
+      tseslint.configs.stylisticTypeChecked,
     ],
     files: ["client/**/*.{ts,tsx}"],
     languageOptions: {
@@ -25,8 +25,8 @@ export default tseslint.config([
       globals: globals.browser,
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname
-      }
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     rules: {
       "@typescript-eslint/no-misused-promises": [
@@ -34,11 +34,11 @@ export default tseslint.config([
         {
           checksVoidReturn: {
             arguments: false,
-            attributes: false
-          }
-        }
-      ]
-    }
+            attributes: false,
+          },
+        },
+      ],
+    },
   },
 
   {
@@ -46,7 +46,7 @@ export default tseslint.config([
       jseslint.configs.recommended,
       perfectionist.configs["recommended-natural"],
       tseslint.configs.strictTypeChecked,
-      tseslint.configs.stylisticTypeChecked
+      tseslint.configs.stylisticTypeChecked,
     ],
     files: ["shared/**/*.ts", "server/**/*.ts"],
     languageOptions: {
@@ -54,13 +54,13 @@ export default tseslint.config([
       globals: globals.node,
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname
-      }
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     rules: {
-      "@typescript-eslint/explicit-function-return-type": "error"
-    }
+      "@typescript-eslint/explicit-function-return-type": "error",
+    },
   },
 
-  prettierConfig
+  prettierConfig,
 ]);

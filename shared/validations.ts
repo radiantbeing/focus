@@ -20,14 +20,14 @@ export const BookmarkIdSchema = BookIdSchema;
 export const BookSchema = z.object({
   author: z.string().min(1),
   id: BookIdSchema,
-  title: z.string().min(1)
+  title: z.string().min(1),
 });
 export const BookmarkSchema = z.object({
   bookId: BookIdSchema,
   date: z.coerce.date(),
   id: BookmarkIdSchema,
   page: z.number().int().min(1),
-  summary: z.string()
+  summary: z.string(),
 });
 
 export const NewBookSchema = BookSchema.omit({ id: true });
