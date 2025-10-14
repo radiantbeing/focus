@@ -1,14 +1,13 @@
-import z from "zod";
+import type { Book, BookId, Bookmark, BookmarkId } from "@shared/types";
 
-import type { Book, BookId, Bookmark, BookmarkId } from "../../../shared/types";
-
+import { fetcher } from "@client/utils/fetcher";
 import {
   BookIdSchema,
   BookmarkIdSchema,
   BookmarkSchema,
   BookSchema,
-} from "../../../shared/validations";
-import { fetcher } from "../utils/fetcher";
+} from "@shared/validations";
+import z from "zod";
 
 export async function exportData(): Promise<{
   bookmarks: Bookmark[];

@@ -1,9 +1,8 @@
+import type { Book, BookId, NewBook } from "@shared/types";
+
+import { fetcher } from "@client/utils/fetcher";
+import { BookSchema } from "@shared/validations";
 import * as z from "zod";
-
-import type { Book, BookId, NewBook } from "../../../shared/types";
-
-import { BookSchema } from "../../../shared/validations";
-import { fetcher } from "../utils/fetcher";
 
 export async function createBook({
   author,

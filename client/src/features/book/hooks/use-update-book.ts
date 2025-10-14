@@ -1,9 +1,8 @@
+import type { BookId } from "@shared/types";
+
+import { updateBook } from "@client/features/book/services/book";
+import { NewBookSchema } from "@shared/validations";
 import { useNavigate } from "react-router";
-
-import type { BookId } from "../../../../shared/types";
-
-import { NewBookSchema } from "../../../../shared/validations";
-import { updateBook } from "../../services/book";
 
 interface UseUpdateBookReturn {
   handleUpdate: (formData: FormData) => Promise<void>;

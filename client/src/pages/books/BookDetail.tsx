@@ -1,12 +1,11 @@
+import useBook from "@client/features/book/hooks/use-book";
+import useBookIdParam from "@client/features/book/hooks/use-book-id-param";
+import useDeleteBook from "@client/features/book/hooks/use-delete-book";
+import IconButton from "@client/ui/button/IconButton";
+import ErrorDisplay from "@client/ui/error/ErrorDisplay";
+import Loading from "@client/ui/loading/Loading";
 import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
-
-import ErrorDisplay from "../../components/ErrorDisplay";
-import IconButton from "../../components/IconButton";
-import Loading from "../../components/Loading";
-import useBook from "../../hooks/book/use-book";
-import useBookIdParam from "../../hooks/book/use-book-id-param";
-import useDeleteBook from "../../hooks/book/use-delete-book";
 
 export default function BookDetail(): React.JSX.Element {
   const bookId = useBookIdParam();

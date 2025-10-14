@@ -1,7 +1,6 @@
+import { createBookmark } from "@client/features/bookmark/services/bookmark";
+import { NewBookmarkSchema } from "@shared/validations";
 import { useNavigate } from "react-router";
-
-import { NewBookmarkSchema } from "../../../../shared/validations";
-import { createBookmark } from "../../services/bookmark";
 
 interface UseCreateBookmarkReturn {
   handleCreate: (formData: FormData) => Promise<void>;

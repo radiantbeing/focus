@@ -1,10 +1,9 @@
+import useBooks from "@client/features/book/hooks/use-books";
+import useCreateBookmark from "@client/features/bookmark/hooks/use-create-bookmark";
+import ErrorDisplay from "@client/ui/error/ErrorDisplay";
+import Submit from "@client/ui/form/Submit";
+import Loading from "@client/ui/loading/Loading";
 import React from "react";
-
-import ErrorDisplay from "../../components/ErrorDisplay";
-import Loading from "../../components/Loading";
-import Submit from "../../components/Submit";
-import useBooks from "../../hooks/book/use-books";
-import useCreateBookmark from "../../hooks/bookmark/use-create-bookmark";
 
 export default function BookmarkNew(): React.JSX.Element {
   const { handleCreate } = useCreateBookmark();

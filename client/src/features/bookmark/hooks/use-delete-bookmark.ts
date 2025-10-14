@@ -1,8 +1,7 @@
+import type { BookmarkId } from "@shared/types";
+
+import { deleteBookmark } from "@client/features/bookmark/services/bookmark";
 import { useNavigate } from "react-router";
-
-import type { BookmarkId } from "../../../../shared/types";
-
-import { deleteBookmark } from "../../services/bookmark";
 
 interface UseDeleteBookmarkReturn {
   handleDelete: () => Promise<void>;

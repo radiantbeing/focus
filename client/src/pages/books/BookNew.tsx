@@ -1,7 +1,6 @@
+import useCreateBook from "@client/features/book/hooks/use-create-book";
+import Submit from "@client/ui/form/Submit";
 import React from "react";
-
-import Submit from "../../components/Submit";
-import useCreateBook from "../../hooks/book/use-create-book";
 
 export default function BookNew(): React.JSX.Element {
   const { handleCreate } = useCreateBook();

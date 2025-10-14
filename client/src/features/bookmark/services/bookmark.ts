@@ -1,14 +1,13 @@
-import * as z from "zod";
-
 import type {
   Bookmark,
   BookmarkId,
   NewBookmark,
   UpdateBookmark,
-} from "../../../shared/types";
+} from "@shared/types";
 
-import { BookmarkSchema } from "../../../shared/validations";
-import { fetcher } from "../utils/fetcher";
+import { fetcher } from "@client/utils/fetcher";
+import { BookmarkSchema } from "@shared/validations";
+import * as z from "zod";
 
 export async function createBookmark(
   bookmarkData: NewBookmark

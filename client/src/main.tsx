@@ -2,7 +2,6 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
 
-import Layout from "./components/Layout";
 import BookmarkDetail from "./pages/bookmarks/BookmarkDetail";
 import BookmarkList from "./pages/bookmarks/BookmarkList";
 import BookmarkNew from "./pages/bookmarks/BookmarkNew";
@@ -14,6 +13,7 @@ import BookUpdate from "./pages/books/BookUpdate";
 import NotFound from "./pages/NotFound";
 import SettingsList from "./pages/settings/SettingsList";
 import Splash from "./pages/Splash";
+import Layout from "./ui/layout/Layout";
 import "./main.css";
 
 const root = document.getElementById("root");

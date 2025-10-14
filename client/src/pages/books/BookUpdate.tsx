@@ -1,14 +1,13 @@
+import useBook from "@client/features/book/hooks/use-book";
+import useBookIdParam from "@client/features/book/hooks/use-book-id-param";
+import useUpdateBook from "@client/features/book/hooks/use-update-book";
+import IconButton from "@client/ui/button/IconButton";
+import ErrorDisplay from "@client/ui/error/ErrorDisplay";
+import Submit from "@client/ui/form/Submit";
+import Loading from "@client/ui/loading/Loading";
 import { Undo2 } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router";
-
-import ErrorDisplay from "../../components/ErrorDisplay";
-import IconButton from "../../components/IconButton";
-import Loading from "../../components/Loading";
-import Submit from "../../components/Submit";
-import useBook from "../../hooks/book/use-book";
-import useBookIdParam from "../../hooks/book/use-book-id-param";
-import useUpdateBook from "../../hooks/book/use-update-book";
 
 export default function BookUpdate(): React.JSX.Element {
   const navigate = useNavigate();

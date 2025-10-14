@@ -1,15 +1,14 @@
+import useBooks from "@client/features/book/hooks/use-books";
+import useBookmark from "@client/features/bookmark/hooks/use-bookmark";
+import useBookmarkIdParam from "@client/features/bookmark/hooks/use-bookmark-id-param";
+import useUpdateBookmark from "@client/features/bookmark/hooks/use-update-bookmark";
+import IconButton from "@client/ui/button/IconButton";
+import ErrorDisplay from "@client/ui/error/ErrorDisplay";
+import Submit from "@client/ui/form/Submit";
+import Loading from "@client/ui/loading/Loading";
 import { Undo2 } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router";
-
-import ErrorDisplay from "../../components/ErrorDisplay";
-import IconButton from "../../components/IconButton";
-import Loading from "../../components/Loading";
-import Submit from "../../components/Submit";
-import useBooks from "../../hooks/book/use-books";
-import useBookmark from "../../hooks/bookmark/use-bookmark";
-import useBookmarkIdParam from "../../hooks/bookmark/use-bookmark-id-param";
-import useUpdateBookmark from "../../hooks/bookmark/use-update-bookmark";
 
 export default function BookmarkUpdate(): React.JSX.Element {
   const navigate = useNavigate();

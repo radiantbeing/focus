@@ -1,8 +1,7 @@
+import type { Bookmark } from "@shared/types";
+
+import { listBookmarks } from "@client/features/bookmark/services/bookmark";
 import React from "react";
-
-import type { Bookmark } from "../../../../shared/types";
-
-import { listBookmarks } from "../../services/bookmark";
 
 interface UseBookmarksReturn {
   bookmarks: Bookmark[];

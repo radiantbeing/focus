@@ -1,16 +1,15 @@
-import { Play } from "lucide-react";
-import React from "react";
-
-import { EXAMPLE_BOOKMARKS, EXAMPLE_BOOKS } from "../../../../shared/examples";
-import IconButton from "../../components/IconButton";
-import { createBook } from "../../services/book";
-import { createBookmark } from "../../services/bookmark";
+import { createBook } from "@client/features/book/services/book";
+import { createBookmark } from "@client/features/bookmark/services/bookmark";
 import {
   exportData,
   purgeBookmarks,
   purgeBooks,
-} from "../../services/settings";
-import { downloadJson } from "../../utils/download";
+} from "@client/features/settings/services/settings";
+import IconButton from "@client/ui/button/IconButton";
+import { downloadJson } from "@client/utils/download";
+import { EXAMPLE_BOOKMARKS, EXAMPLE_BOOKS } from "@shared/examples";
+import { Play } from "lucide-react";
+import React from "react";
 
 export default function SettingsList(): React.JSX.Element {
   async function handlePurgeBooks(): Promise<void> {

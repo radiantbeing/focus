@@ -1,7 +1,6 @@
+import { createBook } from "@client/features/book/services/book";
+import { NewBookSchema } from "@shared/validations";
 import { useNavigate } from "react-router";
-
-import { NewBookSchema } from "../../../../shared/validations";
-import { createBook } from "../../services/book";
 
 interface UseCreateBookReturn {
   handleCreate: (formData: FormData) => Promise<void>;

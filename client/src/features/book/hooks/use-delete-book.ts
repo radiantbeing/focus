@@ -1,8 +1,7 @@
+import type { BookId } from "@shared/types";
+
+import { deleteBook } from "@client/features/book/services/book";
 import { useNavigate } from "react-router";
-
-import type { BookId } from "../../../../shared/types";
-
-import { deleteBook } from "../../services/book";
 
 interface UseDeleteBookReturn {
   handleDelete: () => Promise<void>;

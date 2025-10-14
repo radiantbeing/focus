@@ -1,9 +1,8 @@
+import type { BookmarkId } from "@shared/types";
+
+import { updateBookmark } from "@client/features/bookmark/services/bookmark";
+import { NewBookmarkSchema } from "@shared/validations";
 import { useNavigate } from "react-router";
-
-import type { BookmarkId } from "../../../../shared/types";
-
-import { NewBookmarkSchema } from "../../../../shared/validations";
-import { updateBookmark } from "../../services/bookmark";
 
 interface UseUpdateBookmarkReturn {
   handleUpdate: (formData: FormData) => Promise<void>;

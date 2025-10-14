@@ -1,8 +1,7 @@
+import type { Book, BookId } from "@shared/types";
+
+import { getBook } from "@client/features/book/services/book";
 import React from "react";
-
-import type { Book, BookId } from "../../../../shared/types";
-
-import { getBook } from "../../services/book";
 
 interface UseBookReturn {
   book: Book | null;

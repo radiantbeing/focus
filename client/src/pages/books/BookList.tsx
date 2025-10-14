@@ -1,11 +1,10 @@
+import useBooks from "@client/features/book/hooks/use-books";
+import IconButton from "@client/ui/button/IconButton";
+import ErrorDisplay from "@client/ui/error/ErrorDisplay";
+import Loading from "@client/ui/loading/Loading";
 import { Plus, RefreshCcw } from "lucide-react";
 import React from "react";
 import { Link } from "react-router";
-
-import ErrorDisplay from "../../components/ErrorDisplay";
-import IconButton from "../../components/IconButton";
-import Loading from "../../components/Loading";
-import useBooks from "../../hooks/book/use-books";
 
 export default function BookList(): React.JSX.Element {
   const { books, error, loading, refetch } = useBooks();

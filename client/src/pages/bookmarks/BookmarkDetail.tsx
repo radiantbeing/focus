@@ -1,13 +1,12 @@
+import useBooks from "@client/features/book/hooks/use-books";
+import useBookmark from "@client/features/bookmark/hooks/use-bookmark";
+import useBookmarkIdParam from "@client/features/bookmark/hooks/use-bookmark-id-param";
+import useDeleteBookmark from "@client/features/bookmark/hooks/use-delete-bookmark";
+import IconButton from "@client/ui/button/IconButton";
+import ErrorDisplay from "@client/ui/error/ErrorDisplay";
+import Loading from "@client/ui/loading/Loading";
 import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
-
-import ErrorDisplay from "../../components/ErrorDisplay";
-import IconButton from "../../components/IconButton";
-import Loading from "../../components/Loading";
-import useBooks from "../../hooks/book/use-books";
-import useBookmark from "../../hooks/bookmark/use-bookmark";
-import useBookmarkIdParam from "../../hooks/bookmark/use-bookmark-id-param";
-import useDeleteBookmark from "../../hooks/bookmark/use-delete-bookmark";
 
 export default function BookmarkDetail(): React.JSX.Element {
   const bookmarkId = useBookmarkIdParam();
