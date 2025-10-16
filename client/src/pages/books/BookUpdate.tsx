@@ -1,9 +1,10 @@
 import { useBook, useBookIdParam } from "@client/features/book/hooks";
-import useUpdateBook from "@client/features/book/hooks/use-update-book";
+import { useUpdateBook } from "@client/features/book/hooks";
 import IconButton from "@client/ui/button/IconButton";
 import ErrorDisplay from "@client/ui/error/ErrorDisplay";
 import Submit from "@client/ui/form/Submit";
 import Loading from "@client/ui/loading/Loading";
+import { NewBookSchema } from "@shared/validations";
 import { Undo2 } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router";
@@ -12,7 +13,15 @@ export default function BookUpdate(): React.JSX.Element {
   const navigate = useNavigate();
   const bookId = useBookIdParam() ?? -1;
   const { data: book, error, status } = useBook(bookId);
-  const { handleUpdate } = useUpdateBook(bookId);
+  const { mutate } = useUpdateBook();
+
+  async function handleUpdate(formData: FormData) {
+    const author = formData.get("author");
+    const title = formData.get("title");
+    const input = NewBookSchema.parse({ author, title });
+
+    await mutate({ id: bookId, input });
+  }
 
   async function handleUndo(): Promise<void> {
     await navigate(-1);

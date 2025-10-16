@@ -2,8 +2,8 @@ import { useBooks } from "@client/features/book/hooks";
 import {
   useBookmark,
   useBookmarkIdParam,
+  useDeleteBookmark,
 } from "@client/features/bookmark/hooks";
-import useDeleteBookmark from "@client/features/bookmark/hooks/use-delete-bookmark";
 import IconButton from "@client/ui/button/IconButton";
 import ErrorDisplay from "@client/ui/error/ErrorDisplay";
 import Loading from "@client/ui/loading/Loading";
@@ -19,18 +19,13 @@ export default function BookmarkDetail(): React.JSX.Element {
     error: bookmarkError,
     status: bookmarkStatus,
   } = useBookmark(bookmarkId);
-  const { handleDelete } = useDeleteBookmark(bookmarkId);
+  const { mutate } = useDeleteBookmark();
 
   async function handleDeleteClick(): Promise<void> {
-    if (
-      !confirm(`• 현재 책갈피 삭제
-
-이 작업은 되돌릴 수 없습니다.
-계속하시겠습니까?`)
-    ) {
-      return;
+    const confirmed = window.confirm("현재 책갈피가 삭제됩니다.");
+    if (confirmed) {
+      await mutate(bookmarkId);
     }
-    await handleDelete();
   }
 
   if (booksStatus === "error") {

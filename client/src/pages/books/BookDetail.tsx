@@ -1,5 +1,8 @@
-import { useBook, useBookIdParam } from "@client/features/book/hooks";
-import useDeleteBook from "@client/features/book/hooks/use-delete-book";
+import {
+  useBook,
+  useBookIdParam,
+  useDeleteBook,
+} from "@client/features/book/hooks";
 import IconButton from "@client/ui/button/IconButton";
 import ErrorDisplay from "@client/ui/error/ErrorDisplay";
 import Loading from "@client/ui/loading/Loading";
@@ -9,18 +12,15 @@ import React from "react";
 export default function BookDetail(): React.JSX.Element {
   const bookId = useBookIdParam() ?? -1;
   const { data: book, error, status } = useBook(bookId);
-  const { handleDelete } = useDeleteBook(bookId);
+  const { mutate } = useDeleteBook();
 
   async function handleDeleteClick(): Promise<void> {
-    if (
-      !confirm(`• 현재 도서 삭제
-
-이 작업은 되돌릴 수 없습니다.
-계속하시겠습니까?`)
-    ) {
-      return;
+    const confirmed = window.confirm(
+      `『${String(book?.title)}』 및 해당 도서의 모든 책갈피가 삭제됩니다.`
+    );
+    if (confirmed) {
+      await mutate(bookId);
     }
-    await handleDelete();
   }
 
   if (status === "error") {

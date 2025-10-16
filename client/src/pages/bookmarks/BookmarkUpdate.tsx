@@ -2,12 +2,13 @@ import { useBooks } from "@client/features/book/hooks";
 import {
   useBookmark,
   useBookmarkIdParam,
+  useUpdateBookmark,
 } from "@client/features/bookmark/hooks";
-import useUpdateBookmark from "@client/features/bookmark/hooks/use-update-bookmark";
 import IconButton from "@client/ui/button/IconButton";
 import ErrorDisplay from "@client/ui/error/ErrorDisplay";
 import Submit from "@client/ui/form/Submit";
 import Loading from "@client/ui/loading/Loading";
+import { NewBookmarkSchema } from "@shared/validations";
 import { Undo2 } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router";
@@ -22,7 +23,20 @@ export default function BookmarkUpdate(): React.JSX.Element {
     error: bookmarkError,
     status: bookmarkStatus,
   } = useBookmark(bookmarkId);
-  const { handleUpdate } = useUpdateBookmark(bookmarkId);
+  const { mutate } = useUpdateBookmark();
+
+  async function handleSubmit(formData: FormData) {
+    const bookId = formData.get("bookId");
+    const page = formData.get("page");
+    const summary = formData.get("summary");
+    const input = NewBookmarkSchema.parse({
+      bookId: bookId,
+      page: typeof page === "string" ? parseInt(page) : page,
+      summary,
+    });
+
+    await mutate({ id: bookmarkId, input });
+  }
 
   async function handleUndoButtonClick(): Promise<void> {
     await navigate(-1);
@@ -45,7 +59,7 @@ export default function BookmarkUpdate(): React.JSX.Element {
   }
 
   return (
-    <form action={handleUpdate}>
+    <form action={handleSubmit}>
       <div className="mt-1 mb-4 flex items-center justify-between">
         <div className="flex items-baseline gap-x-1">
           <h1 className="text-xl font-bold">책갈피 상세</h1>

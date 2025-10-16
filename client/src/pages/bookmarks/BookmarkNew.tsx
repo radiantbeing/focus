@@ -1,13 +1,27 @@
 import { useBooks } from "@client/features/book/hooks";
-import useCreateBookmark from "@client/features/bookmark/hooks/use-create-bookmark";
+import { useCreateBookmark } from "@client/features/bookmark/hooks";
 import ErrorDisplay from "@client/ui/error/ErrorDisplay";
 import Submit from "@client/ui/form/Submit";
 import Loading from "@client/ui/loading/Loading";
+import { NewBookmarkSchema } from "@shared/validations";
 import React from "react";
 
 export default function BookmarkNew(): React.JSX.Element {
-  const { handleCreate } = useCreateBookmark();
+  const { mutate } = useCreateBookmark();
   const { data: books, error, status } = useBooks();
+
+  async function handleSubmit(formData: FormData) {
+    const bookId = formData.get("bookId");
+    const page = formData.get("page");
+    const summary = formData.get("summary");
+    const input = NewBookmarkSchema.parse({
+      bookId: bookId,
+      page: typeof page === "string" ? parseInt(page) : page,
+      summary,
+    });
+
+    await mutate(input);
+  }
 
   if (status === "error") {
     return <ErrorDisplay error={error} />;
@@ -18,7 +32,7 @@ export default function BookmarkNew(): React.JSX.Element {
   }
 
   return (
-    <form action={handleCreate}>
+    <form action={handleSubmit}>
       <div className="mt-1 mb-4 flex items-center justify-between">
         <div className="flex items-baseline gap-x-1">
           <h1 className="text-xl font-bold">책갈피 추가</h1>

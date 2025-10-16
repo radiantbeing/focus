@@ -1,12 +1,21 @@
-import useCreateBook from "@client/features/book/hooks/use-create-book";
+import { useCreateBook } from "@client/features/book/hooks";
 import Submit from "@client/ui/form/Submit";
+import { NewBookSchema } from "@shared/validations";
 import React from "react";
 
 export default function BookNew(): React.JSX.Element {
-  const { handleCreate } = useCreateBook();
+  const { mutate } = useCreateBook();
+
+  function handleSubmit(formData: FormData) {
+    const inputs = NewBookSchema.parse({
+      author: formData.get("author"),
+      title: formData.get("title"),
+    });
+    void mutate(inputs);
+  }
 
   return (
-    <form action={handleCreate}>
+    <form action={handleSubmit}>
       <div className="mt-1 mb-4 flex items-center justify-between">
         <div className="flex items-baseline gap-x-1">
           <h1 className="text-xl font-bold">도서 추가</h1>
