@@ -1,5 +1,4 @@
-import useBook from "@client/features/book/hooks/use-book";
-import useBookIdParam from "@client/features/book/hooks/use-book-id-param";
+import { useBook, useBookIdParam } from "@client/features/book/hooks";
 import useUpdateBook from "@client/features/book/hooks/use-update-book";
 import IconButton from "@client/ui/button/IconButton";
 import ErrorDisplay from "@client/ui/error/ErrorDisplay";
@@ -11,24 +10,20 @@ import { useNavigate } from "react-router";
 
 export default function BookUpdate(): React.JSX.Element {
   const navigate = useNavigate();
-  const bookId = useBookIdParam();
-  const { book, error, loading } = useBook(bookId);
+  const bookId = useBookIdParam() ?? -1;
+  const { data: book, error, status } = useBook(bookId);
   const { handleUpdate } = useUpdateBook(bookId);
 
   async function handleUndo(): Promise<void> {
     await navigate(-1);
   }
 
-  if (error !== null) {
+  if (status === "error") {
     return <ErrorDisplay error={error} />;
   }
 
-  if (loading) {
+  if (status === "loading") {
     return <Loading message="도서 정보를 가져오는 중입니다." />;
-  }
-
-  if (book === null) {
-    return <ErrorDisplay message="도서를 찾을 수 없습니다." />;
   }
 
   return (

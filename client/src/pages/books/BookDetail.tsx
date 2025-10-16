@@ -1,5 +1,4 @@
-import useBook from "@client/features/book/hooks/use-book";
-import useBookIdParam from "@client/features/book/hooks/use-book-id-param";
+import { useBook, useBookIdParam } from "@client/features/book/hooks";
 import useDeleteBook from "@client/features/book/hooks/use-delete-book";
 import IconButton from "@client/ui/button/IconButton";
 import ErrorDisplay from "@client/ui/error/ErrorDisplay";
@@ -8,8 +7,8 @@ import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
 
 export default function BookDetail(): React.JSX.Element {
-  const bookId = useBookIdParam();
-  const { book, error, loading } = useBook(bookId);
+  const bookId = useBookIdParam() ?? -1;
+  const { data: book, error, status } = useBook(bookId);
   const { handleDelete } = useDeleteBook(bookId);
 
   async function handleDeleteClick(): Promise<void> {
@@ -24,16 +23,12 @@ export default function BookDetail(): React.JSX.Element {
     await handleDelete();
   }
 
-  if (error !== null) {
+  if (status === "error") {
     return <ErrorDisplay error={error} />;
   }
 
-  if (loading) {
+  if (status === "loading") {
     return <Loading message="도서 정보를 가져오는 중입니다." />;
-  }
-
-  if (book === null) {
-    return <ErrorDisplay message="도서를 찾을 수 없습니다." />;
   }
 
   return (

@@ -1,6 +1,8 @@
-import useBooks from "@client/features/book/hooks/use-books";
-import useBookmark from "@client/features/bookmark/hooks/use-bookmark";
-import useBookmarkIdParam from "@client/features/bookmark/hooks/use-bookmark-id-param";
+import { useBooks } from "@client/features/book/hooks";
+import {
+  useBookmark,
+  useBookmarkIdParam,
+} from "@client/features/bookmark/hooks";
 import useDeleteBookmark from "@client/features/bookmark/hooks/use-delete-bookmark";
 import IconButton from "@client/ui/button/IconButton";
 import ErrorDisplay from "@client/ui/error/ErrorDisplay";
@@ -9,13 +11,13 @@ import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
 
 export default function BookmarkDetail(): React.JSX.Element {
-  const bookmarkId = useBookmarkIdParam();
+  const bookmarkId = useBookmarkIdParam() ?? -1;
 
-  const { books, error: booksError, loading: booksLoading } = useBooks();
+  const { data: books, error: booksError, status: booksStatus } = useBooks();
   const {
-    bookmark,
+    data: bookmark,
     error: bookmarkError,
-    loading: bookmarkLoading,
+    status: bookmarkStatus,
   } = useBookmark(bookmarkId);
   const { handleDelete } = useDeleteBookmark(bookmarkId);
 
@@ -31,24 +33,20 @@ export default function BookmarkDetail(): React.JSX.Element {
     await handleDelete();
   }
 
-  if (booksError !== null) {
+  if (booksStatus === "error") {
     return <ErrorDisplay error={booksError} />;
   }
 
-  if (bookmarkError !== null) {
+  if (bookmarkStatus === "error") {
     return <ErrorDisplay error={bookmarkError} />;
   }
 
-  if (booksLoading) {
+  if (booksStatus === "loading") {
     return <Loading message="도서 목록을 가져오는 중입니다." />;
   }
 
-  if (bookmarkLoading) {
+  if (bookmarkStatus === "loading") {
     return <Loading message="책갈피 정보를 가져오는 중입니다." />;
-  }
-
-  if (bookmark === null) {
-    return <ErrorDisplay message="책갈피를 찾을 수 없습니다." />;
   }
 
   return (

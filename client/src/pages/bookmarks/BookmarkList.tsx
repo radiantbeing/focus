@@ -1,44 +1,39 @@
 import type { Book, BookId } from "@shared/types";
 
-import useBooks from "@client/features/book/hooks/use-books";
-import useBookmarks from "@client/features/bookmark/hooks/use-bookmarks";
+import { useBooks } from "@client/features/book/hooks";
+import { useBookmarks } from "@client/features/bookmark/hooks";
 import IconButton from "@client/ui/button/IconButton";
 import ErrorDisplay from "@client/ui/error/ErrorDisplay";
 import Loading from "@client/ui/loading/Loading";
-import { Plus, RefreshCcw } from "lucide-react";
+import { Plus } from "lucide-react";
 import React from "react";
 import { Link } from "react-router";
 
 export default function BookmarkList(): React.JSX.Element {
-  const { books, error: booksError, loading: booksLoading } = useBooks();
+  const { data: books, error: booksError, status: booksStatus } = useBooks();
   const {
-    bookmarks,
+    data: bookmarks,
     error: bookmarksError,
-    loading: bookmarksLoading,
-    refetch: refetchBookmarks,
+    status: bookmarksStatus,
   } = useBookmarks();
 
   function getBookById(id: BookId): Book | undefined {
-    return books.find((b) => b.id === id);
+    return books?.find((b) => b.id === id);
   }
 
-  function handleRefreshClick(): void {
-    refetchBookmarks();
-  }
-
-  if (booksError !== null) {
+  if (booksStatus === "error") {
     return <ErrorDisplay error={booksError} />;
   }
 
-  if (bookmarksError !== null) {
+  if (bookmarksStatus === "error") {
     return <ErrorDisplay error={bookmarksError} />;
   }
 
-  if (booksLoading) {
+  if (booksStatus === "loading") {
     return <Loading message="도서 목록을 가져오는 중입니다." />;
   }
 
-  if (bookmarksLoading) {
+  if (bookmarksStatus === "loading") {
     return <Loading message="도서 목록을 가져오는 중입니다." />;
   }
 
@@ -50,10 +45,6 @@ export default function BookmarkList(): React.JSX.Element {
           <div className="text-xs text-gray-600">{bookmarks.length}매</div>
         </div>
         <div className="flex gap-x-1">
-          <IconButton
-            icon={<RefreshCcw size={16} />}
-            onClick={handleRefreshClick}
-          />
           <IconButton as="link" icon={<Plus size={16} />} to="/bookmarks/new" />
         </div>
       </div>

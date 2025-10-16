@@ -1,4 +1,4 @@
-import useBooks from "@client/features/book/hooks/use-books";
+import { useBooks } from "@client/features/book/hooks";
 import useCreateBookmark from "@client/features/bookmark/hooks/use-create-bookmark";
 import ErrorDisplay from "@client/ui/error/ErrorDisplay";
 import Submit from "@client/ui/form/Submit";
@@ -7,13 +7,13 @@ import React from "react";
 
 export default function BookmarkNew(): React.JSX.Element {
   const { handleCreate } = useCreateBookmark();
-  const { books, error, loading } = useBooks();
+  const { data: books, error, status } = useBooks();
 
-  if (error !== null) {
-    return <ErrorDisplay message="도서 목록을 가져오지 못했습니다." />;
+  if (status === "error") {
+    return <ErrorDisplay error={error} />;
   }
 
-  if (loading) {
+  if (status === "loading") {
     return <Loading message="도서 목록을 가져오는 중입니다." />;
   }
 

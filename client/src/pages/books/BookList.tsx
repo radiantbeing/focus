@@ -1,23 +1,19 @@
-import useBooks from "@client/features/book/hooks/use-books";
+import { useBooks } from "@client/features/book/hooks";
 import IconButton from "@client/ui/button/IconButton";
 import ErrorDisplay from "@client/ui/error/ErrorDisplay";
 import Loading from "@client/ui/loading/Loading";
-import { Plus, RefreshCcw } from "lucide-react";
+import { Plus } from "lucide-react";
 import React from "react";
 import { Link } from "react-router";
 
 export default function BookList(): React.JSX.Element {
-  const { books, error, loading, refetch } = useBooks();
+  const { data: books, error, status } = useBooks();
 
-  function handleRefreshClick(): void {
-    refetch();
-  }
-
-  if (error) {
+  if (status === "error") {
     return <ErrorDisplay error={error} />;
   }
 
-  if (loading) {
+  if (status === "loading") {
     return <Loading message="도서 목록을 가져오는 중입니다." />;
   }
 
@@ -29,10 +25,6 @@ export default function BookList(): React.JSX.Element {
           <div className="text-xs text-gray-600">{books.length}권</div>
         </div>
         <div className="flex gap-x-1">
-          <IconButton
-            icon={<RefreshCcw size={16} />}
-            onClick={handleRefreshClick}
-          />
           <IconButton as="link" icon={<Plus size={16} />} to="/books/new" />
         </div>
       </div>
