@@ -53,9 +53,16 @@ export default function SettingsList(): React.JSX.Element {
   }
 
   async function handleAddExamples(): Promise<void> {
-    await Promise.all(EXAMPLE_BOOKS.map((book) => createBook(book)));
+    const createdBooks = await Promise.all(
+      EXAMPLE_BOOKS.map((book) => createBook(book))
+    );
     await Promise.all(
-      EXAMPLE_BOOKMARKS.map((bookmark) => createBookmark(bookmark))
+      EXAMPLE_BOOKMARKS.map((bookmark) =>
+        createBookmark({
+          ...bookmark,
+          bookId: createdBooks[Number(bookmark.bookId) - 1].id,
+        })
+      )
     );
     alert("예제가 추가되었습니다.");
   }
