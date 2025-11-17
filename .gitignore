@@ -1,6 +1,5 @@
-node_modules/
-client/dist/
-client/.env*.local
-server/dist/
-server/focus.db*
+.env*
 .DS_Store
+dist
+focus.db*
+node_modules

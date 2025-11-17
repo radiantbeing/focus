@@ -3,7 +3,7 @@ import type {
   BookId,
   NewBook,
   UpdateBook,
-} from "../../../shared/types.js";
+} from "../../../shared/src/types.js";
 import type BookRepository from "../repositories/book.js";
 import type BookmarkRepository from "../repositories/bookmark.js";
 

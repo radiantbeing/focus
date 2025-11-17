@@ -4,7 +4,7 @@ import type {
   BookmarkId,
   NewBookmark,
   UpdateBookmark,
-} from "../../../shared/types.js";
+} from "../../../shared/src/types.js";
 
 import BookmarkRepository from "../repositories/bookmark.js";
 

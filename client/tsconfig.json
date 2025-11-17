@@ -1,4 +1,7 @@
 {
+  "compilerOptions": {
+    "tsBuildInfoFile": ".tsbuildinfo"
+  },
   "files": [],
   "references": [
     { "path": "tsconfig.app.json" },

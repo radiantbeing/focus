@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    // 런타임 환경 옵션
+    "target": "ES2024",
+    "lib": ["ES2024"],
+
+    // 모듈 옵션
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+
+    // 빌드 옵션
+    "noEmit": true,
+    "tsBuildInfoFile": "../node_modules/.tmp/tsconfig.client.node.tsbuildinfo"
+  },
+  "include": ["vite.config.ts"]
+}
