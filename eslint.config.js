@@ -21,7 +21,7 @@ export default tseslint.config([
     ],
     files: ["client/**/*.{ts,tsx}"],
     languageOptions: {
-      ecmaVersion: 2023,
+      ecmaVersion: 2024,
       globals: globals.browser,
       parserOptions: {
         projectService: true,
@@ -50,7 +50,7 @@ export default tseslint.config([
     ],
     files: ["shared/**/*.ts", "server/**/*.ts"],
     languageOptions: {
-      ecmaVersion: 2023,
+      ecmaVersion: 2024,
       globals: globals.node,
       parserOptions: {
         projectService: true,
