@@ -10,6 +10,30 @@
 - 모바일 중심 UI 설계로 모바일 환경에 최적화되어 있습니다.
 - 모든 데이터는 완전히 사용자 본인의 소유입니다. 사용자의 서버에 저장되며 언제든지 JSON 파일로 내보낼 수 있습니다.
 
+## 시작하기
+
+Docker를 사용하거나 직접 프로젝트를 빌드 하여 시작할 수 있습니다.
+
+### Docker
+
+Docker를 사용해 FOCUS를 실행할 수 있습니다.
+
+```shell
+docker compose up -d
+```
+
+컨테이너가 시작되면 `http://localhost:8080`으로 접속하세요.
+
+### 프로젝트 빌드
+
+직접 프로젝트를 빌드하고 FOCUS를 실행할 수 있습니다.
+
+```sh
+npm install         # 1. 의존성 설치
+npm run build       # 2. TypeScript 파일을 JavaScript 파일로 컴파일
+npm run preview     # 3. Vite 로컬 서버 실행
+```
+
 ## 일러두기
 
 - 이 저장소는 React 기반 프론트엔드와 Express 기반 백엔드를 포함하는 모노레포입니다.
@@ -25,19 +49,8 @@
   VITE_API_URL=http://<서버의 IP 주소>:3532
   ```
 
-## 프로젝트 빌드
-
-다음 단계를 통해 프로젝트를 빌드하고 실행할 수 있습니다.
-
-```sh
-npm install         # 1. 의존성 설치
-npm run build       # 2. TypeScript 파일을 JavaScript 파일로 컴파일
-npm run preview     # 3. Vite 로컬 서버 실행
-```
-
 ## 로드맵
 
-- [ ] 파일 시스템 기반 데이터 영구 저장
 - [ ] 도서 표지 이미지
 - [ ] 마지막으로 읽은 페이지 자동 요약
 
