@@ -1,5 +1,4 @@
-.env*
-.DS_Store
-dist
-focus.db*
-node_modules
+**/.DS_Store
+**/dist
+**/focus.db*
+**/node_modules
