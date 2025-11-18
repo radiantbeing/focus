@@ -1,9 +1,17 @@
 import type BetterSqlite3 from "better-sqlite3";
 
 import Database from "better-sqlite3";
+import fs from "node:fs";
 import path from "node:path";
 
-const db = new Database(path.join(import.meta.dirname, "../focus.db"));
+const __dirname = import.meta.dirname;
+const dbPath = path.resolve(__dirname, "../data");
+
+if (!fs.existsSync(dbPath)) {
+  fs.mkdirSync(dbPath);
+}
+
+const db = new Database(path.join(import.meta.dirname, "../data/focus.db"));
 db.pragma("journal_mode = WAL");
 
 db.exec(`
