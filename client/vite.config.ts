@@ -14,4 +14,5 @@ export default defineConfig({
       "@shared": path.resolve(__dirname, "../shared/src"),
     },
   },
+  server: { proxy: { "/api": "http://127.0.0.1:3532" } },
 });

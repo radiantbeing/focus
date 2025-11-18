@@ -2,7 +2,7 @@ export async function fetcher(
   url: string,
   options?: RequestInit
 ): Promise<unknown> {
-  const res = await fetch(`${getBaseUrl()}${url}`, {
+  const res = await fetch("/api" + url, {
     headers: { "Content-Type": "application/json" },
     ...options,
   });
@@ -12,16 +12,4 @@ export async function fetcher(
   }
 
   return await res.json();
-}
-
-function getBaseUrl(): string {
-  if (import.meta.env.VITE_API_URL !== undefined) {
-    return import.meta.env.VITE_API_URL;
-  }
-
-  if (import.meta.env.DEV) {
-    return "http://localhost:3532";
-  }
-
-  return window.location.origin;
 }
