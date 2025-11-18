@@ -1,4 +1,5 @@
 import express from "express";
+import path from "node:path";
 
 import {
   BookIdSchema,
@@ -16,6 +17,8 @@ import BookmarkService from "./services/bookmark.js";
 const app = express();
 const router = express.Router();
 
+const __dirname = import.meta.dirname;
+
 const bookRepository = new BookRepository();
 const bookmarkRepository = new BookmarkRepository();
 
@@ -23,7 +26,7 @@ const bookService = new BookService(bookRepository, bookmarkRepository);
 const bookmarkService = new BookmarkService(bookmarkRepository);
 
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static(path.resolve(__dirname, "../public")));
 
 app.use("/api", router);
 
@@ -189,7 +192,7 @@ router.get("/settings/export", function (req, res) {
 // Catch-All:
 
 app.get("/{*splat}", function (req, res) {
-  res.sendFile("public/index.html");
+  res.sendFile(path.resolve(__dirname, "../public/index.html"));
 });
 
 const port = 3532;
