@@ -1,24 +1,11 @@
 services:
-  focus-client:
-    container_name: focus-client
-    build:
-      context: .
-      dockerfile: client/Dockerfile
-      args:
-        VITE_API_URL: http://localhost:3532
-    networks:
-      - focus-app
-    ports:
-      - 8080:8080
-  focus-server:
-    container_name: focus-server
-    build:
-      context: .
-      dockerfile: server/Dockerfile
-    networks:
-      - focus-app
-    ports:
-      - 3532:3532
-
-networks:
   focus-app:
+    build:
+      context: .
+    container_name: "focus"
+    ports:
+      - "3532:3532"
+    environment:
+      - "NODE_ENV=production"
+    volumes:
+      - "./data:/usr/src/app/server/data"
