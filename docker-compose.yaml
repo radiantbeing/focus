@@ -1,11 +1,15 @@
 services:
-  focus-app:
+  app:
+    container_name: "focus"
     build:
       context: .
-    container_name: "focus"
     ports:
       - "3532:3532"
     environment:
       - "NODE_ENV=production"
     volumes:
-      - "./data:/usr/src/app/server/data"
+      - "focus_data:/usr/src/app/server/data"
+    restart: "unless-stopped"
+
+volumes:
+  focus_data:
