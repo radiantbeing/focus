@@ -1,8 +1,9 @@
 # FOCUS
 
+> 편리한 독서 기록을 위한 디지털 책갈피 애플리케이션
+
 ![FOCUS 대표 이미지](./docs/hero.png)
 
-> 편리한 독서 기록을 위한 디지털 책갈피 애플리케이션
 
 ## 개요
 
@@ -12,47 +13,14 @@
 
 ## 시작하기
 
-Docker를 사용하거나 직접 프로젝트를 빌드 하여 시작할 수 있습니다.
-
-### Docker
-
-Docker를 사용해 FOCUS를 실행할 수 있습니다.
+Docker와 함께 애플리케이션을 간편하게 빌드하고 실행할 수 있습니다.
 
 ```shell
-docker compose up -d
+docker compose build
+docker compose up
 ```
 
-컨테이너가 시작되면 `http://localhost:8080`으로 접속하세요.
-
-### 프로젝트 빌드
-
-직접 프로젝트를 빌드하고 FOCUS를 실행할 수 있습니다.
-
-```sh
-npm install         # 1. 의존성 설치
-npm run build       # 2. TypeScript 파일을 JavaScript 파일로 컴파일
-npm run preview     # 3. Vite 로컬 서버 실행
-```
-
-## 일러두기
-
-- 이 저장소는 React 기반 프론트엔드와 Express 기반 백엔드를 포함하는 모노레포입니다.
-  - 프론트엔드: `client/`
-  - 백엔드: `server/`
-  - 공통 리소스: `shared/`
-
-- 개발 서버는 `npm run dev` 명령으로 실행할 수 있습니다. 이 명령은 프론트엔드 서버와 백엔드 서버를 개발 모드로 실행합니다. 사용 가능한 모든 명령은 `package.json`에서 확인할 수 있습니다.
-
-- 모바일과 같은 외부 장치에서 개발 중인 애플리케이션을 테스트하려면 `client/.env.local` 파일을 생성하고 환경 변수를 설정하세요.
-
-  ```
-  VITE_API_URL=http://<서버의 IP 주소>:3532
-  ```
-
-## 로드맵
-
-- [ ] 도서 표지 이미지
-- [ ] 마지막으로 읽은 페이지 자동 요약
+컨테이너가 시작된 후 `http://localhost:3532`에 접속합니다.
 
 ## 라이선스
 
