@@ -26,6 +26,11 @@ RUN npm install --production
 COPY --from=build /usr/src/app/client/dist/ server/public/
 COPY --from=build /usr/src/app/server/dist/ ./
 
+RUN mkdir server/data/
+RUN chown -R node:node server/data/
+
+USER node
+
 EXPOSE 3532
 
 CMD [ "node", "server/src/index.js" ]
