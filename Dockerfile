@@ -19,9 +19,10 @@ FROM node:22-alpine
 WORKDIR /usr/src/app
 
 COPY --from=build /usr/src/app/package.json ./
+COPY --from=build /usr/src/app/package-lock.json ./
 COPY --from=build /usr/src/app/server/package.json ./server/
 
-RUN npm install --production
+RUN npm ci --omit=dev
 
 COPY --from=build /usr/src/app/client/dist/ server/public/
 COPY --from=build /usr/src/app/server/dist/ ./
