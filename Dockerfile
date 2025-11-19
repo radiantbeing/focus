@@ -29,6 +29,9 @@ COPY --from=build /usr/src/app/server/dist/ ./
 RUN mkdir server/data/
 RUN chown -R node:node server/data/
 
+RUN apk add --no-cache tini
+ENTRYPOINT ["/sbin/tini", "--"]
+
 USER node
 
 EXPOSE 3532
